@@ -32,3 +32,8 @@
 	text-transform: uppercase;
 	width: 300px;
 }
+
+/* Avatar Tooltip Links */
+.AvatarTooltip .ModTools a {
+	display:block;
+}

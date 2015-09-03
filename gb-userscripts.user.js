@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.1
+// @version      0.2
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
-// @match        *gamebanana.com/*
+// @match        http://*.gamebanana.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -12,22 +12,20 @@
 // https://raw.githubusercontent.com/yogensia/gb-toolbox/master/LICENSE
 
 // DOCUMENT OUTLINE
-// 1. Initial Setup
-// 2. Shortcodes
-// 3. Init
+// 1. COMMON
+// 2. SHORTCODES
+// 3. AVATAR TOOLTIP TWEAKS
 
 
 
-// INITIAL SETUP
+// COMMON
 // ==================================================================
 
 // variables
-var modalID;               // ID of modal trigger, ex: requester_8c0c9c1d1b9a64c2dcf2b2eae060fff3
-var shortcodeMenuHTML;     // stores the generated HTML for shortcode toolbar menu
-var n = 0;                 // counter for waitForModalForm()
+var ownUserID;
 
 // comment to enable console logging
-//console.log = function() {}
+console.log = function() {}
 
 // asociative array (object) size
 Object.size = function(obj) {
@@ -46,10 +44,29 @@ function arrayObjectIndexOf(myArray, property, searchTerm) {
 	return -1;
 }
 
+// DOM ready
+$(function() {
+
+	// add CSS
+	var gbUserscriptsCSS = '<link rel="stylesheet" type="text/css" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css" media="all">';
+	$("head").append(gbUserscriptsCSS);
+
+	// Get current user ID to be able to write some links like "Send PM"
+	var ownUserUrl = $(".ProfileIcon").parent().attr("href");
+	var ownUserUrlParts = ownUserUrl.split("/");
+	ownUserID = ownUserUrlParts[ownUserUrlParts.length - 1];
+
+});
+
 
 
 // SHORTCODES
 // ==================================================================
+
+// variables
+var modalID;               // ID of modal trigger, ex: requester_8c0c9c1d1b9a64c2dcf2b2eae060fff3
+var shortcodeMenuHTML;     // stores the generated HTML for shortcode toolbar menu
+var n = 0;                 // counter for waitForModalForm()
 
 // register shortcodes
 var shortcode = {
@@ -114,17 +131,8 @@ function generateShortcodeMenu() {
 }
 shortcodeMenuHTML = generateShortcodeMenu();
 
-
-
-// INIT
-// ==================================================================
-
 // DOM ready
 $(function() {
-
-	// add CSS
-	var gbUserscriptsCSS = '<link rel="stylesheet" type="text/css" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css" media="all">';
-	$("head").append(gbUserscriptsCSS);
 
 	// click on links that open a modal
 	$(".ModalLauncher").click(function() {
@@ -187,4 +195,33 @@ $(function() {
 		});
 	}
 
-})
+});
+
+
+
+// AVATAR TOOLTIP TWEAKS
+// ==================================================================
+
+// DOM ready
+$(function() {
+
+	$(".Avatar.tooltipstered").hover(function() {
+		if ( $(this).hasClass("ModTools") ) {
+			console.log("GAT - Tooltip already processed");
+		} else {
+			$(this).addClass("ModTools");
+			var userUrl = $(this).attr("href");
+			var userUrlParts = userUrl.split("/");
+			var userID = userUrlParts[userUrlParts.length - 1];
+			console.log("userID: " + userID);
+			console.log("GAT - Tooltip for userID " + userID + " triggered");
+			setTimeout(function() {
+				var modlog = '<a href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
+				var modnotes = '<a href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
+				var sendPM = '<a href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
+				$(".tooltipster-base .NameAndStatus").after('<div class="ModTools">'+modlog+modnotes+sendPM+'</div>');
+			}, 250);
+		}
+	});
+
+});
