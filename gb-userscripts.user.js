@@ -24,6 +24,7 @@
 // Variables
 var modalID;               // ID of modal trigger, ex: requester_8c0c9c1d1b9a64c2dcf2b2eae060fff3
 var shortcodeMenuHTML;     // stores the generated HTML for shortcode toolbar menu
+var n = 0;                 // counter for waitForModalForm()
 
 // Comment to enable console logging
 //console.log = function() {}
@@ -132,9 +133,16 @@ $(function() {
 		if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
 			console.log("GAT - Form for " + modalID + " is ready, continuing...");
 			hookShortcodeMenu();
+			n = 0;
 		} else {
-			console.warn("GAT - Form for " + modalID + " is NOT READY, waiting...");
-			setTimeout(waitForModalForm, 100);
+			if (n < 50) {
+				console.warn("GAT - Form for " + modalID + " is NOT READY, waiting...");
+				setTimeout(waitForModalForm, 100);
+				n++;
+			} else {
+				console.warn("GAT - Form for " + modalID + " failed after waiting 5 seconds, aborting...");
+				n = 0;
+			}
 		}
 	}
 
@@ -159,7 +167,14 @@ $(function() {
 			});
 		});
 
-		// Optimize textare size a bit
+		// remove html after cancelling a modal or bad stuff happens
+		$("#"+modalID+"_response .CloseModal").click(function() {
+			setTimeout(function() {
+				$("#"+modalID+"_response").remove();
+			}, 250);
+		});
+
+		// Optimize textarea size a bit
 		$('#'+modalID+'_response .markItUpEditor').css({
 			"width": "100%",
 			"height": "215px",
@@ -167,6 +182,7 @@ $(function() {
 		});
 	}
 
+	// click on links that open a modal
 	$(".ModalLauncher").click(function() {
 		modalID = $(this).attr("id");
 		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
