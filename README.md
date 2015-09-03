@@ -1,4 +1,4 @@
-## GameBanana Admin Toolbox (v0.1)
+## GameBanana Admin Toolbox
 
 Small Tampermonkey/Greasemonkey userscript with a few tools to make mod lives easier.
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.2
+// @version      0.3
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
