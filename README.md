@@ -4,9 +4,9 @@ Small Tampermonkey/Greasemonkey userscript with a few tools to make mod lives ea
 
 Inspired by the [Quick Links idea submission](http://gamebanana.com/ideas/2791) by [Jonny Higgins](http://gamebanana.com/members/208425).
 
-* **Written by** [Yogensia](http://gamebanana.com/members/1328950).
+Licensed under the [MIT License](https://raw.githubusercontent.com/yogensia/gb-toolbox/master/LICENSE).
 
-Licensed under [MIT License](https://raw.githubusercontent.com/yogensia/gb-toolbox/master/LICENSE).
+Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 
 ## Features
@@ -25,4 +25,5 @@ That's it!
 
 ## Changelog:
 
-* v0.1 | Initial version with basic shortcode support.
+* **v0.1:** Initial version with basic shortcode support.
+* **v0.2:** Fix bug breaking things when a modal is closed and opened again.

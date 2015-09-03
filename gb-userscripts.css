@@ -7,19 +7,26 @@
 	border-top: 3px solid #FFD800;
 	box-shadow: 0 2px 2px rgba(0,0,0,0.5);
 	left: -150px;
+	margin:0;
+	max-height: 192px;
+	overflow-x:hidden;
+	overflow-y:auto;
+	padding:0;
 	position: absolute;
 	top: 24px;
 }
 
 .markItUpHeader ul .markItUpShortcodes li {
+	display:block;
 	margin: 0;
-	max-width: 300px;
 	padding: 0;
 	width: 300px;
 }
 
 .markItUpHeader ul .markItUpShortcodes a {
+	display:block;
 	font-size: 9px;
+	height:10px;
 	padding: 3px;
 	text-indent: 0;
 	text-transform: uppercase;

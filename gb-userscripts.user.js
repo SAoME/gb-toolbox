@@ -18,18 +18,18 @@
 
 
 
-// Initial Setup
+// INITIAL SETUP
 // ==================================================================
 
-// Variables
+// variables
 var modalID;               // ID of modal trigger, ex: requester_8c0c9c1d1b9a64c2dcf2b2eae060fff3
 var shortcodeMenuHTML;     // stores the generated HTML for shortcode toolbar menu
 var n = 0;                 // counter for waitForModalForm()
 
-// Comment to enable console logging
+// comment to enable console logging
 //console.log = function() {}
 
-// Get asociative array (object) size
+// asociative array (object) size
 Object.size = function(obj) {
 	var size = 0, key;
 	for (key in obj) {
@@ -38,7 +38,7 @@ Object.size = function(obj) {
 	return size;
 };
 
-// Get indexOf for objects
+// indexOf for objects
 function arrayObjectIndexOf(myArray, property, searchTerm) {
 	for (var i = 0, len = Object.size(myArray); i < len; i++) {
 		if (myArray[i][property] === searchTerm) return i;
@@ -51,7 +51,7 @@ function arrayObjectIndexOf(myArray, property, searchTerm) {
 // SHORTCODES
 // ==================================================================
 
-// Register Shortcodes
+// register shortcodes
 var shortcode = {
 	0: {
 		"name"     : "site_rules",
@@ -70,7 +70,7 @@ var shortcode = {
 	},
 	3: {
 		"name"     : "site_faq",
-		"nicename" : "Frequently Asked Question",
+		"nicename" : "Frequently Asked Questions",
 		'url'      : 'http://gamebanana.com/wikis?page=faq'
 	},
 	4: {
@@ -101,7 +101,7 @@ var shortcode = {
 };
 shortcodeSize = Object.size(shortcode);
 
-// Return the markup for shortcode menu
+// return the markup for shortcode menu
 function generateShortcodeMenu() {
 	var shortcodeMenuBegin = '<li class="markItUpButton markItUpShortcodes"><span class="IconSheet NavigatorTabIcon ReadablesTabIcon"></span><ul style="display:none">';
 	var shortcodeMenuEnd = '</ul></li>';
@@ -119,16 +119,21 @@ shortcodeMenuHTML = generateShortcodeMenu();
 // INIT
 // ==================================================================
 
-// DOM Ready
+// DOM ready
 $(function() {
 
-	console.log("GAT: DOM READY");
-
-	// Add CSS
+	// add CSS
 	var gbUserscriptsCSS = '<link rel="stylesheet" type="text/css" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css" media="all">';
 	$("head").append(gbUserscriptsCSS);
-	console.log("GAT - Append CSS to HEAD");
 
+	// click on links that open a modal
+	$(".ModalLauncher").click(function() {
+		modalID = $(this).attr("id");
+		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
+		waitForModalForm();
+	});
+
+	// have to wait for the modal to completely load before editing it
 	function waitForModalForm() {
 		if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
 			console.log("GAT - Form for " + modalID + " is ready, continuing...");
@@ -136,7 +141,6 @@ $(function() {
 			n = 0;
 		} else {
 			if (n < 50) {
-				console.warn("GAT - Form for " + modalID + " is NOT READY, waiting...");
 				setTimeout(waitForModalForm, 100);
 				n++;
 			} else {
@@ -146,12 +150,13 @@ $(function() {
 		}
 	}
 
+	// add shortcode html and behaviour
 	function hookShortcodeMenu() {
 		console.log("GAT - Attempting shortcode hook...");
 		$("#"+modalID+"_response .markItUpHeader ul").append(shortcodeMenuHTML);
 		console.log("GAT - Working on modal " + modalID + ", generated Shortcode Menu HTML: " + shortcodeMenuHTML);
 
-		// On shortcode button click, use $.markItUp() to add the link in markdown syntax
+		// on shortcode button click, use $.markItUp() to add the link in markdown syntax
 		$("#"+modalID+"_response .shortcodeInjector").click(function(e) {
 			e.preventDefault();
 			var clicked = $(this).attr("id");
@@ -167,26 +172,19 @@ $(function() {
 			});
 		});
 
-		// remove html after cancelling a modal or bad stuff happens
+		// remove modal html after it has been closed or bad stuff happens
 		$("#"+modalID+"_response .CloseModal").click(function() {
 			setTimeout(function() {
 				$("#"+modalID+"_response").remove();
 			}, 250);
 		});
 
-		// Optimize textarea size a bit
+		// optimize textarea size a bit
 		$('#'+modalID+'_response .markItUpEditor').css({
 			"width": "100%",
 			"height": "215px",
 			"box-sizing": "border-box"
 		});
 	}
-
-	// click on links that open a modal
-	$(".ModalLauncher").click(function() {
-		modalID = $(this).attr("id");
-		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
-		waitForModalForm();
-	});
 
 })
