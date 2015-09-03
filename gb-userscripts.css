@@ -1,1 +1,27 @@
 /* Shortcode Toolbar */
+.markItUpHeader ul .markItUpShortcodes:hover ul {
+	display: block !important;
+}
+
+.markItUpHeader ul .markItUpShortcodes ul {
+	border-top: 3px solid #FFD800;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+	left: -150px;
+	position: absolute;
+	top: 24px;
+}
+
+.markItUpHeader ul .markItUpShortcodes li {
+	margin: 0;
+	max-width: 300px;
+	padding: 0;
+	width: 300px;
+}
+
+.markItUpHeader ul .markItUpShortcodes a {
+	font-size: 9px;
+	padding: 3px;
+	text-indent: 0;
+	text-transform: uppercase;
+	width: 300px;
+}
