@@ -11,7 +11,8 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 ## Features
 
-* For now it only includes a shortcode collection of useful links for comments. These are added to the toolbar of all comment or post forms.
+* Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. (Not added on PM forms and some other forms yet).
+* Adds Modlog, Modnotes and Send PM links to avatar tooltips.
 
 
 ## Installation
