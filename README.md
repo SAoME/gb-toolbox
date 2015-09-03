@@ -18,7 +18,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 1. First install **[Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)** (Google Chrome) or **[Greasemonkey](https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/)** (Firefox).
 
-2. Then **[click here to open the script](https://github.com/JustinHowe/userscripts/raw/master/GTAV_Cruises%20Events%20Magic.user.js)** and click the `install` button.
+2. Then **[click here to open the script](https://github.com/yogensia/gb-toolbox/raw/master/gb-userscripts.user.js)** and click the `install` button.
 
 That's it!
 
