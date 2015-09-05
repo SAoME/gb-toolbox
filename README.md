@@ -30,3 +30,9 @@ That's it!
 * **v0.2:** Fix bug breaking things when a modal is closed and opened again.
 * **v0.3:** Added Modlog, Modnotes and Send PM links to avatar tooltips, and minor general tweaks.
 * **v0.4:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.
+
+
+## Known Bugs:
+
+* Shortcodes don't appear on PM forms, only appear on forms inside modals.
+* The script doesn't work anymore once a post or comment has been submitted. Haven't been able to debug this yet.
