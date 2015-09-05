@@ -29,3 +29,4 @@ That's it!
 * **v0.1:** Initial version with basic shortcode support.
 * **v0.2:** Fix bug breaking things when a modal is closed and opened again.
 * **v0.3:** Added Modlog, Modnotes and Send PM links to avatar tooltips, and minor general tweaks.
+* **v0.4:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.3
+// @version      0.4
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -96,21 +96,26 @@ var shortcode = {
 		'url'      : 'http://gamebanana.com/wikis?page=contacts'
 	},
 	5: {
+		"name"     : "guide_texturing_blendingModes",
+		"nicename" : "Guide: Texturing - Blending Modes",
+		'url'      : 'http://cs.gamebanana.com/tuts/11770'
+	},
+	6: {
 		"name"     : "guide_sourceEngine_lighting",
 		"nicename" : "Guide: Source Engine - Lighting",
 		'url'      : 'http://gamebanana.com/lighting'
 	},
-	6: {
+	7: {
 		"name"     : "guide_sourceEngine_leaks",
 		"nicename" : "Guide: Source Engine - Leaks",
 		'url'      : 'http://gamebanana.com/leaks'
 	},
-	7: {
+	8: {
 		"name"     : "guide_sourceEngine_textures",
 		"nicename" : "Guide: Source Engine - Textures",
 		'url'      : 'http://gamebanana.com/textures'
 	},
-	8: {
+	9: {
 		"name"     : "guide_sourceEngine_skyboxes",
 		"nicename" : "Guide: Source Engine - Skyboxes",
 		'url'      : 'http://gamebanana.com/skyboxes'
@@ -170,7 +175,7 @@ $(function() {
 			var clicked = $(this).attr("id");
 			$.markItUp({
 				target:'#'+modalID+'_response .markItUpEditor',
-				name:"test",
+				name:"my1337Button",
 				replaceWith: function() {
 					console.log("Looking for shortcode named: " + clicked);
 					clicked = arrayObjectIndexOf(shortcode, "name", clicked);
@@ -213,13 +218,13 @@ $(function() {
 			var userUrl = $(this).attr("href");
 			var userUrlParts = userUrl.split("/");
 			var userID = userUrlParts[userUrlParts.length - 1];
-			console.log("userID: " + userID);
-			console.log("GAT - Tooltip for userID " + userID + " triggered");
+			console.log("GAT - Triggered tooltip for userID " + userID);
 			setTimeout(function() {
+				var sublog = '<a href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
 				var modlog = '<a href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
 				var modnotes = '<a href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
 				var sendPM = '<a href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
-				$(".tooltipster-base .NameAndStatus").after('<div class="ModTools">'+modlog+modnotes+sendPM+'</div>');
+				$(".tooltipster-base .NameAndStatus").after('<div class="ModTools">'+sublog+modlog+modnotes+sendPM+'</div>');
 			}, 250);
 		}
 	});
