@@ -12,7 +12,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 ## Features
 
 * Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. (Not added on PM forms and some other forms yet).
-* Adds Modlog, Modnotes and Send PM links to avatar tooltips.
+* Adds Sublog, Modlog, Modnotes and Send PM links to avatar tooltips.
 
 
 ## Installation
@@ -37,3 +37,4 @@ That's it!
 * **v0.2:** Fix bug breaking things when a modal is closed and opened again.
 * **v0.3:** Added Modlog, Modnotes and Send PM links to avatar tooltips, and minor general tweaks.
 * **v0.4:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.
+* **v0.5:** Added Support link to shortcodes and changed tooltip link generation to avoid issues when hovering over several avatars very quickly.

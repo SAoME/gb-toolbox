@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.4
+// @version      0.5
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -52,8 +52,7 @@ $(function() {
 	$("head").append(gbUserscriptsCSS);
 
 	// Get current user ID to be able to write some links like "Send PM"
-	var ownUserUrl = $(".ProfileIcon").parent().attr("href");
-	var ownUserUrlParts = ownUserUrl.split("/");
+	var ownUserUrlParts = $(".ProfileIcon").parent().attr("href").split("/");
 	ownUserID = ownUserUrlParts[ownUserUrlParts.length - 1];
 
 });
@@ -96,26 +95,31 @@ var shortcode = {
 		'url'      : 'http://gamebanana.com/wikis?page=contacts'
 	},
 	5: {
+		"name"     : "site_support",
+		"nicename" : "Support",
+		'url'      : 'http://gamebanana.com/support/add'
+	},
+	6: {
 		"name"     : "guide_texturing_blendingModes",
 		"nicename" : "Guide: Texturing - Blending Modes",
 		'url'      : 'http://cs.gamebanana.com/tuts/11770'
 	},
-	6: {
+	7: {
 		"name"     : "guide_sourceEngine_lighting",
 		"nicename" : "Guide: Source Engine - Lighting",
 		'url'      : 'http://gamebanana.com/lighting'
 	},
-	7: {
+	8: {
 		"name"     : "guide_sourceEngine_leaks",
 		"nicename" : "Guide: Source Engine - Leaks",
 		'url'      : 'http://gamebanana.com/leaks'
 	},
-	8: {
+	9: {
 		"name"     : "guide_sourceEngine_textures",
 		"nicename" : "Guide: Source Engine - Textures",
 		'url'      : 'http://gamebanana.com/textures'
 	},
-	9: {
+	10: {
 		"name"     : "guide_sourceEngine_skyboxes",
 		"nicename" : "Guide: Source Engine - Skyboxes",
 		'url'      : 'http://gamebanana.com/skyboxes'
@@ -210,23 +214,29 @@ $(function() {
 // DOM ready
 $(function() {
 
+	// Add links to avatar tooltips when they are hovered
 	$(".Avatar.tooltipstered").hover(function() {
-		if ( $(this).hasClass("ModTools") ) {
-			console.log("GAT - Tooltip already processed");
+		var userUrlParts = $(this).attr("href").split("/");
+		var userID = userUrlParts[userUrlParts.length - 1];
+		if ( $(".tooltipster-base .Upic").length > 0 ) {
+			var userName = $(".tooltipster-base .Upic").attr("alt").replace(/ avatar/, "");
 		} else {
-			$(this).addClass("ModTools");
-			var userUrl = $(this).attr("href");
-			var userUrlParts = userUrl.split("/");
-			var userID = userUrlParts[userUrlParts.length - 1];
-			console.log("GAT - Triggered tooltip for userID " + userID);
-			setTimeout(function() {
-				var sublog = '<a href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
-				var modlog = '<a href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
-				var modnotes = '<a href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
-				var sendPM = '<a href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
-				$(".tooltipster-base .NameAndStatus").after('<div class="ModTools">'+sublog+modlog+modnotes+sendPM+'</div>');
-			}, 250);
+			var userName = $(".tooltipster-base .NameAndStatus strong").text();
 		}
+		console.log("GAT - Triggered tooltip for user \"" + userName + "\" with userID " + userID);
+		var sublog = '<a title="View '+userName+'\'s Sublog" href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
+		var modlog = '<a title="View '+userName+'\'s Modlog" href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
+		var modnotes = '<a title="View '+userName+'\'s Modnotes" href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
+		var sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
+		setTimeout(function() {
+			if ( $(".tooltipster-base .ModTools").length > 0 ) {
+				$(".tooltipster-base .ModTools").replaceWith('<div class="ModTools">'+sublog+modlog+modnotes+sendPM+'</div>');
+			} else {
+				$(".tooltipster-base .NameAndStatus").after('<div class="ModTools">'+sublog+modlog+modnotes+sendPM+'</div>');
+			}
+		}, 250);
+	}, function() {
+		$(".tooltipster-base .NameAndStatus").find(".ModTools").remove();
 	});
 
 });
