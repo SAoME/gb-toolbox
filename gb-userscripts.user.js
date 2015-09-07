@@ -214,20 +214,27 @@ $(function() {
 // DOM ready
 $(function() {
 
-	// Add links to avatar tooltips when they are hovered
+	// add links to avatar tooltips when they are hovered
 	$(".Avatar.tooltipstered").hover(function() {
 		var userUrlParts = $(this).attr("href").split("/");
 		var userID = userUrlParts[userUrlParts.length - 1];
+		// get username: if there is an Upic use its alt attribute, otherwise get it normally
 		if ( $(".tooltipster-base .Upic").length > 0 ) {
 			var userName = $(".tooltipster-base .Upic").attr("alt").replace(/ avatar/, "");
 		} else {
 			var userName = $(".tooltipster-base .NameAndStatus strong").text();
 		}
 		console.log("GAT - Triggered tooltip for user \"" + userName + "\" with userID " + userID);
+		// build avatar links
 		var sublog = '<a title="View '+userName+'\'s Sublog" href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
 		var modlog = '<a title="View '+userName+'\'s Modlog" href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
 		var modnotes = '<a title="View '+userName+'\'s Modnotes" href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
-		var sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
+		var sendPM = "";
+		// do not show PM link on user's own avatar
+		if ( userID !== ownUserID ) {
+			sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
+		}
+		// wait 250ms and then add or update the links on the tooltipster html
 		setTimeout(function() {
 			if ( $(".tooltipster-base .ModTools").length > 0 ) {
 				$(".tooltipster-base .ModTools").replaceWith('<div class="ModTools">'+sublog+modlog+modnotes+sendPM+'</div>');
@@ -236,7 +243,8 @@ $(function() {
 			}
 		}, 250);
 	}, function() {
-		$(".tooltipster-base .NameAndStatus").find(".ModTools").remove();
+		// remove links
+		// $(".tooltipster-base .ModTools").remove();
 	});
 
 });
