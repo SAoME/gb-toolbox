@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.7
+// @version      0.8
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -140,35 +140,99 @@ function generateShortcodeMenu() {
 }
 shortcodeMenuHTML = generateShortcodeMenu();
 
+// add shortcode html and behaviour on non-modal forms (ex: PMs)
+function hookShortcodeMenuNonModal() {
+	var formsFound = $(".markItUp").length;
+	if ( formsFound > 0 ) {
+		console.log("GAT - Found " + formsFound + " MarkItUp forms on page, attempting shortcode hook...");
+		var markItUpID;
+		$(".markItUp").each( function() {
+			markItUpID = $(this).attr("id");
+			$("#"+markItUpID+" .markItUpHeader ul").append(shortcodeMenuHTML);
+			console.log("GAT - Working on markItUp form " + markItUpID + ", generated Shortcode Menu HTML");
+			// optimize textarea size a bit
+			optimizeTextarea(markItUpID);
+		});
+		shortcodeOnClick();
+	}
+}
+
+// on shortcode button click, use $.markItUp() to add the link in markdown syntax to the associated textarea
+function shortcodeOnClick() {
+	$(".shortcodeInjector").click(function(e) {
+		e.preventDefault();
+		var clicked = $(this).attr("id");
+		var thisMarkItUp = $(this).closest(".markItUp").attr("id");
+		$.markItUp({
+			target: '#'+thisMarkItUp+' .markItUpEditor',
+			name: thisMarkItUp+"_gatToolbox",
+			replaceWith: function() {
+				console.log("Looking for shortcode named: " + clicked);
+				clicked = arrayObjectIndexOf(shortcode, "name", clicked);
+				console.log('Shortcode "' + shortcode[clicked]["nicename"] + '" found at index ' + clicked);
+				return '[' + shortcode[clicked]["nicename"] + '](' + shortcode[clicked]["url"] + ') ';
+			}
+		});
+	});
+}
+
+// have to wait for the modal to completely load before editing it
+function waitForModalForm() {
+	if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
+		console.log("GAT - Form for " + modalID + " is ready, continuing...");
+		hookShortcodeMenu();
+		n = 0;
+	} else {
+		if (n < 50) {
+			setTimeout(waitForModalForm, 100);
+			n++;
+		} else {
+			console.warn("GAT - Form for " + modalID + " failed after waiting 5 seconds, aborting...");
+			n = 0;
+		}
+	}
+}
+
+// add shortcode html and behaviour
+function hookShortcodeMenu() {
+	console.log("GAT - Attempting shortcode hook...");
+	$("#"+modalID+"_response .markItUpHeader ul").append(shortcodeMenuHTML);
+	console.log("GAT - Working on modal " + modalID + ", generated Shortcode Menu HTML");
+
+	// run shortcode click routine
+	shortcodeOnClick();
+
+	// remove modal html after it has been closed or bad stuff happens
+	$("#"+modalID+"_response .CloseModal").click(function() {
+		setTimeout(function() {
+			$("#"+modalID+"_response").remove();
+		}, 250);
+	});
+
+	// optimize textarea size a bit
+	$('#'+modalID+'_response .markItUpEditor').css({
+		"width": "100%",
+		"height": "215px",
+		"box-sizing": "border-box"
+	});
+
+	// optimize textarea size a bit
+	optimizeTextarea(modalID+'_response');
+}
+
+// optimize textarea size a bit
+function optimizeTextarea(markItUpID) {
+	$('#'+markItUpID+' .markItUpEditor').css({
+		"width": "100%",
+		"height": "215px",
+		"box-sizing": "border-box"
+	});
+}
+
 // DOM ready
 $(function() {
 
-	// add shortcode html and behaviour on non-modal forms (ex: PMs)
-	function hookShortcodeMenuNonModal() {
-		var formsFound = $(".markItUp").length;
-		if ( formsFound > 0 ) {
-			console.log("GAT - Found " + formsFound + " MarkItUp forms on page, attempting shortcode hook...");
-			var markItUpID = $(".markItUp").attr("id");
-			$("#"+markItUpID+" .markItUpHeader ul").append(shortcodeMenuHTML);
-			console.log("GAT - Working on markItUp form " + markItUpID + ", generated Shortcode Menu HTML: " + shortcodeMenuHTML);
-
-			// on shortcode button click, use $.markItUp() to add the link in markdown syntax
-			$("#"+markItUpID+" .shortcodeInjector").click(function(e) {
-				e.preventDefault();
-				var clicked = $(this).attr("id");
-				$.markItUp({
-					target:'#'+markItUpID+' .markItUpEditor',
-					name:"my1337Button",
-					replaceWith: function() {
-						console.log("Looking for shortcode named: " + clicked);
-						clicked = arrayObjectIndexOf(shortcode, "name", clicked);
-						console.log('Shortcode "' + shortcode[clicked]["nicename"] + '" found at index ' + clicked);
-						return '[' + shortcode[clicked]["nicename"] + '](' + shortcode[clicked]["url"] + ') ';
-					}
-				});
-			});
-		}
-	}
+	// run hookshortcode at DOM ready for non-modal forms if any are found
 	hookShortcodeMenuNonModal();
 
 	// click on links that open a modal
@@ -177,60 +241,6 @@ $(function() {
 		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
 		waitForModalForm();
 	});
-
-	// have to wait for the modal to completely load before editing it
-	function waitForModalForm() {
-		if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
-			console.log("GAT - Form for " + modalID + " is ready, continuing...");
-			hookShortcodeMenu();
-			n = 0;
-		} else {
-			if (n < 50) {
-				setTimeout(waitForModalForm, 100);
-				n++;
-			} else {
-				console.warn("GAT - Form for " + modalID + " failed after waiting 5 seconds, aborting...");
-				n = 0;
-			}
-		}
-	}
-
-	// add shortcode html and behaviour
-	function hookShortcodeMenu() {
-		console.log("GAT - Attempting shortcode hook...");
-		$("#"+modalID+"_response .markItUpHeader ul").append(shortcodeMenuHTML);
-		console.log("GAT - Working on modal " + modalID + ", generated Shortcode Menu HTML: " + shortcodeMenuHTML);
-
-		// on shortcode button click, use $.markItUp() to add the link in markdown syntax
-		$("#"+modalID+"_response .shortcodeInjector").click(function(e) {
-			e.preventDefault();
-			var clicked = $(this).attr("id");
-			$.markItUp({
-				target:'#'+modalID+'_response .markItUpEditor',
-				name:"my1337Button",
-				replaceWith: function() {
-					console.log("Looking for shortcode named: " + clicked);
-					clicked = arrayObjectIndexOf(shortcode, "name", clicked);
-					console.log('Shortcode "' + shortcode[clicked]["nicename"] + '" found at index ' + clicked);
-					return '[' + shortcode[clicked]["nicename"] + '](' + shortcode[clicked]["url"] + ') ';
-				}
-			});
-		});
-
-		// remove modal html after it has been closed or bad stuff happens
-		$("#"+modalID+"_response .CloseModal").click(function() {
-			setTimeout(function() {
-				$("#"+modalID+"_response").remove();
-			}, 250);
-		});
-
-		// optimize textarea size a bit
-		$('#'+modalID+'_response .markItUpEditor').css({
-			"width": "100%",
-			"height": "215px",
-			"box-sizing": "border-box"
-		});
-	}
 
 });
 
@@ -270,9 +280,6 @@ $(function() {
 				$(".tooltipster-base .NameAndStatus").after('<div class="ModTools">'+sublog+modlog+modnotes+sendPM+'</div>');
 			}
 		}, 250);
-	}, function() {
-		// remove links
-		// $(".tooltipster-base .ModTools").remove();
 	});
 
 });
