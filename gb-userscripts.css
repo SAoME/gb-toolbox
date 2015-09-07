@@ -33,6 +33,13 @@
 	width: 300px;
 }
 
+/* Optimize markItUp textarea size */
+.markItUpEditor {
+	box-sizing: border-box;
+	height: 215px;
+	width: 100%;
+}
+
 /* Avatar Tooltip Links */
 .AvatarTooltip .ModTools a {
 	display:block;

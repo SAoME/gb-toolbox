@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.8
+// @version      0.9
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -150,8 +150,6 @@ function hookShortcodeMenuNonModal() {
 			markItUpID = $(this).attr("id");
 			$("#"+markItUpID+" .markItUpHeader ul").append(shortcodeMenuHTML);
 			console.log("GAT - Working on markItUp form " + markItUpID + ", generated Shortcode Menu HTML");
-			// optimize textarea size a bit
-			optimizeTextarea(markItUpID);
 		});
 		shortcodeOnClick();
 	}
@@ -207,25 +205,6 @@ function hookShortcodeMenu() {
 		setTimeout(function() {
 			$("#"+modalID+"_response").remove();
 		}, 250);
-	});
-
-	// optimize textarea size a bit
-	$('#'+modalID+'_response .markItUpEditor').css({
-		"width": "100%",
-		"height": "215px",
-		"box-sizing": "border-box"
-	});
-
-	// optimize textarea size a bit
-	optimizeTextarea(modalID+'_response');
-}
-
-// optimize textarea size a bit
-function optimizeTextarea(markItUpID) {
-	$('#'+markItUpID+' .markItUpEditor').css({
-		"width": "100%",
-		"height": "215px",
-		"box-sizing": "border-box"
 	});
 }
 

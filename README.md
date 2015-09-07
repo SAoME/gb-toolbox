@@ -40,3 +40,4 @@ That's it!
 * **v0.6:** Hide Send PM link in user's own avatar tooltip.
 * **v0.7:** Added shortcode support on non-modal forms (ex: PM forms).
 * **v0.8:** Refactored and optimized shortcodes code to work on pages with several forms (ex: submit pages).
+* **v0.9:** Textarea size optimizations moved from JS to CSS.
