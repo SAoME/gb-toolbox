@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.5
+// @version      0.7
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -142,6 +142,34 @@ shortcodeMenuHTML = generateShortcodeMenu();
 
 // DOM ready
 $(function() {
+
+	// add shortcode html and behaviour on non-modal forms (ex: PMs)
+	function hookShortcodeMenuNonModal() {
+		var formsFound = $(".markItUp").length;
+		if ( formsFound > 0 ) {
+			console.log("GAT - Found " + formsFound + " MarkItUp forms on page, attempting shortcode hook...");
+			var markItUpID = $(".markItUp").attr("id");
+			$("#"+markItUpID+" .markItUpHeader ul").append(shortcodeMenuHTML);
+			console.log("GAT - Working on markItUp form " + markItUpID + ", generated Shortcode Menu HTML: " + shortcodeMenuHTML);
+
+			// on shortcode button click, use $.markItUp() to add the link in markdown syntax
+			$("#"+markItUpID+" .shortcodeInjector").click(function(e) {
+				e.preventDefault();
+				var clicked = $(this).attr("id");
+				$.markItUp({
+					target:'#'+markItUpID+' .markItUpEditor',
+					name:"my1337Button",
+					replaceWith: function() {
+						console.log("Looking for shortcode named: " + clicked);
+						clicked = arrayObjectIndexOf(shortcode, "name", clicked);
+						console.log('Shortcode "' + shortcode[clicked]["nicename"] + '" found at index ' + clicked);
+						return '[' + shortcode[clicked]["nicename"] + '](' + shortcode[clicked]["url"] + ') ';
+					}
+				});
+			});
+		}
+	}
+	hookShortcodeMenuNonModal();
 
 	// click on links that open a modal
 	$(".ModalLauncher").click(function() {

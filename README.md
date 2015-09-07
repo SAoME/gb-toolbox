@@ -39,3 +39,4 @@ That's it!
 * **v0.4:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.
 * **v0.5:** Added Support link to shortcodes and changed tooltip link generation to avoid issues when hovering over several avatars very quickly.
 * **v0.6:** Hide Send PM link in user's own avatar tooltip
+* **v0.7:** Added shortcode support on non-modal forms (ex: PM forms).
