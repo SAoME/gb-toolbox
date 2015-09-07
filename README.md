@@ -11,7 +11,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 ## Features
 
-* Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. (Not added on PM forms and some other forms yet).
+* Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. Contact Yogensia with ideas for more shortcodes.
 * Adds Sublog, Modlog, Modnotes and Send PM links to avatar tooltips.
 
 
@@ -26,18 +26,18 @@ That's it!
 
 ## Known Bugs:
 
-* Some Guide shortcodes are placeholders, they will be replaced with real guides as they are recommended by users.
 * The script doesn't work anymore once a post or comment has been submitted. Haven't been able to debug this yet.
 
 
 ## Changelog:
 
-* **v0.1:** Initial version with basic shortcode support.
-* **v0.2:** Fix bug breaking things when a modal is closed and opened again.
-* **v0.3:** Added Modlog, Modnotes and Send PM links to avatar tooltips, and minor general tweaks.
-* **v0.4:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.
-* **v0.5:** Added Support link to shortcodes and changed tooltip link generation to avoid issues when hovering over several avatars very quickly.
-* **v0.6:** Hide Send PM link in user's own avatar tooltip.
-* **v0.7:** Added shortcode support on non-modal forms (ex: PM forms).
-* **v0.8:** Refactored and optimized shortcodes code to work on pages with several forms (ex: submit pages).
-* **v0.9:** Textarea size optimizations moved from JS to CSS.
+* **v0.01:** Initial version with basic shortcode support.
+* **v0.02:** Fix bug breaking things when a modal is closed and opened again.
+* **v0.03:** Added Modlog, Modnotes and Send PM links to avatar tooltips, and minor general tweaks.
+* **v0.04:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.
+* **v0.05:** Added Support link to shortcodes and changed tooltip link generation to avoid issues when hovering over several avatars very quickly.
+* **v0.06:** Hide Send PM link in user's own avatar tooltip.
+* **v0.07:** Added shortcode support on non-modal forms (ex: PM forms).
+* **v0.08:** Refactored and optimized shortcodes code to work on pages with several forms (ex: submit pages).
+* **v0.09:** Textarea size optimizations moved from JS to CSS.
+* **v0.10:** Remove placeholder shortcodes.

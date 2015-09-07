@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.9
+// @version      0.10
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -103,26 +103,6 @@ var shortcode = {
 		"name"     : "guide_texturing_blendingModes",
 		"nicename" : "Guide: Texturing - Blending Modes",
 		'url'      : 'http://cs.gamebanana.com/tuts/11770'
-	},
-	7: {
-		"name"     : "guide_sourceEngine_lighting",
-		"nicename" : "Guide: Source Engine - Lighting",
-		'url'      : 'http://gamebanana.com/lighting'
-	},
-	8: {
-		"name"     : "guide_sourceEngine_leaks",
-		"nicename" : "Guide: Source Engine - Leaks",
-		'url'      : 'http://gamebanana.com/leaks'
-	},
-	9: {
-		"name"     : "guide_sourceEngine_textures",
-		"nicename" : "Guide: Source Engine - Textures",
-		'url'      : 'http://gamebanana.com/textures'
-	},
-	10: {
-		"name"     : "guide_sourceEngine_skyboxes",
-		"nicename" : "Guide: Source Engine - Skyboxes",
-		'url'      : 'http://gamebanana.com/skyboxes'
 	}
 };
 shortcodeSize = Object.size(shortcode);
