@@ -26,7 +26,6 @@ That's it!
 
 ## Known Bugs:
 
-* Shortcodes don't appear on PM forms, only appear on forms inside modals.
 * Some Guide shortcodes are placeholders, they will be replaced with real guides as they are recommended by users.
 * The script doesn't work anymore once a post or comment has been submitted. Haven't been able to debug this yet.
 
@@ -38,5 +37,5 @@ That's it!
 * **v0.3:** Added Modlog, Modnotes and Send PM links to avatar tooltips, and minor general tweaks.
 * **v0.4:** Added Blending Textures tutorial to shortcodes and Sublog to avatar tooltips.
 * **v0.5:** Added Support link to shortcodes and changed tooltip link generation to avoid issues when hovering over several avatars very quickly.
-* **v0.6:** Hide Send PM link in user's own avatar tooltip
+* **v0.6:** Hide Send PM link in user's own avatar tooltip.
 * **v0.7:** Added shortcode support on non-modal forms (ex: PM forms).
