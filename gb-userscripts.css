@@ -33,6 +33,7 @@
 	width: 300px;
 }
 
+
 /* Optimize markItUp textarea size */
 .markItUpEditor {
 	box-sizing: border-box;
@@ -40,7 +41,31 @@
 	width: 100%;
 }
 
+
 /* Avatar Tooltip Links */
 .AvatarTooltip .ModTools a {
 	display:block;
+}
+
+
+/* Modlog Layout Improvements */
+#Admin_Modlog .ContentColumn[style*="width: 519px"],
+#Admin_FlaggedSubmissions .ContentColumn[style*="width: 519px"] {
+	width: 685px !important;
+}
+
+#Admin_Modlog .ContentColumn[style*="width: 150px"],
+#Admin_FlaggedSubmissions .ContentColumn[style*="width: 150px"] {
+	left: -165px;
+	position: absolute;
+}
+
+#Admin_Modlog table tr:hover,
+#Admin_FlaggedSubmissions table tr:hover {
+	background:rgba(255,255,255,0.05);
+}
+
+#Admin_Modlog .LabelState.IsWithheld,
+#Admin_FlaggedSubmissions .LabelState.IsWithheld {
+	float: right;
 }
