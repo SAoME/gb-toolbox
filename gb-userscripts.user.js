@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.11
+// @version      0.12
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -274,11 +274,14 @@ function flaggedSubmissionsTweaks() {
 		}
 
 		// build additional submission links
-		var subProfile = '[<a title="View Submission\'s Profile" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/'+submissionID+'">P</a>]';
+		var subProfile = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
 		var subHistory = '[<a title="View Submission\'s History" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/history/'+submissionID+'">H</a>]';
 		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/withhold/'+submissionID+'">W</a>]';
-		$(this).attr("title", "View Submission's Flags").after(function() {
-			return '<span class="FlaggedSubmissionTools">'+subProfile+" "+subHistory+" "+subWithhold+"</span>";
+		$(this)
+			.attr("title", "View Submission's Profile")
+			.attr("href", 'http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/'+submissionID)
+			.after(function() {
+				return '<span class="FlaggedSubmissionTools">'+subProfile+" "+subHistory+" "+subWithhold+"</span>";
 		});
 
 		// set fixed width for table cells caontaining links

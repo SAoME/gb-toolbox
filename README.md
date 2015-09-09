@@ -43,3 +43,4 @@ That's it!
 * **v0.09:** Textarea size optimizations moved from JS to CSS.
 * **v0.10:** Remove placeholder shortcodes.
 * **v0.11:** Add a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.
+* **v0.12:** Switched Profile and Flags links in Flagged Submissions table. Main link will point to the submission's profile now, and a flag link will be added next to it instead.
