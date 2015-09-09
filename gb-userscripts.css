@@ -59,3 +59,21 @@
 	left: -165px;
 	position: absolute;
 }
+
+#Admin_Modlog table tr:hover,
+#Admin_FlaggedSubmissions table tr:hover {
+	background:rgba(255,255,255,0.05);
+}
+
+#Admin_Modlog .LabelState.IsWithheld,
+#Admin_FlaggedSubmissions .LabelState.IsWithheld {
+	float: right;
+}
+
+.FlaggedSubmissionTools {
+	display:none;
+}
+
+tr:hover .FlaggedSubmissionTools {
+	display:inline;
+}

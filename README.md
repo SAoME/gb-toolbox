@@ -13,6 +13,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 * Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. Contact Yogensia with ideas for more shortcodes.
 * Adds Sublog, Modlog, Modnotes and Send PM links to avatar tooltips.
+* Adds a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.
 
 
 ## Installation
@@ -41,3 +42,4 @@ That's it!
 * **v0.08:** Refactored and optimized shortcodes code to work on pages with several forms (ex: submit pages).
 * **v0.09:** Textarea size optimizations moved from JS to CSS.
 * **v0.10:** Remove placeholder shortcodes.
+* **v0.11:** Add a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.

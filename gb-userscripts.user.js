@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.10
+// @version      0.11
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -15,7 +15,7 @@
 // 1. COMMON
 // 2. SHORTCODES
 // 3. AVATAR TOOLTIP TWEAKS
-
+// 4. MODLOG/FLAGGED SUBS TWEAKS
 
 
 // COMMON
@@ -215,6 +215,7 @@ $(function() {
 	$(".Avatar.tooltipstered").hover(function() {
 		var userUrlParts = $(this).attr("href").split("/");
 		var userID = userUrlParts[userUrlParts.length - 1];
+
 		// get username: if there is an Upic use its alt attribute, otherwise get it normally
 		if ( $(".tooltipster-base .Upic").length > 0 ) {
 			var userName = $(".tooltipster-base .Upic").attr("alt").replace(/ avatar/, "");
@@ -222,15 +223,18 @@ $(function() {
 			var userName = $(".tooltipster-base .NameAndStatus strong").text();
 		}
 		console.log("GAT - Triggered tooltip for user \"" + userName + "\" with userID " + userID);
+
 		// build avatar links
 		var sublog = '<a title="View '+userName+'\'s Sublog" href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
 		var modlog = '<a title="View '+userName+'\'s Modlog" href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
 		var modnotes = '<a title="View '+userName+'\'s Modnotes" href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
 		var sendPM = "";
+
 		// do not show PM link on user's own avatar
 		if ( userID !== ownUserID ) {
 			sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
 		}
+
 		// wait 250ms and then add or update the links on the tooltipster html
 		setTimeout(function() {
 			if ( $(".tooltipster-base .ModTools").length > 0 ) {
@@ -240,5 +244,54 @@ $(function() {
 			}
 		}, 250);
 	});
+
+});
+
+
+
+// MODLOG/FLAGGED SUBS TWEAKS
+// ==================================================================
+
+// variables
+//var submissionURL, submissionID;
+
+// add profile and withheld links to flagged submissions list
+function flaggedSubmissionsTweaks() {
+	console.log("GAT - Found Flagged Submissions Table, tweaking links...");
+	$(".FlaggedSubmissionsListModule table a").each( function() {
+
+		// get submission ID, Game and Type (skin, model, etc.)
+		var submissionID = $(this).attr("href").split("/");
+		var submissionType = submissionID[submissionID.length - 3];
+		submissionID = submissionID[submissionID.length - 1];
+		var submissionGame = $(this).attr("href").split(".");
+		submissionGame = submissionGame[0];
+		submissionGame = submissionGame.replace(/.*?:\/\//g, "");
+		if ( submissionGame == "gamebanana" ) {
+			submissionGame = "";
+		} else {
+			var submissionSubdomain = submissionGame+".";
+		}
+
+		// build additional submission links
+		var subProfile = '[<a title="View Submission\'s Profile" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/'+submissionID+'">P</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/history/'+submissionID+'">H</a>]';
+		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/withhold/'+submissionID+'">W</a>]';
+		$(this).attr("title", "View Submission's Flags").after(function() {
+			return '<span class="FlaggedSubmissionTools">'+subProfile+" "+subHistory+" "+subWithhold+"</span>";
+		});
+
+		// set fixed width for table cells caontaining links
+		$(this).parent().css("width", "380");
+	});
+}
+
+// DOM ready
+$(function() {
+
+	// if flagged submissions table if found run code to add optimizations
+	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
+		flaggedSubmissionsTweaks();
+	}
 
 });
