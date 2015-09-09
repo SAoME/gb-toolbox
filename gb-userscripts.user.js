@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.12
+// @version      0.13
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -255,10 +255,26 @@ $(function() {
 // variables
 //var submissionURL, submissionID;
 
-// add profile and withheld links to flagged submissions list
+// add optimizations for Mod Log table
+function modLogTweaks() {
+	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
+	$("#ModlogListModule tr").each(function() {
+		var thisRow = $(this);
+		thisRow.children("th").eq(1).css("text-align","center");
+		thisRow.children("td").eq(1).css("width","65px").css("text-align","center");
+		thisRow.children("td").eq(2).css("width","130px");
+		thisRow.children("td").eq(3).css("width","130px");
+		var performer = thisRow.children("td").eq(2).children("a").eq(0).text();
+		thisRow.children("td").eq(2).children("a").eq(0).addClass("ModLogTruncateLink").attr("title", performer);
+		var recipient = thisRow.children("td").eq(3).children("a").eq(0).text();
+		thisRow.children("td").eq(3).children("a").eq(0).addClass("ModLogTruncateLink").attr("title", recipient);
+	});
+}
+
+// add optimizations for Flagged Submissions table
 function flaggedSubmissionsTweaks() {
 	console.log("GAT - Found Flagged Submissions Table, tweaking links...");
-	$(".FlaggedSubmissionsListModule table a").each( function() {
+	$(".FlaggedSubmissionsListModule table a").each(function() {
 
 		// get submission ID, Game and Type (skin, model, etc.)
 		var submissionID = $(this).attr("href").split("/");
@@ -292,7 +308,12 @@ function flaggedSubmissionsTweaks() {
 // DOM ready
 $(function() {
 
-	// if flagged submissions table if found run code to add optimizations
+	// if ModLog table is found run code to add optimizations
+	if ( $("#ModlogListModule").length > 0 ) {
+		modLogTweaks();
+	}
+
+	// if Flagged Submissions table is found run code to add optimizations
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
 	}

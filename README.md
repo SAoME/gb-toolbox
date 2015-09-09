@@ -13,6 +13,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 * Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. Contact Yogensia with ideas for more shortcodes.
 * Adds Sublog, Modlog, Modnotes and Send PM links to avatar tooltips.
+* Adds a few optimizations to the ModLog table to avoid layout stretching. Long username links are now truncated and have a title attribute to reveal full username on mouse hover.
 * Adds a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.
 
 
@@ -44,3 +45,4 @@ That's it!
 * **v0.10:** Remove placeholder shortcodes.
 * **v0.11:** Add a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.
 * **v0.12:** Switched Profile and Flags links in Flagged Submissions table. Main link will point to the submission's profile now, and a flag link will be added next to it instead.
+* **v0.13:** Added optimizations to ModLog table to avoid layout stretching. Long username links are now truncated and have a title attribute to reveal full username on mouse hover.

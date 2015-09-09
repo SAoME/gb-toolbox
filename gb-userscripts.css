@@ -77,3 +77,11 @@
 tr:hover .FlaggedSubmissionTools {
 	display:inline;
 }
+
+.ModLogTruncateLink {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 130px;
+}
