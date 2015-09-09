@@ -11,7 +11,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 
 ## Features
 
-* Adds a toolbar button for textareas with a collection of frequently used links like Rules, Porting List, etc. Contact Yogensia with ideas for more shortcodes.
+* Adds a toolbar button on textareas with a collection of frequently used links like Rules, Porting List, etc. Contact Yogensia with ideas for more shortcodes.
 * Adds Sublog, Modlog, Modnotes and Send PM links to avatar tooltips.
 * Adds a few optimizations to the ModLog table to avoid layout stretching. Long username links are now truncated and have a title attribute to reveal full username on mouse hover.
 * Adds a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.
@@ -29,6 +29,7 @@ That's it!
 ## Known Bugs:
 
 * The script doesn't work anymore once a post or comment has been submitted. Haven't been able to debug this yet.
+* The shortcode menu doesn't fit in some situations and can't be seen properly.
 
 
 ## Changelog:
@@ -46,3 +47,4 @@ That's it!
 * **v0.11:** Add a few optimizations to the Flagged Submissions table including links to submission profile, history and withhold conversation.
 * **v0.12:** Switched Profile and Flags links in Flagged Submissions table. Main link will point to the submission's profile now, and a flag link will be added next to it instead.
 * **v0.13:** Added optimizations to ModLog table to avoid layout stretching. Long username links are now truncated and have a title attribute to reveal full username on mouse hover.
+* **v0.14:** Added support for shortcode names in the toolbar and the markdown link to be different.

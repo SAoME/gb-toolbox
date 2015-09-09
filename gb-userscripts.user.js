@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.13
+// @version      0.14
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -102,6 +102,7 @@ var shortcode = {
 	6: {
 		"name"     : "guide_texturing_blendingModes",
 		"nicename" : "Guide: Texturing - Blending Modes",
+		"linkname" : '"Preserving Details (Blending Modes)" tutorial by ANKH',
 		'url'      : 'http://cs.gamebanana.com/tuts/11770'
 	}
 };
@@ -148,7 +149,12 @@ function shortcodeOnClick() {
 				console.log("Looking for shortcode named: " + clicked);
 				clicked = arrayObjectIndexOf(shortcode, "name", clicked);
 				console.log('Shortcode "' + shortcode[clicked]["nicename"] + '" found at index ' + clicked);
-				return '[' + shortcode[clicked]["nicename"] + '](' + shortcode[clicked]["url"] + ') ';
+				if ( "linkname" in shortcode[clicked] ) {
+					var linkName = shortcode[clicked]["linkname"];
+				} else {
+					var linkName = shortcode[clicked]["nicename"];
+				}
+				return '[' + linkName + '](' + shortcode[clicked]["url"] + ') ';
 			}
 		});
 	});
@@ -275,12 +281,13 @@ function modLogTweaks() {
 function flaggedSubmissionsTweaks() {
 	console.log("GAT - Found Flagged Submissions Table, tweaking links...");
 	$(".FlaggedSubmissionsListModule table a").each(function() {
+		var thisLink = $(this);
 
 		// get submission ID, Game and Type (skin, model, etc.)
-		var submissionID = $(this).attr("href").split("/");
+		var submissionID = thisLink.attr("href").split("/");
 		var submissionType = submissionID[submissionID.length - 3];
 		submissionID = submissionID[submissionID.length - 1];
-		var submissionGame = $(this).attr("href").split(".");
+		var submissionGame = thisLink.attr("href").split(".");
 		submissionGame = submissionGame[0];
 		submissionGame = submissionGame.replace(/.*?:\/\//g, "");
 		if ( submissionGame == "gamebanana" ) {
@@ -293,7 +300,7 @@ function flaggedSubmissionsTweaks() {
 		var subProfile = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
 		var subHistory = '[<a title="View Submission\'s History" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/history/'+submissionID+'">H</a>]';
 		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/withhold/'+submissionID+'">W</a>]';
-		$(this)
+		thisLink
 			.attr("title", "View Submission's Profile")
 			.attr("href", 'http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/'+submissionID)
 			.after(function() {
@@ -301,7 +308,7 @@ function flaggedSubmissionsTweaks() {
 		});
 
 		// set fixed width for table cells caontaining links
-		$(this).parent().css("width", "380");
+		thisLink.parent().css("width", "380");
 	});
 }
 
