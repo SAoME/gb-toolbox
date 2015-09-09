@@ -35,7 +35,7 @@
 
 
 /* Optimize markItUp textarea size */
-.markItUpEditor {
+#Wrapper .markItUpEditor {
 	box-sizing: border-box;
 	height: 215px;
 	width: 100%;

@@ -101,7 +101,7 @@ var shortcode = {
 	},
 	6: {
 		"name"     : "guide_texturing_blendingModes",
-		"nicename" : "Guide: Texturing - Blending Modes",
+		"nicename" : "Guide: Texturing - Blending Textures by ANKH",
 		"linkname" : '"Preserving Details (Blending Modes)" tutorial by ANKH',
 		'url'      : 'http://cs.gamebanana.com/tuts/11770'
 	}
