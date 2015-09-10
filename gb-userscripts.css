@@ -60,7 +60,6 @@
 	position: absolute;
 }
 
-#Admin_Modlog table tr:hover,
 #Admin_FlaggedSubmissions table tr:hover {
 	background:rgba(255,255,255,0.05);
 }
@@ -75,7 +74,8 @@
 }
 
 tr:hover .FlaggedSubmissionTools {
-	display:inline;
+	display: block;
+	float:left;
 }
 
 .ModLogTruncateLink {
@@ -84,4 +84,21 @@ tr:hover .FlaggedSubmissionTools {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	width: 130px;
+}
+
+.FlagLogTruncateLink {
+	float:left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 295px;
+	margin-right:5px;
+}
+tr:hover .FlagLogTruncateLink {
+	float:left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 230px;
+	margin-right:5px;
 }

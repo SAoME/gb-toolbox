@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.14
+// @version      0.15
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -218,7 +218,7 @@ $(function() {
 $(function() {
 
 	// add links to avatar tooltips when they are hovered
-	$(".Avatar.tooltipstered").hover(function() {
+	$(".Avatar.tooltipstered, .MemberLink.tooltipstered").hover(function() {
 		var userUrlParts = $(this).attr("href").split("/");
 		var userID = userUrlParts[userUrlParts.length - 1];
 
@@ -283,28 +283,40 @@ function flaggedSubmissionsTweaks() {
 	$(".FlaggedSubmissionsListModule table a").each(function() {
 		var thisLink = $(this);
 
-		// get submission ID, Game and Type (skin, model, etc.)
+		// get submission ID
 		var submissionID = thisLink.attr("href").split("/");
+
+		// get submission type (skin, model, etc.)
 		var submissionType = submissionID[submissionID.length - 3];
 		submissionID = submissionID[submissionID.length - 1];
+
+		// get game and remove http protocol to generate subdomain for final link
 		var submissionGame = thisLink.attr("href").split(".");
 		submissionGame = submissionGame[0];
 		submissionGame = submissionGame.replace(/.*?:\/\//g, "");
+
+		// if there is no subdomain leave variable empty
 		if ( submissionGame == "gamebanana" ) {
-			submissionGame = "";
+			var submissionSubdomain = "";
 		} else {
 			var submissionSubdomain = submissionGame+".";
 		}
 
-		// build additional submission links
-		var subProfile = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
+		// generate links
+		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
 		var subHistory = '[<a title="View Submission\'s History" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/history/'+submissionID+'">H</a>]';
-		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/withhold/'+submissionID+'">W</a>]';
+		var subWithhold = "";
+		if ( thisLink.parent().children(".IsWithheld").length > 0 ) {
+			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/unwithhold/'+submissionID+'">W</a>]';
+		}
+
+		// add links and tweak original link
 		thisLink
+			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
 			.attr("href", 'http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/'+submissionID)
 			.after(function() {
-				return '<span class="FlaggedSubmissionTools">'+subProfile+" "+subHistory+" "+subWithhold+"</span>";
+				return '<span class="FlaggedSubmissionTools">'+subFlags+" "+subHistory+" "+subWithhold+"</span>";
 		});
 
 		// set fixed width for table cells caontaining links
