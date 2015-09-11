@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.15
+// @version      0.16
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -104,6 +104,12 @@ var shortcode = {
 		"nicename" : "Guide: Texturing - Blending Textures by ANKH",
 		"linkname" : '"Preserving Details (Blending Modes)" tutorial by ANKH',
 		'url'      : 'http://cs.gamebanana.com/tuts/11770'
+	},
+	7: {
+		"name"     : "guide_site_clearOrganizedCredits",
+		"nicename" : "Guide: Site - Clear and Organized Credits by Yogensia",
+		"linkname" : '"Clear and Organized Credits" tutorial by Yogensia',
+		'url'      : 'http://gamebanana.com/tuts/11908'
 	}
 };
 shortcodeSize = Object.size(shortcode);

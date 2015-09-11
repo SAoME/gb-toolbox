@@ -49,3 +49,4 @@ That's it!
 * **v0.13:** Added optimizations to ModLog table to avoid layout stretching. Long username links are now truncated and have a title attribute to reveal full username on mouse hover.
 * **v0.14:** Added support for shortcode names in the toolbar and the markdown link to be different.
 * **v0.15:** Removed link to withhold conversation on submissions that are flagged but not withheld, and added tooltip tweaks to tooltips from the credits module in submissions.
+* **v0.16:** Added "Clear and Organized Credits" tutorial to shortcodes.
