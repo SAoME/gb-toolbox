@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.16
+// @version      0.17
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -200,18 +200,62 @@ function hookShortcodeMenu() {
 	});
 }
 
+// hook for links that open a modal
+function hookModalLauncher() {
+	$(".ModalLauncher").unbind("click").click(function() {
+		modalID = $(this).attr("id");
+		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
+		waitForModalForm();
+	});
+}
+
+// keep an eye on #PostsListModule for changes
+function watchPostsListModule() {
+
+	if ( $('#PostsListModule').not('.GatEdited').length > 0 ) {
+		console.log("GAT - #PostsListModule changed, redoing edits...");
+
+		// Fix tooltips on avatars inside the module (GB bug)
+		$("#PostsListModule .Tooltip").each(function() {
+			$(this).prev().tooltipster({
+				animation: "fade",
+				delay: 0,
+				speed: 0,
+				onlyOne: true,
+				interactive: true,
+				contentAsHTML: true,
+				position: "left",
+				content: $('<div class="'+$(this).attr("class")+'" style="'+$(this).attr("style")+'">'+$(this).html()+'</div>')
+			});
+		});
+
+		// redo hook modifications to avatar tooltips (sublog, modlog, ...)
+		editAvatarTooltips( $("#PostsListModule .Avatar.tooltipstered") );
+
+		// redo hook ModalLauncher buttons for modal forms
+		hookModalLauncher();
+
+		$('#PostsListModule').addClass("GatEdited");
+
+	}
+
+	setTimeout(watchPostsListModule, 1000);
+}
+
 // DOM ready
 $(function() {
 
 	// run hookshortcode at DOM ready for non-modal forms if any are found
 	hookShortcodeMenuNonModal();
 
-	// click on links that open a modal
-	$(".ModalLauncher").click(function() {
-		modalID = $(this).attr("id");
-		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
-		waitForModalForm();
-	});
+	// hook ModalLauncher buttons for modal forms
+	hookModalLauncher();
+
+	// mark #PostsListModule as edited until Gb code replaces it
+	$('#PostsListModule').addClass("GatEdited");
+
+	// keep an eye on #PostsListModule for changes
+	watchPostsListModule();
 
 });
 
@@ -220,11 +264,10 @@ $(function() {
 // AVATAR TOOLTIP TWEAKS
 // ==================================================================
 
-// DOM ready
-$(function() {
+// add links to avatar tooltips when they are hovered
+function editAvatarTooltips(target) {
 
-	// add links to avatar tooltips when they are hovered
-	$(".Avatar.tooltipstered, .MemberLink.tooltipstered").hover(function() {
+	target.hover(function() {
 		var userUrlParts = $(this).attr("href").split("/");
 		var userID = userUrlParts[userUrlParts.length - 1];
 
@@ -256,6 +299,12 @@ $(function() {
 			}
 		}, 250);
 	});
+}
+
+// DOM ready
+$(function() {
+
+	editAvatarTooltips( $(".Avatar.tooltipstered, .MemberLink.tooltipstered") );
 
 });
 

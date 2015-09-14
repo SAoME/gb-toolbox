@@ -28,7 +28,6 @@ That's it!
 
 ## Known Bugs:
 
-* The script doesn't work anymore once a post or comment has been submitted. Haven't been able to debug this yet.
 * The shortcode menu doesn't fit in some situations and can't be seen properly.
 
 
@@ -50,3 +49,4 @@ That's it!
 * **v0.14:** Added support for shortcode names in the toolbar and the markdown link to be different.
 * **v0.15:** Removed link to withhold conversation on submissions that are flagged but not withheld, and added tooltip tweaks to tooltips from the credits module in submissions.
 * **v0.16:** Added "Clear and Organized Credits" tutorial to shortcodes.
+* **v0.17:** Fix shortcodes and tooltips not working after submitting a comment or stamp (hopefully).
