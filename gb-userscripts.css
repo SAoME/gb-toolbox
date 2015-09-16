@@ -76,6 +76,7 @@
 tr:hover .FlaggedSubmissionTools {
 	display: block;
 	float: left;
+	margin-top: 5px;
 }
 
 .ModLogTruncateLink {
@@ -93,6 +94,7 @@ tr:hover .FlaggedSubmissionTools {
 	white-space: nowrap;
 	max-width: 295px;
 	margin-right: 5px;
+	margin-top: 5px;
 }
 tr:hover .FlagLogTruncateLink {
 	float :left;
@@ -109,6 +111,6 @@ tr:hover .FlagLogTruncateLink {
 	margin: 0 auto;
 }
 
-.is-alignCenter {
+.alignCenter {
 	text-align: center;
 }

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.17
+// @version      0.18
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -313,9 +313,6 @@ $(function() {
 // MODLOG/FLAGGED SUBS TWEAKS
 // ==================================================================
 
-// variables
-//var submissionURL, submissionID;
-
 // add optimizations for Mod Log table
 function modLogTweaks() {
 	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
@@ -334,7 +331,7 @@ function modLogTweaks() {
 
 // add optimizations for Flagged Submissions table
 function flaggedSubmissionsTweaks() {
-	console.log("GAT - Found Flagged Submissions Table, tweaking links...");
+	console.log("GAT - Found Flagged Submissions Table, adding tweaks...");
 	$(".FlaggedSubmissionsListModule table a").each(function() {
 		var thisLink = $(this);
 
@@ -357,6 +354,9 @@ function flaggedSubmissionsTweaks() {
 			var submissionSubdomain = submissionGame+".";
 		}
 
+		// generate game icon
+		var submissionGameIcon = '<a class="gameIcon" title="'+submissionGame.toUpperCase()+'" href="http://'+submissionSubdomain+'gamebanana.com/"><img alt="" width="16" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submissionGame+'.png" /></a>';
+
 		// generate links
 		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
 		var subHistory = '[<a title="View Submission\'s History" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/history/'+submissionID+'">H</a>]';
@@ -365,17 +365,21 @@ function flaggedSubmissionsTweaks() {
 			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/unwithhold/'+submissionID+'">W</a>]';
 		}
 
-		// add links and tweak original link
 		thisLink
+			// add links and tweak original link
 			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
-			.attr("href", 'http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/'+submissionID)
-			.after(function() {
-				return '<span class="FlaggedSubmissionTools">'+subFlags+" "+subHistory+" "+subWithhold+"</span>";
-		});
-
-		// set fixed width for table cells caontaining links
-		thisLink.parent().css("width", "380");
+			.attr("href", "http://"+submissionSubdomain+"gamebanana.com/"+submissionType+"/"+submissionID)
+			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
+			// make fixes on category column
+			.parent()
+			.css("width", "380")
+			.prev()
+			.addClass("alignCenter")
+			.prepend(submissionGameIcon)
+			// make fixes on flags column
+			.siblings().last()
+			.addClass("alignCenter");
 	});
 }
 

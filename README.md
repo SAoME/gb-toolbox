@@ -50,3 +50,4 @@ That's it!
 * **v0.15:** Removed link to withhold conversation on submissions that are flagged but not withheld, and added tooltip tweaks to tooltips from the credits module in submissions.
 * **v0.16:** Added "Clear and Organized Credits" tutorial to shortcodes.
 * **v0.17:** Fix shortcodes and tooltips not working after submitting a comment or stamp (hopefully).
+* **v0.18:** Added game icons to Flagged Submissions List.
