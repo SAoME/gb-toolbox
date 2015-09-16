@@ -105,12 +105,15 @@ tr:hover .FlagLogTruncateLink {
 	margin-right: 5px;
 }
 
-#Admin_Modlog .gameIcon,
-#Admin_FlaggedSubmissions .gameIcon {
-	display: block;
-	margin: 0 auto;
+#Admin_FlaggedSubmissions .submissionCategory {
+	text-indent: -9999px;
+	margin-right: 5px;
 }
 
 .alignCenter {
 	text-align: center;
+}
+
+.cursorHelp {
+	cursor: help;
 }

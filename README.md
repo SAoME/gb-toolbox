@@ -51,3 +51,4 @@ That's it!
 - **v0.16:** Added "Clear and Organized Credits" tutorial to shortcodes.
 - **v0.17:** Fix shortcodes and tooltips not working after submitting a comment or stamp (hopefully).
 - **v0.18:** Added game icons to Flagged Submissions List.
+- **v0.19:** Added section icons to Flagged Submissions List.

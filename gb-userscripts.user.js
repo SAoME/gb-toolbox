@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.18
+// @version      0.19
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -341,6 +341,10 @@ function flaggedSubmissionsTweaks() {
 		// get submission type (skin, model, etc.)
 		var submissionType = submissionID[submissionID.length - 3];
 		submissionID = submissionID[submissionID.length - 1];
+		String.prototype.capitalizeFirstLetter = function() {
+			return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+		var submissionTypeNicename = submissionType.substring(0, submissionType.length - 1).capitalizeFirstLetter();
 
 		// get game and remove http protocol to generate subdomain for final link
 		var submissionGame = thisLink.attr("href").split(".");
@@ -355,7 +359,8 @@ function flaggedSubmissionsTweaks() {
 		}
 
 		// generate game icon
-		var submissionGameIcon = '<a class="gameIcon" title="'+submissionGame.toUpperCase()+'" href="http://'+submissionSubdomain+'gamebanana.com/"><img alt="" width="16" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submissionGame+'.png" /></a>';
+		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submissionGame.toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submissionGame+'.png" />';
+		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submissionTypeNicename+"' title='"+submissionTypeNicename+"'></span>";
 
 		// generate links
 		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
@@ -376,7 +381,8 @@ function flaggedSubmissionsTweaks() {
 			.css("width", "380")
 			.prev()
 			.addClass("alignCenter")
-			.prepend(submissionGameIcon)
+			.wrapInner(submissionCategory)
+			.append(submissionGameIcon)
 			// make fixes on flags column
 			.siblings().last()
 			.addClass("alignCenter");
