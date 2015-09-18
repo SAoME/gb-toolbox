@@ -48,9 +48,10 @@
 }
 
 
-/* Modlog Layout Improvements */
+/* Admin Pages Layout Improvements */
 #Admin_Modlog .ContentColumn[style*="width: 519px"],
-#Admin_FlaggedSubmissions .ContentColumn[style*="width: 519px"] {
+#Admin_FlaggedSubmissions .ContentColumn[style*="width: 519px"],
+#Feature_Index .ContentColumn[style*="width: 569px"] {
 	width: 685px !important;
 }
 
@@ -58,6 +59,19 @@
 #Admin_FlaggedSubmissions .ContentColumn[style*="width: 150px"] {
 	left: -165px;
 	position: absolute;
+}
+
+#Feature_Index .ContentColumn[style*="width: 100px"] {
+	left: -115px;
+	position: absolute;
+}
+
+#Feature_Index .Content {
+	overflow: hidden;
+}
+
+#Feature_Index .PreviewImage {
+	width: 180px;
 }
 
 #Admin_FlaggedSubmissions table tr:hover {
