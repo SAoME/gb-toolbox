@@ -53,3 +53,4 @@ That's it!
 - **v0.18:** Added game icons to Flagged Submissions List.
 - **v0.19:** Added section icons to Flagged Submissions List.
 - **v0.20:** Added layout tweaks for Features admin page.
+- **v0.21:** Highlight Features older than 3 days in Features admin page.

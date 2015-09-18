@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.20
+// @version      0.21
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -389,6 +389,20 @@ function flaggedSubmissionsTweaks() {
 	});
 }
 
+function featuresTweaks() {
+
+	// check date column and highlight features older than 3 days
+	$("#SubmissionsListModule tr:lt(7)").each(function() {
+		var date = $(this).find(".DateAdded").text().split(" ");
+		if ( date[1] == "days" && date[0] > 3 ) {
+			$(this).addClass("oldFeature");
+		}
+	});
+
+	// add thresold row below the 6th feature
+	$("#SubmissionsListModule tr").eq(6).after("<tr><td colspan='6' class='FeaturesThreshold'>Keep Features disabled beyond this point</td></tr>");
+}
+
 // DOM ready
 $(function() {
 
@@ -404,7 +418,7 @@ $(function() {
 
 	// if Features table is found add thresold row
 	if ( $("#Feature_Index").length > 0 ) {
-		$("#SubmissionsListModule tr").eq(6).after("<tr><td colspan='6' class='FeaturesThreshold'>Keep Features disabled beyond this point</td></tr>");
+		featuresTweaks();
 	}
 
 });

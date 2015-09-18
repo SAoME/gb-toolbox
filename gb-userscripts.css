@@ -125,9 +125,14 @@ tr:hover .FlagLogTruncateLink {
 }
 
 .FeaturesThreshold {
-	text-align: center;
-	font-weight: bold;
 	background: rgba(0,0,0,0.25);
+	font-weight: bold;
+	text-align: center;
+}
+
+.oldFeature .DateAdded span {
+	color: red;
+	font-weight: bold;
 }
 
 .alignCenter {
