@@ -15,7 +15,7 @@
 // 1. COMMON
 // 2. SHORTCODES
 // 3. AVATAR TOOLTIP TWEAKS
-// 4. MODLOG/FLAGGED SUBS TWEAKS
+// 4. ADMIN BACKEND TWEAKS
 
 
 // COMMON
@@ -310,7 +310,7 @@ $(function() {
 
 
 
-// MODLOG/FLAGGED SUBS TWEAKS
+// ADMIN BACKEND TWEAKS
 // ==================================================================
 
 // add optimizations for Mod Log table
@@ -400,6 +400,11 @@ $(function() {
 	// if Flagged Submissions table is found run code to add optimizations
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
+	}
+
+	// if Features table is found add thresold row
+	if ( $("#Feature_Index").length > 0 ) {
+		$("#SubmissionsListModule tr").eq(6).after("<tr><td colspan='6' class='FeaturesThreshold'>Keep Features disabled beyond this point</td></tr>");
 	}
 
 });
