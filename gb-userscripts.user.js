@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.21
+// @version      0.22
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -16,6 +16,7 @@
 // 2. SHORTCODES
 // 3. AVATAR TOOLTIP TWEAKS
 // 4. ADMIN BACKEND TWEAKS
+// 5. ADMIN MENU
 
 
 // COMMON
@@ -49,7 +50,9 @@ $(function() {
 
 	// add CSS
 	var gbUserscriptsCSS = '<link rel="stylesheet" type="text/css" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css" media="all">';
-	$("head").append(gbUserscriptsCSS);
+	var fontAwesome = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">';
+	$("head").append(gbUserscriptsCSS+fontAwesome);
+
 
 	// Get current user ID to be able to write some links like "Send PM"
 	var ownUserUrlParts = $(".ProfileIcon").parent().attr("href").split("/");
@@ -389,8 +392,8 @@ function flaggedSubmissionsTweaks() {
 	});
 }
 
+// add optimizations for Features table
 function featuresTweaks() {
-
 	// check date column and highlight features older than 3 days
 	$("#SubmissionsListModule tr:lt(7)").each(function() {
 		var date = $(this).find(".DateAdded").text().split(" ");
@@ -420,5 +423,62 @@ $(function() {
 	if ( $("#Feature_Index").length > 0 ) {
 		featuresTweaks();
 	}
+
+});
+
+
+// ADMIN MENU
+// ==================================================================
+
+// generates and adds the admin menu to the left side of the site
+function loadAdminMenu() {
+	var adminMenu;
+	var ownUserID;
+	adminMenu = '<div id="AdminMenuWrap">';
+		adminMenu += '<ul id="AdminMenu">';
+			adminMenu += '<li class="AdminMenuHeader">Quick Admin Menu</li>';
+			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=site_rules"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/wikis/cats/1"><i class="fa fa-lg fa-fw fa-briefcase"></i>ModDocs</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/admin/flags"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/admin/withheld"><i class="fa fa-lg fa-fw fa-legal"></i>Withheld Submissions</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/support"><i class="fa fa-lg fa-fw fa-support"></i>Support Tickets</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/bugs"><i class="fa fa-lg fa-fw fa-bug"></i>Bug Reports</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/ideas"><i class="fa fa-lg fa-fw fa-lightbulb-o"></i>Suggested Ideas</a></li>';
+			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-comments"></i>Forums<i class="fa fa-lg fa-fw fa-angle-right"></i>';
+			adminMenu += '<ul class="SubMenu">';
+				adminMenu += '<li><a href="http://gamebanana.com/game/threads/cats/3563"><i class="fa fa-lg fa-fw fa-commenting"></i>AdminTalk</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/game/threads/cats/783"><i class="fa fa-lg fa-fw fa-commenting"></i>ModTalk</a></li>';
+			adminMenu += '</ul></li>';
+			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-wrench"></i>Tools<i class="fa fa-lg fa-fw fa-angle-right"></i>';
+			adminMenu += '<ul class="SubMenu">';
+				adminMenu += '<li><a href="http://gamebanana.com/admin/bananabank"><i class="fa fa-lg fa-fw fa-bank"></i>BananaBank</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/admin/recordselector"><i class="fa fa-lg fa-fw fa-server"></i>RecordSelector</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/admin/reportmaker"><i class="fa fa-lg fa-fw fa-file-text-o"></i>ReportMaker</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/admin/ipsearch"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Search</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/ip-blocks"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Blocker</a></li>';
+			adminMenu += '</ul></li>';
+			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-eye"></i>Promotional<i class="fa fa-lg fa-fw fa-angle-right"></i>';
+			adminMenu += '<ul class="SubMenu">';
+				adminMenu += '<li><a href="http://gamebanana.com/contest-winners"><i class="fa fa-lg fa-fw fa-trophy"></i>Contest Winners</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/features"><i class="fa fa-lg fa-fw fa-bullhorn"></i>Features</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/newsletters"><i class="fa fa-lg fa-fw fa-newspaper-o"></i>Newsletters</a></li>';
+			adminMenu += '</ul></li>';
+			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-info-circle"></i>GB Admin Toolbox<i class="fa fa-lg fa-fw fa-angle-right"></i>';
+			adminMenu += '<ul class="SubMenu">';
+				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
+				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients=1328950"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
+			adminMenu += '</ul></li>';
+		adminMenu += '</ul>';
+	adminMenu += '</div>';
+	$("#Wrapper").append(adminMenu);
+}
+
+// DOM ready
+$(function() {
+
+	// add Admin Menu
+	loadAdminMenu();
 
 });

@@ -1,3 +1,12 @@
+/* Common */
+.alignCenter {
+	text-align: center;
+}
+
+.cursorHelp {
+	cursor: help;
+}
+
 /* Shortcode Toolbar */
 .markItUpHeader ul .markItUpShortcodes:hover ul {
 	display: block !important;
@@ -135,10 +144,85 @@ tr:hover .FlagLogTruncateLink {
 	font-weight: bold;
 }
 
-.alignCenter {
-	text-align: center;
+/* Admin Menu */
+#AdminMenuWrap {
+	padding: 40px 80px 40px 0;
+	position: fixed;
+	top: 60px;
+	left: -175px;
+	transition: all 0.1s;
 }
 
-.cursorHelp {
-	cursor: help;
+#AdminMenuWrap:hover {
+	left: 0;
+	position: fixed;
+}
+
+#AdminMenu {
+	background: #313942;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	font-size: 12px;
+	list-style: none;
+	padding: 2px 0 0;
+	text-transform: uppercase;
+}
+
+#AdminMenu li {
+	border-top: 1px solid #282e36;
+}
+
+#AdminMenu > li {
+	position: relative;
+}
+
+#AdminMenu li:hover {
+	background: #637484;
+	color: #fff;
+}
+
+#AdminMenu li:hover ul {
+	display: block;
+}
+
+#AdminMenu a,
+#AdminMenu .AdminMenuHeader,
+#AdminMenu .SubMenuHeader {
+	box-sizing: border-box;
+	color: #9299a2;
+	display: block;
+	padding: 5px;
+	width: 185px;
+}
+
+#AdminMenu a:hover {
+	color: #fff;
+}
+
+#AdminMenu ul {
+	background: #313942;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	display: none;
+	list-style: none;
+	position: absolute;
+	top: 0;
+	left: 185px;
+}
+
+#AdminMenu .fa {
+	margin-right: 5px;
+}
+
+#AdminMenu .AdminMenuHeader {
+	border-top: none;
+	color: #fff;
+	padding-left: 8px;
+}
+
+#AdminMenu .AdminMenuHeader:hover {
+	background: none;
+}
+
+#AdminMenu .fa-angle-right {
+	float: right;
+	margin: 2px 0;
 }

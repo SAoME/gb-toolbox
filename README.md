@@ -54,3 +54,4 @@ That's it!
 - **v0.19:** Added section icons to Flagged Submissions List.
 - **v0.20:** Added layout tweaks for Features admin page.
 - **v0.21:** Highlight Features older than 3 days in Features admin page.
+- **v0.22:** Added Quick Admin Menu with links to several sections frequently used by admins/mods.
