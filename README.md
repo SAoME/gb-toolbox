@@ -12,9 +12,11 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 ## Features
 
 - **Posting forms:** Added a toolbar menu with common links like Rules, Porting Whitelist, etc. These links can be clicked and they will be added to the form ([screenshot](http://i.imgur.com/lalQ1PY.png)) / ([video](https://dl.dropboxusercontent.com/u/251256/ShareX/150903_175545_122236.webm)).
+- **Quick Admin Menu:** Added a menu that appears on the left edge on all pages hidden until mouse over, with links to frequently used admin sections ([screenshot](http://i.imgur.com/47eWJdj.png)).
 - **Avatar tooltips:** Sublog, Modlog, Modnotes, Send PM links added to avatar tooltips ([screenshot](http://i.imgur.com/4SWQq9F.png)).
 - **ModLog:** Layout tweaks especially to keep the layout from breaking because of long usernames ([screenshot](http://i.imgur.com/AQynQkW.png)).
 - **Flagged Submissions List:** Layout tweaks, game icons, links to submission profile, history and withhold conversation ([screenshot](http://i.imgur.com/GOr8Vnp.png)).
+- **Features Admin List:** Layout tweaks ([screenshot](http://i.imgur.com/2JzMjDk.png)).
 
 
 ## Installation

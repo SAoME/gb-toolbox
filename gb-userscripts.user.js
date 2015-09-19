@@ -467,7 +467,7 @@ function loadAdminMenu() {
 			adminMenu += '<ul class="SubMenu">';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients=1328950"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
 			adminMenu += '</ul></li>';
 		adminMenu += '</ul>';
 	adminMenu += '</div>';
