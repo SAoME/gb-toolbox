@@ -208,6 +208,10 @@ tr:hover .FlagLogTruncateLink {
 	left: 185px;
 }
 
+#AdminMenu ul li:first-child {
+	border-top: none;
+}
+
 #AdminMenu .fa {
 	margin-right: 5px;
 }
