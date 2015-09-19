@@ -433,7 +433,6 @@ $(function() {
 // generates and adds the admin menu to the left side of the site
 function loadAdminMenu() {
 	var adminMenu;
-	var ownUserID;
 	adminMenu = '<div id="AdminMenuWrap">';
 		adminMenu += '<ul id="AdminMenu">';
 			adminMenu += '<li class="AdminMenuHeader">Quick Admin Menu</li>';
