@@ -189,6 +189,7 @@ tr:hover .FlagLogTruncateLink {
 #AdminMenu .SubMenuHeader {
 	box-sizing: border-box;
 	color: #9299a2;
+	text-shadow: 0 0 1px rgba(146,153,162,0.5);
 	display: block;
 	padding: 5px;
 	width: 185px;
@@ -196,6 +197,7 @@ tr:hover .FlagLogTruncateLink {
 
 #AdminMenu a:hover {
 	color: #fff;
+	text-shadow: 0 0 1px rgba(255,255,255,0.5);
 }
 
 #AdminMenu ul {
@@ -219,6 +221,7 @@ tr:hover .FlagLogTruncateLink {
 #AdminMenu .AdminMenuHeader {
 	border-top: none;
 	color: #fff;
+	text-shadow: 0 0 1px rgba(255,255,255,0.5);
 	padding-left: 8px;
 }
 
