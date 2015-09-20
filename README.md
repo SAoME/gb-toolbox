@@ -31,6 +31,7 @@ That's it!
 ## Known Bugs:
 
 - The shortcode menu doesn't fit in some situations and can't be seen properly.
+- Script breaks if user is not logged in.
 
 
 ## Changelog:

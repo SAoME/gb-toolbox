@@ -146,6 +146,7 @@ tr:hover .FlagLogTruncateLink {
 
 /* Admin Menu */
 #AdminMenuWrap {
+	/*background: rgba(255,0,0,0.5);*/
 	padding: 40px 80px 40px 0;
 	position: fixed;
 	top: 60px;
@@ -156,6 +157,7 @@ tr:hover .FlagLogTruncateLink {
 #AdminMenuWrap:hover {
 	left: 0;
 	position: fixed;
+	padding:40px 220px 100px 0;
 }
 
 #AdminMenu {
@@ -169,6 +171,7 @@ tr:hover .FlagLogTruncateLink {
 
 #AdminMenu li {
 	border-top: 1px solid #282e36;
+	cursor: default;
 }
 
 #AdminMenu > li {
