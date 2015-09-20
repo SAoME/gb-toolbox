@@ -236,3 +236,19 @@ tr:hover .FlagLogTruncateLink {
 	float: right;
 	margin: 2px 0;
 }
+
+@media (max-width: 1180px) {
+	#AdminMenuWrap {
+		padding: 40px 0 40px 0;
+	}
+
+	#AdminMenuWrap:hover {
+		padding:40px 220px 100px 0;
+	}
+}
+
+@media (max-width: 1000px) {
+	#AdminMenuWrap {
+		display: none;
+	}
+}
