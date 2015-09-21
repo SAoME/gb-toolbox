@@ -117,6 +117,12 @@ var shortcode = {
 		"nicename" : "Guide: Site - Clear and Organized Credits by Yogensia",
 		"linkname" : '"Clear and Organized Credits" tutorial by Yogensia',
 		'url'      : 'http://gamebanana.com/tuts/11908'
+	},
+	8: {
+		"name"     : "guide_site_idLinkCredits",
+		"nicename" : "Guide: Site - How to ID-Link credit entries by KillerExe_01",
+		"linkname" : '"How to ID-Link credit entries" tutorial by KillerExe_01',
+		'url'      : 'http://gamebanana.com/tuts/11649'
 	}
 };
 shortcodeSize = Object.size(shortcode);
