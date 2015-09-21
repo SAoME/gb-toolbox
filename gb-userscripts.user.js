@@ -45,14 +45,18 @@ function arrayObjectIndexOf(myArray, property, searchTerm) {
 	return -1;
 }
 
+// capitalize first letter in a string
+String.prototype.capitalizeFirstLetter = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 // DOM ready
 $(function() {
 
 	// add CSS
-	var gbUserscriptsCSS = '<link rel="stylesheet" type="text/css" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css" media="all">';
+	var gbUserscriptsCSS = '<link rel="stylesheet" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css">';
 	var fontAwesome = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">';
 	$("head").append(gbUserscriptsCSS+fontAwesome);
-
 
 	// Get current user ID to be able to write some links like "Send PM"
 	var ownUserUrlParts = $(".ProfileIcon").parent().attr("href").split("/");
@@ -316,6 +320,50 @@ $(function() {
 // ADMIN BACKEND TWEAKS
 // ==================================================================
 
+// for a given submission link, store all found data in an object (game, subdomain, section, subsection, ID)
+function getSubmissionLinkDetails(submissionLink) {
+	// recognized link examples:
+	// tf2.gamebanana.com/maps/187142 (submission, 3 parts after split)
+	// tf2.gamebanana.com/maps/flags/187142 (submission subsection, 4 parts after split)
+	// gamebanana.com/posts/7201865 (post, 3 parts after split, no subdomain)
+
+	// initiate object
+    var submission = new Object();
+
+	// remove protocol and get subdomain
+	var submissionLinkSubdomain = submissionLink.replace(/.*?:\/\//g, "").split(".");
+	submissionLinkSubdomain = submissionLinkSubdomain[0];
+
+	// if link doesn't start with gamebanana it means there is a game subdomain
+	if ( submissionLinkSubdomain !== "gamebanana" ) {
+		submission["game"] = submissionLinkSubdomain;
+		submission["subdomain"] = submissionLinkSubdomain+".";
+	} else {
+		submission["game"] = "gamebanana";
+		submission["subdomain"] = "";
+	}
+
+	// remove protocol and split by slashes
+	var submissionLinkParts = submissionLink.replace(/.*?:\/\//g, "").split("/");
+
+	// second link part should always be the submission section (skin, model, map, etc.)
+	var submissionSection = submissionLinkParts[1];
+	submission["section"] = submissionSection;
+
+	// generate nice name for section
+	submission["sectionNiceName"] = submissionSection.substring(0, submissionSection.length - 1).capitalizeFirstLetter();
+
+	// last link part should always be the submission ID
+	submission["ID"] = submissionLinkParts[submissionLinkParts.length - 1];
+
+	// if submission link has 4 parts, second to last should be the subsection (ratings, flags, etc.)
+	if ( submissionLinkParts.length == 4 ) {
+		submission["subSection"] = submissionLinkParts[submissionLinkParts.length - 2];
+	}
+
+	return submission;
+}
+
 // add optimizations for Mod Log table
 function modLogTweaks() {
 	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
@@ -332,52 +380,29 @@ function modLogTweaks() {
 	});
 }
 
-// add optimizations for Flagged Submissions table
 function flaggedSubmissionsTweaks() {
 	console.log("GAT - Found Flagged Submissions Table, adding tweaks...");
 	$(".FlaggedSubmissionsListModule table a").each(function() {
-		var thisLink = $(this);
-
-		// get submission ID
-		var submissionID = thisLink.attr("href").split("/");
-
-		// get submission type (skin, model, etc.)
-		var submissionType = submissionID[submissionID.length - 3];
-		submissionID = submissionID[submissionID.length - 1];
-		String.prototype.capitalizeFirstLetter = function() {
-			return this.charAt(0).toUpperCase() + this.slice(1);
-		}
-		var submissionTypeNicename = submissionType.substring(0, submissionType.length - 1).capitalizeFirstLetter();
-
-		// get game and remove http protocol to generate subdomain for final link
-		var submissionGame = thisLink.attr("href").split(".");
-		submissionGame = submissionGame[0];
-		submissionGame = submissionGame.replace(/.*?:\/\//g, "");
-
-		// if there is no subdomain leave variable empty
-		if ( submissionGame == "gamebanana" ) {
-			var submissionSubdomain = "";
-		} else {
-			var submissionSubdomain = submissionGame+".";
-		}
+		var thisSubmissionLink = $(this);
+		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 
 		// generate game icon
-		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submissionGame.toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submissionGame+'.png" />';
-		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submissionTypeNicename+"' title='"+submissionTypeNicename+"'></span>";
+		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
+		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
-		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/flags/'+submissionID+'">F</a>]';
-		var subHistory = '[<a title="View Submission\'s History" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/history/'+submissionID+'">H</a>]';
+		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/flags/'+submission["ID"]+'">F</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/history/'+submission["ID"]+'">H</a>]';
 		var subWithhold = "";
-		if ( thisLink.parent().children(".IsWithheld").length > 0 ) {
-			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submissionSubdomain+'gamebanana.com/'+submissionType+'/unwithhold/'+submissionID+'">W</a>]';
+		if ( thisSubmissionLink.parent().children(".IsWithheld").length > 0 ) {
+			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/unwithhold/'+submission["ID"]+'">W</a>]';
 		}
 
-		thisLink
+		thisSubmissionLink
 			// add links and tweak original link
 			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
-			.attr("href", "http://"+submissionSubdomain+"gamebanana.com/"+submissionType+"/"+submissionID)
+			.attr("href", "http://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
 			// make fixes on category column
 			.parent()
