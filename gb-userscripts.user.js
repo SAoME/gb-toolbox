@@ -23,6 +23,7 @@
 // ==================================================================
 
 // variables
+var VERSION = "0.23";
 var ownUserID;
 
 // comment to enable console logging
@@ -510,14 +511,15 @@ function loadAdminMenu() {
 				adminMenu += '<li><a href="http://gamebanana.com/admin/ipsearch"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Search</a></li>';
 				adminMenu += '<li><a href="http://gamebanana.com/ip-blocks"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Blocker</a></li>';
 			adminMenu += '</ul></li>';
-			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-eye"></i>Promotional<i class="fa fa-lg fa-fw fa-angle-right"></i>';
+			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-bullhorn"></i>Promotional<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
 				adminMenu += '<li><a href="http://gamebanana.com/contest-winners"><i class="fa fa-lg fa-fw fa-trophy"></i>Contest Winners</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/features"><i class="fa fa-lg fa-fw fa-bullhorn"></i>Features</a></li>';
+				adminMenu += '<li><a href="http://gamebanana.com/features"><i class="fa fa-lg fa-fw fa-tv"></i>Features</a></li>';
 				adminMenu += '<li><a href="http://gamebanana.com/newsletters"><i class="fa fa-lg fa-fw fa-newspaper-o"></i>Newsletters</a></li>';
 			adminMenu += '</ul></li>';
 			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-info-circle"></i>GB Admin Toolbox<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
+				adminMenu += '<li class="AdminMenuHeader"><i class="fa fa-lg fa-fw fa-check"></i>Version '+VERSION+'</li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
 				adminMenu += '<li><a href="http://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';

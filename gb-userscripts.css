@@ -232,9 +232,13 @@ tr:hover .FlagLogTruncateLink {
 	text-shadow: 0 0 1px rgba(255,255,255,0.5);
 	padding-left: 8px;
 }
-
 #AdminMenu .AdminMenuHeader:hover {
 	background: none;
+}
+
+#AdminMenu ul .AdminMenuHeader {
+	color: #9299a2;
+	padding-left: 5px;
 }
 
 #AdminMenu .fa-angle-right {
