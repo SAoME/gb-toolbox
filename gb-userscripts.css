@@ -236,7 +236,9 @@ tr:hover .FlagLogTruncateLink {
 	background: none;
 }
 
-#AdminMenu ul .AdminMenuHeader {
+#AdminMenu ul .AdminMenuHeader,
+#AdminMenu ul .AdminMenuHeader:hover {
+	background: #282e36;
 	color: #9299a2;
 	padding-left: 5px;
 }
