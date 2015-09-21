@@ -110,6 +110,12 @@ tr:hover .FlaggedSubmissionTools {
 	width: 130px;
 }
 
+#ModlogListModule td.ActionPerformed .gameIcon {
+	height: auto;
+	margin: 0 2px;
+	width: 16px;
+}
+
 .FlagLogTruncateLink {
 	float: left;
 	overflow: hidden;

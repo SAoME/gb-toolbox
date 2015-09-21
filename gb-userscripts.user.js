@@ -331,7 +331,7 @@ function getSubmissionLinkDetails(submissionLink) {
 	// recognized link examples:
 	// tf2.gamebanana.com/maps/187142 (submission, 3 parts after split)
 	// tf2.gamebanana.com/maps/flags/187142 (submission subsection, 4 parts after split)
-	// gamebanana.com/posts/7201865 (post, 3 parts after split, no subdomain)
+	// gamebanana.com/posts/7201865, gamebanana.com/members/37 (post, 3 parts after split, no subdomain)
 
 	// initiate object
     var submission = new Object();
@@ -341,7 +341,7 @@ function getSubmissionLinkDetails(submissionLink) {
 	submissionLinkSubdomain = submissionLinkSubdomain[0];
 
 	// if link doesn't start with gamebanana it means there is a game subdomain
-	if ( submissionLinkSubdomain !== "gamebanana" ) {
+	if ( submissionLinkSubdomain !== "gamebanana" && submissionLinkSubdomain !== "www" ) {
 		submission["game"] = submissionLinkSubdomain;
 		submission["subdomain"] = submissionLinkSubdomain+".";
 	} else {
@@ -356,7 +356,7 @@ function getSubmissionLinkDetails(submissionLink) {
 	var submissionSection = submissionLinkParts[1];
 	submission["section"] = submissionSection;
 
-	// generate nice name for section
+	// generate nice name for section (capitalize first letter and remove trailing "s" for plural)
 	submission["sectionNiceName"] = submissionSection.substring(0, submissionSection.length - 1).capitalizeFirstLetter();
 
 	// last link part should always be the submission ID
@@ -372,6 +372,7 @@ function getSubmissionLinkDetails(submissionLink) {
 
 // add optimizations for Mod Log table
 function modLogTweaks() {
+	console.log("GAT - Found ModLog Table, adding tweaks...");
 	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
 	$("#ModlogListModule tr").each(function() {
 		var thisRow = $(this);
@@ -384,6 +385,26 @@ function modLogTweaks() {
 		var recipient = thisRow.children("td").eq(3).children("a").eq(0).text();
 		thisRow.children("td").eq(3).children("a").eq(0).addClass("ModLogTruncateLink").attr("title", recipient);
 	});
+
+	$("#ModlogListModule .ActionPerformed a").each(function() {
+		var thisSubmissionLink = $(this);
+		if ( thisSubmissionLink.text() !== "»" ) {
+			var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
+
+			// generate icons
+			var submissionGameIcon, submissionCategory;
+			if ( submission["game"] !== "gamebanana" ) {
+				submissionGameIcon = '<img  class="cursorHelp gameIcon" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
+			}
+			if ( submission["section"] !== "admin" && submission["section"] !== "members" ) {
+				submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
+			}
+
+			thisSubmissionLink
+				.before(submissionCategory)
+				.before(submissionGameIcon)
+		}
+	});
 }
 
 function flaggedSubmissionsTweaks() {
@@ -392,7 +413,7 @@ function flaggedSubmissionsTweaks() {
 		var thisSubmissionLink = $(this);
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 
-		// generate game icon
+		// generate icons
 		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
@@ -425,6 +446,7 @@ function flaggedSubmissionsTweaks() {
 
 // add optimizations for Features table
 function featuresTweaks() {
+	console.log("GAT - Found Features Table, adding tweaks...");
 	// check date column and highlight features older than 3 days
 	$("#SubmissionsListModule tr:lt(7)").each(function() {
 		var date = $(this).find(".DateAdded").text().split(" ");

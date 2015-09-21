@@ -58,3 +58,4 @@ That's it!
 - **v0.21:** Highlight Features older than 3 days in Features admin page.
 - **v0.22:** Added Quick Admin Menu with links to several sections frequently used by admins/mods.
 - **v0.23:** Changed the Feedback link to point to the thread on GameBanana about the script.
+- **v0.24:** Refactored code to generate icons from submission links and added icons to some links in the ModLog.
