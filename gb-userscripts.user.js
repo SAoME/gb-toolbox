@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.23
+// @version      0.25
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -23,7 +23,7 @@
 // ==================================================================
 
 // variables
-var VERSION = "0.23";
+var VERSION = "0.25";
 var ownUserID;
 
 // comment to enable console logging
@@ -490,7 +490,9 @@ function loadAdminMenu() {
 	adminMenu = '<div id="AdminMenuWrap">';
 		adminMenu += '<ul id="AdminMenu">';
 			adminMenu += '<li class="AdminMenuHeader">Quick Admin Menu</li>';
+			adminMenu += '<li><a href="http://gamebanana.com"><i class="fa fa-lg fa-fw fa-home"></i>Frontpage</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=site_rules"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=contacts"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/wikis/cats/1"><i class="fa fa-lg fa-fw fa-briefcase"></i>ModDocs</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/flags"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
