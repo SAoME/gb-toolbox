@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.26
+// @version      0.27
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -15,15 +15,16 @@
 // 1. COMMON
 // 2. SHORTCODES
 // 3. AVATAR TOOLTIP TWEAKS
-// 4. ADMIN BACKEND TWEAKS
-// 5. ADMIN MENU
+// 4. FRONTEND TWEAKS
+// 5. ADMIN BACKEND TWEAKS
+// 6. ADMIN MENU
 
 
 // COMMON
 // ==================================================================
 
 // variables
-var VERSION = "0.26";
+var VERSION = "0.27";
 var ownUserID;
 
 // comment to enable console logging
@@ -49,6 +50,50 @@ function arrayObjectIndexOf(myArray, property, searchTerm) {
 // capitalize first letter in a string
 String.prototype.capitalizeFirstLetter = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+// for a given submission link, store all found data in an object (game, subdomain, section, subsection, ID)
+function getSubmissionLinkDetails(submissionLink) {
+	// recognized link examples:
+	// tf2.gamebanana.com/maps/187142 (submission, 3 parts after split)
+	// tf2.gamebanana.com/maps/flags/187142 (submission subsection, 4 parts after split)
+	// gamebanana.com/posts/7201865, gamebanana.com/members/37 (post/member, 3 parts after split, no subdomain)
+
+	// initiate object
+    var submission = new Object();
+
+	// remove protocol and get subdomain
+	var submissionLinkSubdomain = submissionLink.replace(/.*?:\/\//g, "").split(".");
+	submissionLinkSubdomain = submissionLinkSubdomain[0];
+
+	// if link doesn't start with gamebanana it means there is a game subdomain
+	if ( submissionLinkSubdomain !== "gamebanana" && submissionLinkSubdomain !== "www" ) {
+		submission["game"] = submissionLinkSubdomain;
+		submission["subdomain"] = submissionLinkSubdomain+".";
+	} else {
+		submission["game"] = "gamebanana";
+		submission["subdomain"] = "";
+	}
+
+	// remove protocol and split by slashes
+	var submissionLinkParts = submissionLink.replace(/.*?:\/\//g, "").split("/");
+
+	// second link part should always be the submission section (skins, models, maps, etc.)
+	var submissionSection = submissionLinkParts[1];
+	submission["section"] = submissionSection;
+
+	// generate nice name for section (capitalize first letter and remove trailing "s" for plural)
+	submission["sectionNiceName"] = submissionSection.substring(0, submissionSection.length - 1).capitalizeFirstLetter();
+
+	// last link part should always be the submission ID
+	submission["ID"] = submissionLinkParts[submissionLinkParts.length - 1];
+
+	// if submission link has 4 parts, second to last should be the subsection (ratings, flags, etc.)
+	if ( submissionLinkParts.length == 4 ) {
+		submission["subSection"] = submissionLinkParts[submissionLinkParts.length - 2];
+	}
+
+	return submission;
 }
 
 // DOM ready
@@ -324,52 +369,59 @@ $(function() {
 
 
 
-// ADMIN BACKEND TWEAKS
+
+// FRONTEND TWEAKS
 // ==================================================================
 
-// for a given submission link, store all found data in an object (game, subdomain, section, subsection, ID)
-function getSubmissionLinkDetails(submissionLink) {
-	// recognized link examples:
-	// tf2.gamebanana.com/maps/187142 (submission, 3 parts after split)
-	// tf2.gamebanana.com/maps/flags/187142 (submission subsection, 4 parts after split)
-	// gamebanana.com/posts/7201865, gamebanana.com/members/37 (post, 3 parts after split, no subdomain)
-
-	// initiate object
-    var submission = new Object();
-
-	// remove protocol and get subdomain
-	var submissionLinkSubdomain = submissionLink.replace(/.*?:\/\//g, "").split(".");
-	submissionLinkSubdomain = submissionLinkSubdomain[0];
-
-	// if link doesn't start with gamebanana it means there is a game subdomain
-	if ( submissionLinkSubdomain !== "gamebanana" && submissionLinkSubdomain !== "www" ) {
-		submission["game"] = submissionLinkSubdomain;
-		submission["subdomain"] = submissionLinkSubdomain+".";
-	} else {
-		submission["game"] = "gamebanana";
-		submission["subdomain"] = "";
+// add "Go to last reply" link to thread links
+function addThreadLastReplyLink(link, submission) {
+	if ( submission["section"] == "threads" ) {
+		link.after(' [<a title="Go to last reply" href="'+link.attr("href")+'?vl[page]=LAST&mid=PostsList#PostsListBottom">»</a>]');
 	}
-
-	// remove protocol and split by slashes
-	var submissionLinkParts = submissionLink.replace(/.*?:\/\//g, "").split("/");
-
-	// second link part should always be the submission section (skins, models, maps, etc.)
-	var submissionSection = submissionLinkParts[1];
-	submission["section"] = submissionSection;
-
-	// generate nice name for section (capitalize first letter and remove trailing "s" for plural)
-	submission["sectionNiceName"] = submissionSection.substring(0, submissionSection.length - 1).capitalizeFirstLetter();
-
-	// last link part should always be the submission ID
-	submission["ID"] = submissionLinkParts[submissionLinkParts.length - 1];
-
-	// if submission link has 4 parts, second to last should be the subsection (ratings, flags, etc.)
-	if ( submissionLinkParts.length == 4 ) {
-		submission["subSection"] = submissionLinkParts[submissionLinkParts.length - 2];
-	}
-
-	return submission;
 }
+
+// add optimizations for NavigatorTabs Menu
+function navigatorTabsTweaks() {
+	console.log("GAT - adding Activity Log tweaks...");
+
+	// Activity tweaks
+	$("#PersonalActivities a, #PostActivities a, #SubmissionActivities a, #GuildActivities a, #MiscellaneousActivities a").each(function() {
+		var thisSubmissionLink = $(this);
+		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
+		addThreadLastReplyLink(thisSubmissionLink, submission);
+	});
+
+	// Submissions tweaks
+	$("#SubmissionsPane li span:contains('(0)')").parent().hide();
+}
+
+// add optimizations for Watches table
+function watchesTweaks() {
+	console.log("GAT - Found Watches Table, adding tweaks...");
+	$("#WatchesListModule tbody td:first-child a").each(function() {
+		var thisSubmissionLink = $(this);
+		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
+		addThreadLastReplyLink(thisSubmissionLink, submission);
+	});
+}
+
+// DOM ready
+$(function() {
+
+	// Navigator Tabs tweaks
+	navigatorTabsTweaks();
+
+	// if Watches
+	if ( $("#WatchesListModule").length > 0 ) {
+		watchesTweaks();
+	}
+
+});
+
+
+
+// ADMIN BACKEND TWEAKS
+// ==================================================================
 
 // add optimizations for ModLog table
 function modLogTweaks() {
@@ -446,19 +498,6 @@ function flaggedSubmissionsTweaks() {
 	});
 }
 
-// add optimizations for Mod Log table
-function watchesTweaks() {
-	console.log("GAT - Found Watches Table, adding tweaks...");
-	$("#WatchesListModule tbody td:first-child a").each(function() {
-		var thisSubmissionLink = $(this);
-		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
-
-		if ( submission["section"] == "threads" ) {
-			thisSubmissionLink.after('[<a title="Go to last reply" href="'+thisSubmissionLink.attr("href")+'?vl[page]=LAST&mid=PostsList#PostsListBottom">»</a>]');
-		}
-	});
-}
-
 // add optimizations for Features table
 function featuresTweaks() {
 	console.log("GAT - Found Features Table, adding tweaks...");
@@ -487,17 +526,13 @@ $(function() {
 		flaggedSubmissionsTweaks();
 	}
 
-	// if Watches
-	if ( $("#WatchesListModule").length > 0 ) {
-		watchesTweaks();
-	}
-
 	// if Features
 	if ( $("#Feature_Index").length > 0 ) {
 		featuresTweaks();
 	}
 
 });
+
 
 
 // ADMIN MENU
