@@ -60,3 +60,4 @@ That's it!
 - **v0.23:** Changed the Feedback link to point to the thread on GameBanana about the script.
 - **v0.24:** Refactored code to generate icons from submission links and added icons to some links in the ModLog.
 - **v0.25:** Added Frontpage & Contacts links to Quick Admin Menu.
+- **v0.26:** Added link to last reply for threads in the Watches table (thanks Robin & Arman Ossi Loko).

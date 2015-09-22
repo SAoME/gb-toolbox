@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.25
+// @version      0.26
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -23,7 +23,7 @@
 // ==================================================================
 
 // variables
-var VERSION = "0.25";
+var VERSION = "0.26";
 var ownUserID;
 
 // comment to enable console logging
@@ -353,7 +353,7 @@ function getSubmissionLinkDetails(submissionLink) {
 	// remove protocol and split by slashes
 	var submissionLinkParts = submissionLink.replace(/.*?:\/\//g, "").split("/");
 
-	// second link part should always be the submission section (skin, model, map, etc.)
+	// second link part should always be the submission section (skins, models, maps, etc.)
 	var submissionSection = submissionLinkParts[1];
 	submission["section"] = submissionSection;
 
@@ -371,7 +371,7 @@ function getSubmissionLinkDetails(submissionLink) {
 	return submission;
 }
 
-// add optimizations for Mod Log table
+// add optimizations for ModLog table
 function modLogTweaks() {
 	console.log("GAT - Found ModLog Table, adding tweaks...");
 	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
@@ -408,6 +408,7 @@ function modLogTweaks() {
 	});
 }
 
+// add optimizations for FlaggedSubs table
 function flaggedSubmissionsTweaks() {
 	console.log("GAT - Found Flagged Submissions Table, adding tweaks...");
 	$(".FlaggedSubmissionsListModule table a").each(function() {
@@ -445,6 +446,19 @@ function flaggedSubmissionsTweaks() {
 	});
 }
 
+// add optimizations for Mod Log table
+function watchesTweaks() {
+	console.log("GAT - Found Watches Table, adding tweaks...");
+	$("#WatchesListModule tbody td:first-child a").each(function() {
+		var thisSubmissionLink = $(this);
+		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
+
+		if ( submission["section"] == "threads" ) {
+			thisSubmissionLink.after('[<a title="Go to last reply" href="'+thisSubmissionLink.attr("href")+'?vl[page]=LAST&mid=PostsList#PostsListBottom">»</a>]');
+		}
+	});
+}
+
 // add optimizations for Features table
 function featuresTweaks() {
 	console.log("GAT - Found Features Table, adding tweaks...");
@@ -463,17 +477,22 @@ function featuresTweaks() {
 // DOM ready
 $(function() {
 
-	// if ModLog table is found run code to add optimizations
+	// if ModLog
 	if ( $("#ModlogListModule").length > 0 ) {
 		modLogTweaks();
 	}
 
-	// if Flagged Submissions table is found run code to add optimizations
+	// if Flagged Submissions
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
 	}
 
-	// if Features table is found add thresold row
+	// if Watches
+	if ( $("#WatchesListModule").length > 0 ) {
+		watchesTweaks();
+	}
+
+	// if Features
 	if ( $("#Feature_Index").length > 0 ) {
 		featuresTweaks();
 	}
