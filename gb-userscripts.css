@@ -157,6 +157,7 @@ tr:hover .FlagLogTruncateLink {
 	top: 60px;
 	left: -175px;
 	transition: all 0.1s;
+	z-index: 1000;
 }
 
 #AdminMenuWrap:hover {
