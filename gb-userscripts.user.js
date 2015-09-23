@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.27
+// @version      0.28
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -24,7 +24,7 @@
 // ==================================================================
 
 // variables
-var VERSION = "0.27";
+var GAT_VERSION = "0.28";
 var ownUserID;
 
 // comment to enable console logging
@@ -376,7 +376,7 @@ $(function() {
 // add "Go to last reply" link to thread links
 function addThreadLastReplyLink(link, submission) {
 	if ( submission["section"] == "threads" ) {
-		link.after(' [<a title="Go to last reply" href="'+link.attr("href")+'?vl[page]=LAST&mid=PostsList#PostsListBottom">»</a>]');
+		link.after(' [<a title="Go to last reply" href="'+link.attr("href")+'?vl[page]=LAST&mid=PostsList#PostsListLastPost">»</a>]');
 	}
 }
 
@@ -414,6 +414,22 @@ $(function() {
 	// if Watches
 	if ( $("#WatchesListModule").length > 0 ) {
 		watchesTweaks();
+	}
+
+	// if #PostListModule, add #PostsListLastPost to last post on the page and check url hash to scroll to last post
+	if ( $("#PostsListModule").length > 0 ) {
+		$("#PostsListModule li:last-child").find("a[name]").after('<a id="PostsListLastPost"></a>');
+		if ( window.location.hash == "#PostsListLastPost" ) {
+			$('html,body').animate({ scrollTop: $("#PostsListLastPost").offset().top }, 0);
+		}
+	}
+
+	// if any Go to last Post links written by GB is found, change their hash to #PostsListLastPost
+	if ( $("a[title='Go to last reply']").length > 0 ) {
+		$("a[title='Go to last reply']").each(function() {
+			var link = $(this).attr("href").replace("#PostsListBottom", "#PostsListLastPost");
+			$(this).attr("href", link);
+		});
 	}
 
 });
@@ -578,7 +594,7 @@ function loadAdminMenu() {
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
 				adminMenu += '<li><a href="http://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
-				adminMenu += '<li class="AdminMenuHeader"><i class="fa fa-lg fa-fw fa-check"></i>Version '+VERSION+'</li>';
+				adminMenu += '<li class="AdminMenuHeader"><i class="fa fa-lg fa-fw fa-check"></i>Version '+GAT_VERSION+'</li>';
 			adminMenu += '</ul></li>';
 		adminMenu += '</ul>';
 	adminMenu += '</div>';
