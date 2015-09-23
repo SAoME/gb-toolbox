@@ -9,7 +9,8 @@
 
 /* Shortcode Toolbar */
 #PostAddFormRequesterModule > .Content,
-#PostAddFormModule > .Content {
+#PostAddFormModule > .Content,
+#UnwithholdFormModule > .Content {
 	overflow: visible;
 }
 .markItUpHeader ul .markItUpShortcodes:hover ul {
