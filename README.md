@@ -62,3 +62,4 @@ That's it!
 - **v0.25:** Added Frontpage & Contacts links to Quick Admin Menu.
 - **v0.26:** Added link to last reply for threads in the Watches table (thanks Robin & Arman Ossi Loko).
 - **v0.27:** Added minor tweaks to NavigatorTabs menu.
+- **v0.28:** Improved handling of "Go to last reply" links so that they scroll to the last reply more accurately.
