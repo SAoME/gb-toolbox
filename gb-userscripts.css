@@ -8,6 +8,10 @@
 }
 
 /* Shortcode Toolbar */
+#PostAddFormRequesterModule > .Content,
+#PostAddFormModule > .Content {
+	overflow: visible;
+}
 .markItUpHeader ul .markItUpShortcodes:hover ul {
 	display: block !important;
 }
@@ -15,21 +19,23 @@
 .markItUpHeader ul .markItUpShortcodes ul {
 	border-top: 3px solid #FFD800;
 	box-shadow: 0 2px 2px rgba(0,0,0,0.5);
-	left: -150px;
+	display: block;
 	margin: 0;
-	max-height: 192px;
-	overflow-x: hidden;
-	overflow-y: auto;
+	min-width: 350px;
+	overflow: hidden;
 	padding: 0;
 	position: absolute;
 	top: 24px;
+	left: 0px;
+	z-index: 100;
 }
 
 .markItUpHeader ul .markItUpShortcodes li {
 	display:block;
+	float: left;
 	margin: 0;
 	padding: 0;
-	width: 300px;
+	width: 100%;
 }
 
 .markItUpHeader ul .markItUpShortcodes a {
@@ -39,7 +45,7 @@
 	padding: 3px;
 	text-indent: 0;
 	text-transform: uppercase;
-	width: 300px;
+	width: 100%;
 }
 
 
@@ -230,8 +236,8 @@ tr:hover .FlagLogTruncateLink {
 #AdminMenu .AdminMenuHeader {
 	border-top: none;
 	color: #fff;
-	text-shadow: 0 0 1px rgba(255,255,255,0.5);
 	padding-left: 8px;
+	text-shadow: 0 0 1px rgba(255,255,255,0.5);
 }
 #AdminMenu .AdminMenuHeader:hover {
 	background: none;
