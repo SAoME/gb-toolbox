@@ -178,7 +178,7 @@ tr:hover .FlagLogTruncateLink {
 	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 	font-size: 12px;
 	list-style: none;
-	padding: 2px 0 0;
+	padding: 0;
 	text-transform: uppercase;
 }
 
@@ -189,6 +189,10 @@ tr:hover .FlagLogTruncateLink {
 
 #AdminMenu > li {
 	position: relative;
+}
+
+#AdminMenu > li:first-child {
+	border-top: none;	
 }
 
 #AdminMenu li:hover {
