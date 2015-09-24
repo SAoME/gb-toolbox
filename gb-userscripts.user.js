@@ -358,37 +358,37 @@ var withholdMessage = {
 	0: {
 		"id"   : "gat_withholdMsg_0",
 		"name" : "Intro",
-		"text" : "Your submission has been withheld because it failed to follow some of our rules. To have your submission re-listed follow these steps:\\n\\n"
+		"text" : "Your submission has been withheld because it failed to follow some of our rules. To have your submission re-listed please follow these steps:\\n\\n"
 	},
 	1: {
 		"id"   : "gat_withholdMsg_1",
-		"name" : "Outro",
-		"text" : "Please reply to this message after making the requested fixes."
+		"name" : "Credits",
+		"text" : "- Provide clear credits mentioning all authors involved, including any material ported from other games, and specifying exactly what you did (texture edits, models, compile, etc.).\\n\\n"
 	},
 	2: {
 		"id"   : "gat_withholdMsg_2",
-		"name" : "Credits",
-		"text" : "- Please provide clear credits mentioning all authors involved, including any material ported from other games, and specifying exactly what you did (texture edits, models, compile, etc.).\\n\\n"
+		"name" : "Render",
+		"text" : "- Provide a render (1st screenshot) that shows the Skin clearly.\\n\\n"
 	},
 	3: {
 		"id"   : "gat_withholdMsg_3",
-		"name" : "Screenshots",
-		"text" : "- Please provide at least 2 in-game screenshots (not including the render) showing gameplay in a map.\\n\\n"
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
 	},
 	4: {
 		"id"   : "gat_withholdMsg_4",
-		"name" : "Render",
-		"text" : "- Please provide a render (1st screenshot) that shows the Skin clearly.\\n\\n"
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
 	},
 	5: {
 		"id"   : "gat_withholdMsg_5",
-		"name" : "Custom",
-		"text" : "Add your custom messages here."
+		"name" : "Outro",
+		"text" : "Please reply to this message after making the requested fixes."
 	},
 	6: {
 		"id"   : "gat_withholdMsg_6",
-		"name" : "Custom",
-		"text" : "Add your custom messages here."
+		"name" : "Screenshots",
+		"text" : "- Provide at least 2 in-game screenshots (not including the render) showing gameplay in a map.\\n\\n"
 	},
 	7: {
 		"id"   : "gat_withholdMsg_7",
