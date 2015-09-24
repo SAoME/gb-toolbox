@@ -458,7 +458,7 @@ function withholdMessagesGenerateUI() {
 		withholdMessagesUIItems = withholdMessagesUIItems + '<li><a href="#" class="gat_withholdMsg" id="gat_withholdMsg_'+n+'">'+withholdMessageStorage[n]['name']+'</a></li>';
 	}
 
-	$("#WithholdFormModule textarea").addClass("markItUpEditorWithholdMsg").before(withholdMessagesUIBegin + withholdMessagesUIItems + withholdMessagesUIEnd);
+	$("#WithholdFormModule textarea").addClass("markItUpEditorWithholdMsg").css("height", "220px").before(withholdMessagesUIBegin + withholdMessagesUIItems + withholdMessagesUIEnd);
 
 	// toggle settings button behaviour
 	$("#"+thisID+" .gat_withholdMsg_settingsOpen, #"+thisID+" .gat_withholdMsg_settingsSave").click(function(e) {
