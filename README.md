@@ -12,6 +12,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 ## Features
 
 - **Posting forms:** Added a toolbar menu with common links like Rules, Porting Whitelist, etc. These links can be clicked and they will be added to the form ([screenshot](http://i.imgur.com/lalQ1PY.png)) / ([video](https://dl.dropboxusercontent.com/u/251256/ShareX/150903_175545_122236.webm)).
+- **Withhold Message Injector:** Added a menu with 10 customizable buttons that when clicked add a string of text to the textarea. This allows you to save frenquently used withhold reasons in buttons and add them easily when withholding a submission.
 - **Quick Admin Menu:** Added a menu that appears on the left edge on all pages hidden until mouse over, with links to frequently used admin sections ([screenshot](http://i.imgur.com/47eWJdj.png)).
 - **Avatar tooltips:** Sublog, Modlog, Modnotes, Send PM links added to avatar tooltips ([screenshot](http://i.imgur.com/4SWQq9F.png)).
 - **ModLog:** Layout tweaks especially to keep the layout from breaking because of long usernames ([screenshot](http://i.imgur.com/AQynQkW.png)).
@@ -63,3 +64,4 @@ That's it!
 - **v0.26:** Added link to last reply for threads in the Watches table (thanks Robin & Arman Ossi Loko).
 - **v0.27:** Added minor tweaks to NavigatorTabs menu.
 - **v0.28:** Improved handling of "Go to last reply" links so that they scroll to the last reply more accurately.
+- **v0.29:** Added Withhold Message Injector feature to withhold pages (see Features section). This still is not implemented on withhold conversations. SubFeed column has also been removed from withheld submissions conversations.

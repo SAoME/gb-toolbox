@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.28
+// @version      0.29
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -14,17 +14,18 @@
 // DOCUMENT OUTLINE
 // 1. COMMON
 // 2. SHORTCODES
-// 3. AVATAR TOOLTIP TWEAKS
-// 4. FRONTEND TWEAKS
-// 5. ADMIN BACKEND TWEAKS
-// 6. ADMIN MENU
+// 3. WITHHOLD MESSAGES
+// 4. AVATAR TOOLTIP TWEAKS
+// 5. FRONTEND TWEAKS
+// 6. ADMIN BACKEND TWEAKS
+// 7. ADMIN MENU
 
 
 // COMMON
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.28";
+var GAT_VERSION = "0.29";
 var ownUserID;
 
 // comment to enable console logging
@@ -50,6 +51,35 @@ function arrayObjectIndexOf(myArray, property, searchTerm) {
 // capitalize first letter in a string
 String.prototype.capitalizeFirstLetter = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+// generate a radnom alphanumeric string
+function randomString(length) {
+	var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+
+// cookie handling functions
+function setCookie(name, value, days, path, domain ) {
+    var d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    var expires = "; expires=" + d.toUTCString();
+    var path = "; path=" + encodeURI( path );
+    var domain = "; domain=" + encodeURI( domain );
+    document.cookie = name + "=" + value + expires + path + domain;
+}
+
+function getCookie(name) {
+    var name = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
 }
 
 // for a given submission link, store all found data in an object (game, subdomain, section, subsection, ID)
@@ -320,6 +350,229 @@ $(function() {
 
 
 
+// WITHHOLD MESSAGES
+// ==================================================================
+
+// register withhold messages
+var withholdMessage = {
+	0: {
+		"id"   : "gat_withholdMsg_0",
+		"name" : "Intro",
+		"text" : "Your submission has been withheld because it failed to follow some of our rules. To have your submission re-listed follow these steps:\\n\\n"
+	},
+	1: {
+		"id"   : "gat_withholdMsg_1",
+		"name" : "Outro",
+		"text" : "Please reply to this message after making the requested fixes."
+	},
+	2: {
+		"id"   : "gat_withholdMsg_2",
+		"name" : "Credits",
+		"text" : "- Please provide clear credits mentioning all authors involved, including any material ported from other games, and specifying exactly what you did (texture edits, models, compile, etc.).\\n\\n"
+	},
+	3: {
+		"id"   : "gat_withholdMsg_3",
+		"name" : "Screenshots",
+		"text" : "- Please provide at least 2 in-game screenshots (not including the render) showing gameplay in a map.\\n\\n"
+	},
+	4: {
+		"id"   : "gat_withholdMsg_4",
+		"name" : "Render",
+		"text" : "- Please provide a render (1st screenshot) that shows the Skin clearly.\\n\\n"
+	},
+	5: {
+		"id"   : "gat_withholdMsg_5",
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
+	},
+	6: {
+		"id"   : "gat_withholdMsg_6",
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
+	},
+	7: {
+		"id"   : "gat_withholdMsg_7",
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
+	},
+	8: {
+		"id"   : "gat_withholdMsg_8",
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
+	},
+	9: {
+		"id"   : "gat_withholdMsg_9",
+		"name" : "Custom",
+		"text" : "Add your custom messages here."
+	}
+};
+var withholdMessageSize = Object.size(withholdMessage);
+
+// initialize storage/HTML objects with the same structure as withholdMessage{}
+var withholdMessageStorage = withholdMessage;
+var withholdMessageHTML    = withholdMessage;
+
+// if cookies not found, save them, otherwise read stored data
+function withholdMessages_cookieCheck() {
+	if( ! getCookie('gat_withholdMsg_0_name') ) {
+		withholdMessages_save(withholdMessage);
+	} else {
+		withholdMessages_load();
+	}
+}
+
+// save selected values to cookie
+function withholdMessages_save(object) {
+	for (var n = 0; n < withholdMessageSize; n++) {
+		setCookie('gat_withholdMsg_'+n+'_name', object[n]["name"], 1825, '/', '.gamebanana.com');
+		setCookie('gat_withholdMsg_'+n+'_text', object[n]["text"], 1825, '/', '.gamebanana.com');
+	}
+	withholdMessages_load();
+}
+
+// get values from cookie
+function withholdMessages_load() {
+	for (var n = 0; n < withholdMessageSize; n++) {
+		// load cookies
+		withholdMessageStorage[n]["name"] = getCookie('gat_withholdMsg_'+n+'_name');
+		withholdMessageStorage[n]["text"] = getCookie('gat_withholdMsg_'+n+'_text').replace( /\\n/g, "\r\n" );
+
+		// refresh cookies
+		//setCookie('gat_withholdMsg_'+n+'_name', withholdMessageStorage[n]["name"], 1825, '/', '.gamebanana.com');
+		//setCookie('gat_withholdMsg_'+n+'_text', withholdMessageStorage[n]["text"].replace( /\r?\n/g, "\\n" ), 1825, '/', '.gamebanana.com');
+	}
+}
+
+// generate main interface for withhold messages
+function withholdMessagesGenerateUI() {
+	withholdMessages_cookieCheck();
+
+	var thisID = 'WithholdMessages_'+randomString(8);
+
+	var withholdMessagesUIBegin = '<div id="'+thisID+'" style="display: none;" class="WithholdMessages"><h3>Withhold Message Injector <a class="gat_withholdMsg_settingsOpen" title="Customize Messages" href="#"><i class="fa fa-lg fa-fw fa-gear"></i></a></h3><ul class="gat_withholdMsg_buttons">';
+	var withholdMessagesUIEnd = '</ul><ul class="gat_withholdMsg_settings"><a class="gat_withholdMsg_settingsSave" title="Save Settings" href="#">Save Settings</a></ul></div>';
+	var withholdMessagesUIItems = '';
+
+	// frontend UI
+	for (var n = 0; n < withholdMessageSize; n++) {
+		withholdMessagesUIItems = withholdMessagesUIItems + '<li><a href="#" class="gat_withholdMsg" id="gat_withholdMsg_'+n+'">'+withholdMessageStorage[n]['name']+'</a></li>';
+	}
+
+	$("#WithholdFormModule textarea").addClass("markItUpEditorWithholdMsg").before(withholdMessagesUIBegin + withholdMessagesUIItems + withholdMessagesUIEnd);
+
+	// toggle settings button behaviour
+	$("#"+thisID+" .gat_withholdMsg_settingsOpen, #"+thisID+" .gat_withholdMsg_settingsSave").click(function(e) {
+		e.preventDefault();
+		$("#"+thisID+" .gat_withholdMsg_buttons, #"+thisID+" .gat_withholdMsg_settings").slideToggle("fast");
+
+		// if using the save setting button, also scroll back to the top of the module
+		if ( $(this).hasClass("gat_withholdMsg_settingsSave") ) {
+			$('html,body').animate({ scrollTop: $("#"+thisID).closest(".Module").offset().top }, "fast");
+		}
+	})
+
+	// settings UI
+	var withholdMessagesSettingsItems = '';
+	for (var n = 0; n < withholdMessageSize; n++) {
+		withholdMessagesSettingsItems = withholdMessagesSettingsItems + '<li id="gat_withholdMsg_'+n+'"><label for="gat_withholdMsg_'+n+'_name">Message #'+n+': </label><input maxlength="11" type="text" id="gat_withholdMsg_'+n+'_name" name="gat_withholdMsg_'+n+'_name" value="'+withholdMessageStorage[n]['name']+'"><textarea name="gat_withholdMsg_'+n+'_text">'+withholdMessageStorage[n]['text']+'</textarea></li>';
+	}
+
+	$("#"+thisID+" .gat_withholdMsg_settings").prepend(withholdMessagesSettingsItems);
+
+	// keep html hidden to give CSS time to load
+	setTimeout(function() {
+		$("#"+thisID).show();
+	}, 250);
+
+	withholdMsgOnClick();
+	withholdMsgSettings();
+}
+
+// on withholdMsg button click, append message to the associated textarea
+function withholdMsgOnClick() {
+	$(".gat_withholdMsg").click(function(e) {
+		e.preventDefault();
+
+		// get info of the textarea we are working on
+		var clicked = $(this).attr("id");
+		var thisTextarea = $(this).closest(".WithholdMessages").attr("id");
+		thisTextarea = $('#'+thisTextarea).parent().find('.markItUpEditorWithholdMsg');
+
+		// find out what button was clicked and retrieve its value
+		console.log("Looking for Withhold msg named: "+clicked);
+		clicked = arrayObjectIndexOf(withholdMessageStorage, "id", clicked);
+		console.log('Withhold msg "'+withholdMessageStorage[clicked]["name"]+'" found at index '+clicked);
+
+		// add a valhook to avoid loosing line breaks from textarea
+		$.valHooks.textarea = {
+			get: function( elem ) {
+				return elem.value.replace( /\r?\n/g, "\r\n" );
+			}
+		};
+
+		// get textarea text
+		var oldValue = thisTextarea.val();
+
+		// append value from button to textarea
+		thisTextarea.val(oldValue+withholdMessageStorage[clicked]["text"]).focus();
+
+	});
+}
+
+// on withholdMsg button click, append message to the associated textarea
+function withholdMsgSettings() {
+	// save settings
+	$(".gat_withholdMsg_settingsSave").click(function(e) {
+		e.preventDefault();
+
+		// get currect settings container
+		var WithholdMessagesContainer = $(this).closest(".WithholdMessages");
+		console.log("Saving withhold message settings from HTML for container with ID: "+WithholdMessagesContainer.attr("id"));
+
+		// get settings from html
+		for (var n = 0; n < withholdMessageSize; n++) {
+			withholdMessageHTML[n]["name"] = WithholdMessagesContainer.find('[name=gat_withholdMsg_'+n+'_name]').val();
+			withholdMessageHTML[n]["text"] = WithholdMessagesContainer.find('[name=gat_withholdMsg_'+n+'_text]').val().replace(/\r?\n/g, "\\n");
+			console.log("Saved to withholdMessageHTML: gat_withholdMsg_"+n+"_name, value "+withholdMessageHTML[n]["name"]);
+		}
+
+		// save settings to cookie
+		withholdMessages_save(withholdMessageHTML);
+
+		// refresh buttons to work with newly saved settings
+		withholdMessages_UpdateOnHTML(WithholdMessagesContainer);
+	});
+}
+
+// update setting on HTML after having been saved to avoid need to reload page
+function withholdMessages_UpdateOnHTML(container) {
+	WithholdMessagesContainer = container;
+
+	// remove old html
+	WithholdMessagesContainer.find(".gat_withholdMsg_buttons li").remove();
+
+	// repopulate html with newly saved values
+	var withholdMessagesUIItems = '';
+	for (var n = 0; n < withholdMessageSize; n++) {
+		withholdMessagesUIItems = withholdMessagesUIItems + '<li><a href="#" class="gat_withholdMsg" id="gat_withholdMsg_'+n+'">'+withholdMessageStorage[n]['name']+'</a></li>';
+	}
+
+	WithholdMessagesContainer.find(".gat_withholdMsg_buttons").prepend(withholdMessagesUIItems);
+
+	// refresh click behaviour on new buttons
+	withholdMsgOnClick();
+}
+
+// DOM ready
+$(function() {
+
+	// if Withhold page
+	if ( $("html.Withhold").length > 0 ) {
+		withholdMessagesGenerateUI();
+	}
+
+});
+
 // AVATAR TOOLTIP TWEAKS
 // ==================================================================
 
@@ -517,6 +770,7 @@ function flaggedSubmissionsTweaks() {
 // add optimizations for Features table
 function featuresTweaks() {
 	console.log("GAT - Found Features Table, adding tweaks...");
+
 	// check date column and highlight features older than 3 days
 	$("#SubmissionsListModule tr:lt(7)").each(function() {
 		var date = $(this).find(".DateAdded").text().split(" ");
@@ -527,6 +781,18 @@ function featuresTweaks() {
 
 	// add thresold row below the 6th feature
 	$("#SubmissionsListModule tr").eq(6).after("<tr><td colspan='6' class='FeaturesThreshold'>Keep Features disabled beyond this point</td></tr>");
+}
+
+// add optimizations for Unwithhold page
+function unwithholdTweaks() {
+	console.log("GAT - Unwithhold page found, adding tweaks...");
+
+	// kill subFeed column
+	$(".ContentColumn").eq(2).hide();
+
+	// set new column widths
+	$(".ContentColumn").eq(0).css("width", "493px");
+	$(".ContentColumn").eq(1).css("width", "492px");
 }
 
 // DOM ready
@@ -547,6 +813,11 @@ $(function() {
 		featuresTweaks();
 	}
 
+	// if Unwithhold
+	if ( $("html.Unwithhold").length > 0 ) {
+		unwithholdTweaks();
+	}
+
 });
 
 
@@ -559,7 +830,6 @@ function loadAdminMenu() {
 	var adminMenu;
 	adminMenu = '<div id="AdminMenuWrap">';
 		adminMenu += '<ul id="AdminMenu">';
-			adminMenu += '<li class="AdminMenuHeader">Quick Admin Menu</li>';
 			adminMenu += '<li><a href="http://gamebanana.com"><i class="fa fa-lg fa-fw fa-home"></i>Frontpage</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=site_rules"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=contacts"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
@@ -593,6 +863,7 @@ function loadAdminMenu() {
 			adminMenu += '<ul class="SubMenu">';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
+				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/issues"><i class="fa fa-lg fa-fw fa-exclamation-circle"></i>Known Issues / TODO</a></li>';
 				adminMenu += '<li><a href="http://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
 				adminMenu += '<li class="AdminMenuHeader"><i class="fa fa-lg fa-fw fa-check"></i>Version '+GAT_VERSION+'</li>';
 			adminMenu += '</ul></li>';
