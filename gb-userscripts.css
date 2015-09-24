@@ -274,15 +274,18 @@ tr:hover .FlagLogTruncateLink {
 
 /* Withhold Messages UI */
 .WithholdMessages {
-	overflow: hidden;
+	background: rgba(0,0,0,0.25);
 	margin: 10px auto 15px;
+	overflow: hidden;
+	padding: 15px;
 	text-align: center;
 }
 
-.WithholdMessages h3 {
-	text-transform: uppercase;
+.Module>.Content .WithholdMessages h3 {
+	border-bottom: none;
 	font-size: 16px;
 	font-weight: normal;
+	text-transform: uppercase;
 }
 
 .WithholdMessages h3 a {
@@ -293,7 +296,7 @@ tr:hover .FlagLogTruncateLink {
 }
 
 .gat_withholdMsg_buttons {
-	margin: 10px auto 15px;
+	margin: 10px auto 0;
 	text-align: center;
 	width: 500px;
 }
@@ -318,6 +321,13 @@ tr:hover .FlagLogTruncateLink {
 	background: #FFD800;
 }
 
+.WithholdMessages li a {
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	width: 75px;
+}
+
 #Wrapper .markItUpEditorWithholdMsg {
 	box-sizing: border-box;
 	height: 215px;
@@ -330,13 +340,23 @@ tr:hover .FlagLogTruncateLink {
 }
 
 .gat_withholdMsg_settings li {
-	margin-bottom: 10px;
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	padding-bottom: 10px;
+	margin-bottom: 20px;
 	width: 100%;
+}
+
+.gat_withholdMsg_settings label {
+	display: block;
+	font-weight: bold;
+	margin: 0;
+	text-transform: uppercase;
 }
 
 .gat_withholdMsg_settings input {
 	display: block;
-	margin-bottom: 5px;
+	margin: 0 auto 5px;
+	text-align: center;
 	width: 100px;
 }
 
