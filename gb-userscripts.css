@@ -426,6 +426,8 @@ tr:hover .FlagLogTruncateLink {
 	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 	padding: 15px;
 	text-align: left;
+	position: relative;
+	z-index: 100;
 }
 
 .FilterModuleTweaked fieldset div {
