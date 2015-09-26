@@ -65,3 +65,4 @@ That's it!
 - **v0.27:** Added minor tweaks to NavigatorTabs menu.
 - **v0.28:** Improved handling of "Go to last reply" links so that they scroll to the last reply more accurately.
 - **v0.29:** Added Withhold Message Injector feature to withhold pages (see Features section). This still is not implemented on withhold conversations. SubFeed column has also been removed from withheld submissions conversations.
+- **v0.30:** Filter module in ModLog, Flagged Submissions and Features pages now appears as a toggleable menu.

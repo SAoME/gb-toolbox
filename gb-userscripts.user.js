@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.29
+// @version      0.30
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.29";
+var GAT_VERSION = "0.30";
 var ownUserID;
 
 // comment to enable console logging
@@ -692,6 +692,27 @@ $(function() {
 // ADMIN BACKEND TWEAKS
 // ==================================================================
 
+// add a toggle button to Filter modules
+function filterModuleTweaks() {
+	var filterModule = $(".AdvancedListSettingsModule");
+	var filterColumn = $(".AdvancedListSettingsModule").parent();
+
+	filterModule
+		.addClass("FilterModuleTweaked")
+		.appendTo(".PageNavigation:eq(0)")
+		.children("h3")
+		.append('<i class="fa fa-lg fa-fw fa-angle-right"></i>')
+		.next()
+		.hide();
+
+	filterColumn.remove();
+
+	filterModule.children("h3").click(function() {
+		filterModule.toggleClass("is-toggled").children(".Content").slideToggle("fast");
+	});
+
+}
+
 // add optimizations for ModLog table
 function modLogTweaks() {
 	console.log("GAT - Found ModLog Table, adding tweaks...");
@@ -801,16 +822,19 @@ $(function() {
 	// if ModLog
 	if ( $("#ModlogListModule").length > 0 ) {
 		modLogTweaks();
+		filterModuleTweaks();
 	}
 
 	// if Flagged Submissions
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
+		filterModuleTweaks();
 	}
 
 	// if Features
 	if ( $("#Feature_Index").length > 0 ) {
 		featuresTweaks();
+		filterModuleTweaks();
 	}
 
 	// if Unwithhold
