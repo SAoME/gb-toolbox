@@ -16,7 +16,7 @@ Coded by [Yogensia](http://gamebanana.com/members/1328950).
 - **Quick Admin Menu:** Added a menu that appears on the left edge on all pages hidden until mouse over, with links to frequently used admin sections ([screenshot](http://i.imgur.com/47eWJdj.png)).
 - **Avatar tooltips:** Sublog, Modlog, Modnotes, Send PM links added to avatar tooltips ([screenshot](http://i.imgur.com/4SWQq9F.png)).
 - **ModLog:** Layout tweaks especially to keep the layout from breaking because of long usernames ([screenshot](http://i.imgur.com/AQynQkW.png)).
-- **Flagged Submissions List:** Layout tweaks, game icons, links to submission profile, history and withhold conversation ([screenshot](http://i.imgur.com/GOr8Vnp.png)).
+- **Flagged/Withheld Submissions List:** Layout tweaks, game icons, links to submission profile, history and withhold conversation ([screenshot](http://i.imgur.com/GOr8Vnp.png)).
 - **Features Admin List:** Layout tweaks ([screenshot](http://i.imgur.com/2JzMjDk.png)).
 
 
@@ -66,3 +66,4 @@ That's it!
 - **v0.28:** Improved handling of "Go to last reply" links so that they scroll to the last reply more accurately.
 - **v0.29:** Added Withhold Message Injector feature to withhold pages (see Features section). This still is not implemented on withhold conversations. SubFeed column has also been removed from withheld submissions conversations.
 - **v0.30:** Filter module in ModLog, Flagged Submissions and Features pages now appears as a toggleable menu.
+- **v0.31:** Add admin page tweaks to Withheld submissions table.
