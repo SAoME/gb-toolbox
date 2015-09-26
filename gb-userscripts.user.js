@@ -716,7 +716,7 @@ function filterModuleTweaks() {
 	// close filter menu when user clicks outside the element
 	$(document).click(function(event) {
 		if ( ! $(event.target).closest('.FilterModuleTweaked').length ) {
-			if ( $('.FilterModuleTweaked').is(":visible") ) {
+			if ( $('.FilterModuleTweaked .Content').is(":visible") ) {
 				filterModule.toggleClass("is-toggled").children(".Content").slideToggle("fast");
 			}
 		}
