@@ -67,12 +67,14 @@
 /* Admin Pages Layout Improvements */
 #Admin_Modlog .ContentColumn[style*="width: 519px"],
 #Admin_FlaggedSubmissions .ContentColumn[style*="width: 519px"],
+#Admin_WithheldSubmissions .ContentColumn[style*="width: 519px"],
 #Feature_Index .ContentColumn[style*="width: 569px"] {
 	width: 685px !important;
 }
 
 #Admin_Modlog .ContentColumn[style*="width: 150px"],
-#Admin_FlaggedSubmissions .ContentColumn[style*="width: 150px"] {
+#Admin_FlaggedSubmissions .ContentColumn[style*="width: 150px"],
+#Admin_WithheldSubmissions .ContentColumn[style*="width: 150px"] {
 	left: -165px;
 	position: absolute;
 }
@@ -90,13 +92,21 @@
 	width: 180px;
 }
 
+#Admin_FlaggedSubmissions table td,
+#Admin_WithheldSubmissions table td {
+	position: relative;
+	padding:  13px 10px;
+}
+
 #Admin_FlaggedSubmissions table tr:hover {
 	background: rgba(255,255,255,0.05);
 }
 
 #Admin_Modlog .LabelState.IsWithheld,
 #Admin_FlaggedSubmissions .LabelState.IsWithheld {
-	float: right;
+	position: absolute;
+	top: 12px;
+	right: 0;
 }
 
 .FlaggedSubmissionTools {
@@ -106,7 +116,6 @@
 tr:hover .FlaggedSubmissionTools {
 	display: block;
 	float: left;
-	margin-top: 5px;
 }
 
 .ModLogTruncateLink {
@@ -130,10 +139,9 @@ tr:hover .FlaggedSubmissionTools {
 	white-space: nowrap;
 	max-width: 295px;
 	margin-right: 5px;
-	margin-top: 5px;
 }
 tr:hover .FlagLogTruncateLink {
-	float :left;
+	float: left;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -141,7 +149,16 @@ tr:hover .FlagLogTruncateLink {
 	margin-right: 5px;
 }
 
-#Admin_FlaggedSubmissions .submissionCategory {
+#Admin_WithheldSubmissions .FlagLogTruncateLink {
+	max-width: 370px;
+}
+
+#Admin_WithheldSubmissions tr:hover .FlagLogTruncateLink {
+	max-width: 305px;
+}
+
+#Admin_FlaggedSubmissions .submissionCategory,
+#Admin_WithheldSubmissions .submissionCategory {
 	text-indent: -9999px;
 	margin-right: 5px;
 }

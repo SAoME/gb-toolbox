@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.30
+// @version      0.31
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.30";
+var GAT_VERSION = "0.31";
 var ownUserID;
 
 // comment to enable console logging
@@ -799,6 +799,41 @@ function flaggedSubmissionsTweaks() {
 	});
 }
 
+// add optimizations for WithheldSubs table
+function withheldSubmissionsTweaks() {
+	console.log("GAT - Found Withheld Submissions Table, adding tweaks...");
+	$(".WithheldSubmissionsListModule table a").each(function() {
+		var thisSubmissionLink = $(this);
+		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
+
+		// generate icons
+		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
+		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
+
+		// generate links
+		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/flags/'+submission["ID"]+'">F</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/history/'+submission["ID"]+'">H</a>]';
+		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/unwithhold/'+submission["ID"]+'">W</a>]';
+
+		thisSubmissionLink
+			// add links and tweak original link
+			.addClass("FlagLogTruncateLink")
+			.attr("title", "View Submission's Profile")
+			.attr("href", "http://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
+			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
+			// make fixes on category column
+			.parent()
+			.css("width", "380")
+			.prev()
+			.addClass("alignCenter")
+			.wrapInner(submissionCategory)
+			.append(submissionGameIcon)
+			// make fixes on flags column
+			.siblings().last()
+			.addClass("alignCenter");
+	});
+}
+
 // add optimizations for Features table
 function featuresTweaks() {
 	console.log("GAT - Found Features Table, adding tweaks...");
@@ -839,6 +874,12 @@ $(function() {
 	// if Flagged Submissions
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
+		filterModuleTweaks();
+	}
+
+	// if Withheld Submissions
+	if ( $(".WithheldSubmissionsListModule").length > 0 ) {
+		withheldSubmissionsTweaks();
 		filterModuleTweaks();
 	}
 
