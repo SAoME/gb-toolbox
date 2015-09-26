@@ -105,7 +105,7 @@
 #Admin_Modlog .LabelState.IsWithheld,
 #Admin_FlaggedSubmissions .LabelState.IsWithheld {
 	position: absolute;
-	top: 12px;
+	top: 9px;
 	right: 0;
 }
 
