@@ -411,18 +411,22 @@ tr:hover .FlagLogTruncateLink {
 	text-align: left;
 }
 
+.FilterModuleTweaked fieldset div {
+	display: block;
+}
+
+#Wrapper .FilterModuleTweaked legend {
+	cursor: default;
+}
+
+.FilterModuleTweaked .ToggleFilterInput {
+	display: none;
+}
+
 #Wrapper .FilterModuleTweaked select,
 #Wrapper .FilterModuleTweaked input {
 	box-sizing: border-box;
 	height: 30px;
 	max-width: none;
 	width: 100%;
-}
-
-.FilterModuleTweaked fieldset div {
-	display: block;
-}
-
-.FilterModuleTweaked .ToggleFilterInput {
-	display: none;
 }

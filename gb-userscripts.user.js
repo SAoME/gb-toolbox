@@ -707,8 +707,19 @@ function filterModuleTweaks() {
 
 	filterColumn.remove();
 
+	filterModule.find("legend").unbind("click");
+
 	filterModule.children("h3").click(function() {
 		filterModule.toggleClass("is-toggled").children(".Content").slideToggle("fast");
+	});
+
+	// close filter menu when user clicks outside the element
+	$(document).click(function(event) {
+		if ( ! $(event.target).closest('.FilterModuleTweaked').length ) {
+			if ( $('.FilterModuleTweaked').is(":visible") ) {
+				filterModule.toggleClass("is-toggled").children(".Content").slideToggle("fast");
+			}
+		}
 	});
 
 }
