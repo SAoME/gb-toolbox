@@ -1,4 +1,26 @@
-/* Common */
+/*
+
+GameBanana Admin Toolbox CSS by Yogensia
+
+Licensed under MIT License, for more info:
+https://raw.githubusercontent.com/yogensia/gb-toolbox/master/LICENSE
+
+DOCUMENT OUTLINE
+1. COMMON
+2. SHORTCODE TOOLBAR
+3. AVATAR TOOLTIP LINKS
+4. ADMIN PAGES LAYOUT IMPROVEMENTS
+5. TOGGLEABLE FILTER MODULE
+6. ADMIN MENU
+7. WITHHOLD MESSAGES UI
+
+*/
+
+
+
+/* 1. COMMON
+================================================================= */
+
 .alignCenter {
 	text-align: center;
 }
@@ -7,7 +29,17 @@
 	cursor: help;
 }
 
-/* Shortcode Toolbar */
+#Wrapper .markItUpEditor {
+	box-sizing: border-box;
+	height: 215px;
+	width: 100%;
+}
+
+
+
+/* 2. SHORTCODE TOOLBAR
+================================================================= */
+
 #PostAddFormRequesterModule > .Content,
 #PostAddFormModule > .Content,
 #UnwithholdFormModule > .Content {
@@ -50,21 +82,19 @@
 }
 
 
-/* Optimize markItUp textarea size */
-#Wrapper .markItUpEditor {
-	box-sizing: border-box;
-	height: 215px;
-	width: 100%;
-}
 
+/* 3. AVATAR TOOLTIP LINKS
+================================================================= */
 
-/* Avatar Tooltip Links */
 .AvatarTooltip .ModTools a {
 	display: block;
 }
 
 
-/* Admin Pages Layout Improvements */
+
+/* 4. ADMIN PAGES LAYOUT IMPROVEMENTS
+================================================================= */
+
 #Admin_Modlog .ContentColumn[style*="width: 519px"],
 #Admin_FlaggedSubmissions .ContentColumn[style*="width: 519px"],
 #Admin_WithheldSubmissions .ContentColumn[style*="width: 519px"],
@@ -98,7 +128,8 @@
 	padding:  13px 10px;
 }
 
-#Admin_FlaggedSubmissions table tr:hover {
+#Admin_FlaggedSubmissions tbody tr:hover,
+#Admin_WithheldSubmissions tbody tr:hover {
 	background: rgba(255,255,255,0.05);
 }
 
@@ -174,7 +205,77 @@ tr:hover .FlagLogTruncateLink {
 	font-weight: bold;
 }
 
-/* Admin Menu */
+
+
+/* 5. TOGGLEABLE FILTER MODULE
+================================================================= */
+
+.FilterModuleTweaked {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 150px;
+}
+
+#Wrapper .FilterModuleTweaked h3 {
+	border-bottom: none;
+	cursor: pointer;
+	margin: 0;
+	padding: 5px;
+}
+
+#Wrapper .FilterModuleTweaked h3:hover {
+	background: #637484;
+	color: #fff;
+}
+
+.FilterModuleTweaked .fa {
+	float: right;
+	margin-top: 3px;
+	transition: all 250ms;
+}
+
+.FilterModuleTweaked.is-toggled .fa {
+	-webkit-transform: rotate(90deg);
+	   -moz-transform: rotate(90deg);
+	    -ms-transform: rotate(90deg);
+	     -o-transform: rotate(90deg);
+}
+
+#Wrapper .FilterModuleTweaked .Content {
+	background: #252525;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	padding: 15px;
+	text-align: left;
+	position: relative;
+	z-index: 100;
+}
+
+.FilterModuleTweaked fieldset div {
+	display: block;
+}
+
+#Wrapper .FilterModuleTweaked legend {
+	cursor: default;
+}
+
+.FilterModuleTweaked .ToggleFilterInput {
+	display: none;
+}
+
+#Wrapper .FilterModuleTweaked select,
+#Wrapper .FilterModuleTweaked input {
+	box-sizing: border-box;
+	height: 30px;
+	max-width: none;
+	width: 100%;
+}
+
+
+
+/* 6. ADMIN MENU
+================================================================= */
+
 #AdminMenuWrap {
 	padding: 40px 80px 40px 0;
 	position: fixed;
@@ -209,7 +310,7 @@ tr:hover .FlagLogTruncateLink {
 }
 
 #AdminMenu > li:first-child {
-	border-top: none;	
+	border-top: none;
 }
 
 #AdminMenu li:hover {
@@ -293,7 +394,11 @@ tr:hover .FlagLogTruncateLink {
 	}
 }
 
-/* Withhold Messages UI */
+
+
+/* 7. WITHHOLD MESSAGES UI
+================================================================= */
+
 .WithholdMessages {
 	background: rgba(0,0,0,0.25);
 	margin: 10px auto 15px;
@@ -385,67 +490,5 @@ tr:hover .FlagLogTruncateLink {
 	box-sizing: border-box;
 	height: 75px;
 	resize: vertical;
-	width: 100%;
-}
-
-/* Toggleable Filter Module */
-.FilterModuleTweaked {
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	width: 150px;
-}
-
-#Wrapper .FilterModuleTweaked h3 {
-	border-bottom: none;
-	cursor: pointer;
-	margin: 0;
-	padding: 5px;
-}
-
-#Wrapper .FilterModuleTweaked h3:hover {
-	background: #637484;
-	color: #fff;
-}
-
-.FilterModuleTweaked .fa {
-	float: right;
-	margin-top: 3px;
-	transition: all 250ms;
-}
-
-.FilterModuleTweaked.is-toggled .fa {
-	-webkit-transform: rotate(90deg);
-	   -moz-transform: rotate(90deg);
-	    -ms-transform: rotate(90deg);
-	     -o-transform: rotate(90deg);
-}
-
-#Wrapper .FilterModuleTweaked .Content {
-	background: #252525;
-	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-	padding: 15px;
-	text-align: left;
-	position: relative;
-	z-index: 100;
-}
-
-.FilterModuleTweaked fieldset div {
-	display: block;
-}
-
-#Wrapper .FilterModuleTweaked legend {
-	cursor: default;
-}
-
-.FilterModuleTweaked .ToggleFilterInput {
-	display: none;
-}
-
-#Wrapper .FilterModuleTweaked select,
-#Wrapper .FilterModuleTweaked input {
-	box-sizing: border-box;
-	height: 30px;
-	max-width: none;
 	width: 100%;
 }
