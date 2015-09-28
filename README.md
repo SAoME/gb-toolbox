@@ -66,4 +66,5 @@ That's it!
 - **v0.28:** Improved handling of "Go to last reply" links so that they scroll to the last reply more accurately.
 - **v0.29:** Added Withhold Message Injector feature to withhold pages (see Features section). This still is not implemented on withhold conversations. SubFeed column has also been removed from withheld submissions conversations.
 - **v0.30:** Filter module in ModLog, Flagged Submissions and Features pages now appears as a toggleable menu.
-- **v0.31:** Add admin page tweaks to Withheld submissions table.
+- **v0.31:** Added admin page tweaks to Withheld submissions table.
+- **v0.32:** Added Withhold Message Injector feature to unwithhold conversations (only on Add Message button at the top).

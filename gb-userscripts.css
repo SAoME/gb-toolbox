@@ -492,3 +492,8 @@ tr:hover .FlagLogTruncateLink {
 	resize: vertical;
 	width: 100%;
 }
+
+.WithholdMessages .gat_withholdMsg_settingsSave {
+	padding: 10px;
+	font-size: 12px;
+}

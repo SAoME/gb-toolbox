@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.31
+// @version      0.32
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.31";
+var GAT_VERSION = "0.32";
 var ownUserID;
 
 // comment to enable console logging
@@ -444,13 +444,13 @@ function withholdMessages_load() {
 }
 
 // generate main interface for withhold messages
-function withholdMessagesGenerateUI() {
+function withholdMessagesGenerateUI(modal) {
 	withholdMessages_cookieCheck();
 
 	var thisID = 'WithholdMessages_'+randomString(8);
 
 	var withholdMessagesUIBegin = '<div id="'+thisID+'" style="display: none;" class="WithholdMessages"><h3>Withhold Message Injector <a class="gat_withholdMsg_settingsOpen" title="Customize Messages" href="#"><i class="fa fa-lg fa-fw fa-gear"></i></a></h3><ul class="gat_withholdMsg_buttons">';
-	var withholdMessagesUIEnd = '</ul><ul class="gat_withholdMsg_settings"><a class="gat_withholdMsg_settingsSave" title="Save Settings" href="#">Save Settings</a></ul></div>';
+	var withholdMessagesUIEnd = '</ul><ul class="gat_withholdMsg_settings"><a class="gat_withholdMsg_settingsSave" title="Save Withhold Message Injector Settings" href="#">Save Withhold Message Injector Settings</a></ul></div>';
 	var withholdMessagesUIItems = '';
 
 	// frontend UI
@@ -458,7 +458,11 @@ function withholdMessagesGenerateUI() {
 		withholdMessagesUIItems = withholdMessagesUIItems + '<li><a href="#" class="gat_withholdMsg" id="gat_withholdMsg_'+n+'">'+withholdMessageStorage[n]['name']+'</a></li>';
 	}
 
-	$("#WithholdFormModule textarea").addClass("markItUpEditorWithholdMsg").css("height", "220px").before(withholdMessagesUIBegin + withholdMessagesUIItems + withholdMessagesUIEnd);
+	if ( modal == true ) {
+		$("#PostAddFormModule .markItUp textarea").addClass("markItUpEditorWithholdMsg").css("height", "220px").closest(".markItUp").before(withholdMessagesUIBegin + withholdMessagesUIItems + withholdMessagesUIEnd);
+	} else {
+		$("#WithholdFormModule textarea").addClass("markItUpEditorWithholdMsg").css("height", "220px").before(withholdMessagesUIBegin + withholdMessagesUIItems + withholdMessagesUIEnd);
+	}
 
 	// toggle settings button behaviour
 	$("#"+thisID+" .gat_withholdMsg_settingsOpen, #"+thisID+" .gat_withholdMsg_settingsSave").click(function(e) {
@@ -519,9 +523,8 @@ function withholdMsgOnClick() {
 	});
 }
 
-// on withholdMsg button click, append message to the associated textarea
+// on save settings button click, store settings to cookies and update html
 function withholdMsgSettings() {
-	// save settings
 	$(".gat_withholdMsg_settingsSave").click(function(e) {
 		e.preventDefault();
 
@@ -563,12 +566,58 @@ function withholdMessages_UpdateOnHTML(container) {
 	withholdMsgOnClick();
 }
 
+// when a modal is opened in a unwithhold conversation
+function withholdMessagesGenerateUIModal() {
+	$("#PostAddFormRequesterModule .ModalLauncher").unbind("click").click(function() {
+		modalID = $(this).attr("id");
+		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
+		waitForWithholdMsgInjectorModal();
+	});
+}
+
+// wait for modal to be ready
+function waitForWithholdMsgInjectorModal() {
+	if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
+		console.log("GAT - Form for " + modalID + " is ready, continuing...");
+		hookWithholdMsgInjectorUI();
+		n = 0;
+	} else {
+		if (n < 50) {
+			setTimeout(waitForWithholdMsgInjectorModal, 100);
+			n++;
+		} else {
+			console.warn("GAT - Form for " + modalID + " failed after waiting 5 seconds, aborting...");
+			n = 0;
+		}
+	}
+}
+
+// run main Withhold Message UI code
+function hookWithholdMsgInjectorUI() {
+	console.log("GAT - Working on modal " + modalID + ", generated Shortcode Menu HTML");
+
+	// generate withhold message injector UI
+	withholdMessagesGenerateUI(true);
+
+	// remove modal html after it has been closed or bad stuff happens
+	$("#"+modalID+"_response .CloseModal").click(function() {
+		setTimeout(function() {
+			$("#"+modalID+"_response").remove();
+		}, 250);
+	});
+}
+
 // DOM ready
 $(function() {
 
 	// if Withhold page
 	if ( $("html.Withhold").length > 0 ) {
 		withholdMessagesGenerateUI();
+	}
+
+	// if Unwithhold conversation
+	if ( $("html.Unwithhold").length > 0 ) {
+		withholdMessagesGenerateUIModal();
 	}
 
 });
@@ -858,8 +907,8 @@ function unwithholdTweaks() {
 	$(".ContentColumn").eq(2).hide();
 
 	// set new column widths
-	$(".ContentColumn").eq(0).css("width", "493px");
-	$(".ContentColumn").eq(1).css("width", "492px");
+	$(".ContentColumn").eq(0).css("width", "395px");
+	$(".ContentColumn").eq(1).css("width", "590px");
 }
 
 // DOM ready
