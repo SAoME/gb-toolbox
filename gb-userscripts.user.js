@@ -568,7 +568,7 @@ function withholdMessages_UpdateOnHTML(container) {
 
 // when a modal is opened in a unwithhold conversation
 function withholdMessagesGenerateUIModal() {
-	$("#PostAddFormRequesterModule .ModalLauncher").unbind("click").click(function() {
+	$("#PostAddFormRequesterModule .ModalLauncher").click(function() {
 		modalID = $(this).attr("id");
 		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
 		waitForWithholdMsgInjectorModal();
@@ -668,7 +668,6 @@ $(function() {
 	editAvatarTooltips( $(".Avatar.tooltipstered, .MemberLink.tooltipstered") );
 
 });
-
 
 
 
