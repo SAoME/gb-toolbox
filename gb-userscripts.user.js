@@ -56,30 +56,30 @@ String.prototype.capitalizeFirstLetter = function() {
 // generate a radnom alphanumeric string
 function randomString(length) {
 	var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
-    return result;
+	var result = '';
+	for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+	return result;
 }
 
 // cookie handling functions
 function setCookie(name, value, days, path, domain ) {
-    var d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    var expires = "; expires=" + d.toUTCString();
-    var path = "; path=" + encodeURI( path );
-    var domain = "; domain=" + encodeURI( domain );
-    document.cookie = name + "=" + value + expires + path + domain;
+	var d = new Date();
+	d.setTime(d.getTime() + (days*24*60*60*1000));
+	var expires = "; expires=" + d.toUTCString();
+	var path = "; path=" + encodeURI( path );
+	var domain = "; domain=" + encodeURI( domain );
+	document.cookie = name + "=" + value + expires + path + domain;
 }
 
 function getCookie(name) {
-    var name = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
+	var name = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i=0; i<ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1);
+		if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+	}
+	return "";
 }
 
 // for a given submission link, store all found data in an object (game, subdomain, section, subsection, ID)
@@ -90,7 +90,7 @@ function getSubmissionLinkDetails(submissionLink) {
 	// gamebanana.com/posts/7201865, gamebanana.com/members/37 (post/member, 3 parts after split, no subdomain)
 
 	// initiate object
-    var submission = new Object();
+	var submission = new Object();
 
 	// remove protocol and get subdomain
 	var submissionLinkSubdomain = submissionLink.replace(/.*?:\/\//g, "").split(".");
@@ -436,10 +436,6 @@ function withholdMessages_load() {
 		// load cookies
 		withholdMessageStorage[n]["name"] = getCookie('gat_withholdMsg_'+n+'_name');
 		withholdMessageStorage[n]["text"] = getCookie('gat_withholdMsg_'+n+'_text').replace( /\\n/g, "\r\n" );
-
-		// refresh cookies
-		//setCookie('gat_withholdMsg_'+n+'_name', withholdMessageStorage[n]["name"], 1825, '/', '.gamebanana.com');
-		//setCookie('gat_withholdMsg_'+n+'_text', withholdMessageStorage[n]["text"].replace( /\r?\n/g, "\\n" ), 1825, '/', '.gamebanana.com');
 	}
 }
 
@@ -473,7 +469,7 @@ function withholdMessagesGenerateUI(modal) {
 		if ( $(this).hasClass("gat_withholdMsg_settingsSave") ) {
 			$('html,body').animate({ scrollTop: $("#"+thisID).closest(".Module").offset().top }, "fast");
 		}
-	})
+	});
 
 	// settings UI
 	var withholdMessagesSettingsItems = '';
@@ -621,6 +617,8 @@ $(function() {
 	}
 
 });
+
+
 
 // AVATAR TOOLTIP TWEAKS
 // ==================================================================
