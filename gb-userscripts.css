@@ -42,9 +42,12 @@ DOCUMENT OUTLINE
 
 #PostAddFormRequesterModule > .Content,
 #PostAddFormModule > .Content,
+#PostQuoteFormModule > .Content,
+#PostsListModule > .Content,
 #UnwithholdFormModule > .Content {
 	overflow: visible;
 }
+
 .markItUpHeader ul .markItUpShortcodes:hover ul {
 	display: block !important;
 }
