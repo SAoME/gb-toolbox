@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.32
+// @version      0.33
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.32";
+var GAT_VERSION = "0.33";
 var ownUserID;
 
 // comment to enable console logging
@@ -199,6 +199,12 @@ var shortcode = {
 		"nicename" : "Guide: Site - How to ID-Link credit entries by KillerExe_01",
 		"linkname" : '"How to ID-Link credit entries" tutorial by KillerExe_01',
 		'url'      : 'http://gamebanana.com/tuts/11649'
+	},
+	9: {
+		"name"     : "guide_site_markdown",
+		"nicename" : "Guide: Site - Using Markdown on GameBanana by Mini",
+		"linkname" : '"Using Markdown on GameBanana" tutorial by Mini',
+		'url'      : 'http://gamebanana.com/tuts/11357'
 	}
 };
 shortcodeSize = Object.size(shortcode);

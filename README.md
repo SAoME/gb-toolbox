@@ -68,3 +68,4 @@ That's it!
 - **v0.30:** Filter module in ModLog, Flagged Submissions and Features pages now appears as a toggleable menu.
 - **v0.31:** Added admin page tweaks to Withheld submissions table.
 - **v0.32:** Added Withhold Message Injector feature to unwithhold conversations (only on Add Message button at the top).
+- **v0.33:** Added "Using Markdown in GameBanana" tutorial to shortcodes (thanks Mini).
