@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.33
+// @version      0.34
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.33";
+var GAT_VERSION = "0.34";
 var ownUserID;
 
 // comment to enable console logging
@@ -965,6 +965,7 @@ function loadAdminMenu() {
 			adminMenu += '<li><a href="http://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/flags"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/withheld"><i class="fa fa-lg fa-fw fa-legal"></i>Withheld Submissions</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/admin/catmod"><i class="fa fa-lg fa-fw fa-folder-open"></i>Pending Categories</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/support"><i class="fa fa-lg fa-fw fa-support"></i>Support Tickets</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/bugs"><i class="fa fa-lg fa-fw fa-bug"></i>Bug Reports</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/ideas"><i class="fa fa-lg fa-fw fa-lightbulb-o"></i>Suggested Ideas</a></li>';
