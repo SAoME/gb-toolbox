@@ -451,8 +451,8 @@ function withholdMessagesGenerateUI(modal) {
 
 	var thisID = 'WithholdMessages_'+randomString(8);
 
-	var withholdMessagesUIBegin = '<div id="'+thisID+'" style="display: none;" class="WithholdMessages"><h3>Withhold Message Injector <a class="gat_withholdMsg_settingsOpen" title="Customize Messages" href="#"><i class="fa fa-lg fa-fw fa-gear"></i></a></h3><ul class="gat_withholdMsg_buttons">';
-	var withholdMessagesUIEnd = '</ul><ul class="gat_withholdMsg_settings"><a class="gat_withholdMsg_settingsSave" title="Save Withhold Message Injector Settings" href="#">Save Withhold Message Injector Settings</a></ul></div>';
+	var withholdMessagesUIBegin = '<div id="'+thisID+'" style="display: none;" class="WithholdMessages"><div id="WithholdMessagesMinimizedWrapper">Show Withhold Messages Injector</div><div id="WithholdMessagesWrapper"><i id="WithholdMessagesMinimizeButton" class="fa fa-lg fa-fw fa-minus"></i><h3>Withhold Message Injector <a class="gat_withholdMsg_settingsOpen" title="Customize Messages" href="#"><i class="fa fa-lg fa-fw fa-gear"></i></a></h3><ul class="gat_withholdMsg_buttons">';
+	var withholdMessagesUIEnd = '</ul><ul class="gat_withholdMsg_settings"><a class="gat_withholdMsg_settingsSave" title="Save Withhold Message Injector Settings" href="#">Save Withhold Message Injector Settings</a></ul></div></div>';
 	var withholdMessagesUIItems = '';
 
 	// frontend UI
@@ -492,6 +492,7 @@ function withholdMessagesGenerateUI(modal) {
 
 	withholdMsgOnClick();
 	withholdMsgSettings();
+	withholdMsgToggle();
 }
 
 // on withholdMsg button click, append message to the associated textarea
@@ -606,6 +607,27 @@ function hookWithholdMsgInjectorUI() {
 		setTimeout(function() {
 			$("#"+modalID+"_response").remove();
 		}, 250);
+	});
+}
+
+// check if WithholdMessages should be minimized and add toggle behaviour
+function withholdMsgToggle() {
+	//var withholdMsgMinimized = getCookie('gat_withholdMsg_minimized');
+	if ( getCookie('gat_withholdMsg_minimized') == "true" ) {
+		$("#WithholdMessagesWrapper").hide();
+		$(this).parent().addClass("is-minimized");
+	} else {
+		$("#WithholdMessagesMinimizedWrapper").hide();
+	}
+
+	$("#WithholdMessagesMinimizedWrapper, #WithholdMessagesMinimizeButton").click(function() {
+		if ( $("#WithholdMessagesWrapper:visible").length > 0 ) {
+			setCookie('gat_withholdMsg_minimized', "true", 1825, '/', '.gamebanana.com');
+		} else {
+			setCookie('gat_withholdMsg_minimized', "false", 1825, '/', '.gamebanana.com');
+		}
+		$("#WithholdMessagesWrapper, #WithholdMessagesMinimizedWrapper").slideToggle("fast");
+		$(this).parent().toggleClass("is-minimized");
 	});
 }
 
