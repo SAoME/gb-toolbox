@@ -1017,8 +1017,8 @@ function loadAdminMenu() {
 			adminMenu += '</ul></li>';
 			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-info-circle"></i>GB Admin Toolbox<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
-				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
-				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/blob/master/README.md#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
+				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox#readme"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
+				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/issues"><i class="fa fa-lg fa-fw fa-exclamation-circle"></i>Known Issues / TODO</a></li>';
 				adminMenu += '<li><a href="http://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
 				adminMenu += '<li class="AdminMenuHeader"><i class="fa fa-lg fa-fw fa-check"></i>Version '+GAT_VERSION+'</li>';
