@@ -70,3 +70,4 @@ That's it!
 - **v0.32:** Added Withhold Message Injector feature to unwithhold conversations (only on Add Message button at the top).
 - **v0.33:** Added "Using Markdown in GameBanana" tutorial to shortcodes (thanks Mini).
 - **v0.34:** Added Pending Categories link to Quick Admin Menu (thanks Mini).
+- **v0.35:** Withhold Message Injector can now be minimized.

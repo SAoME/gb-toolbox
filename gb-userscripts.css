@@ -407,7 +407,13 @@ tr:hover .FlagLogTruncateLink {
 	margin: 10px auto 15px;
 	overflow: hidden;
 	padding: 15px;
+	position: relative;
 	text-align: center;
+	transition: all 250ms;
+}
+
+.WithholdMessages.is-minimized {
+	padding: 0;
 }
 
 .Module>.Content .WithholdMessages h3 {
@@ -497,6 +503,30 @@ tr:hover .FlagLogTruncateLink {
 }
 
 .WithholdMessages .gat_withholdMsg_settingsSave {
-	padding: 10px;
 	font-size: 12px;
+	padding: 10px;
+}
+
+#WithholdMessagesMinimizeButton {
+	background: rgba(0,0,0,0.3);
+	cursor: pointer;
+	padding: 8px 5px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#WithholdMessagesMinimizeButton:hover {
+	background: rgba(0,0,0,0.5);
+	color: #fff;
+}
+
+#WithholdMessagesMinimizedWrapper {
+	cursor: pointer;
+	padding: 10px;
+}
+
+#WithholdMessagesMinimizedWrapper:hover {
+	background: rgba(0,0,0,0.3);
+	color: #fff;
 }

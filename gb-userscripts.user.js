@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.34
+// @version      0.35
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,8 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.34";
+var GAT_VERSION = "0.35";
+var GAT_EDGECSS = false;
 var ownUserID;
 
 // comment to enable console logging
@@ -130,7 +131,11 @@ function getSubmissionLinkDetails(submissionLink) {
 $(function() {
 
 	// add CSS
-	var gbUserscriptsCSS = '<link rel="stylesheet" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css">';
+	if ( GAT_EDGECSS == true ) {
+		var gbUserscriptsCSS = '<link rel="stylesheet" href="http://yogensia.com/gamebanana/gb-toolbox/gb-userscripts.css">';
+	} else {
+		var gbUserscriptsCSS = '<link rel="stylesheet" href="https://rawgit.com/yogensia/gb-toolbox/master/gb-userscripts.css">';
+	}
 	var fontAwesome = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">';
 	$("head").append(gbUserscriptsCSS+fontAwesome);
 
@@ -614,8 +619,8 @@ function hookWithholdMsgInjectorUI() {
 function withholdMsgToggle() {
 	//var withholdMsgMinimized = getCookie('gat_withholdMsg_minimized');
 	if ( getCookie('gat_withholdMsg_minimized') == "true" ) {
-		$("#WithholdMessagesWrapper").hide();
-		$(this).parent().addClass("is-minimized");
+		$("#WithholdMessagesWrapper, #WithholdMessagesMinimizeButton").hide();
+		$(".WithholdMessages").addClass("is-minimized");
 	} else {
 		$("#WithholdMessagesMinimizedWrapper").hide();
 	}
@@ -626,8 +631,8 @@ function withholdMsgToggle() {
 		} else {
 			setCookie('gat_withholdMsg_minimized', "false", 1825, '/', '.gamebanana.com');
 		}
-		$("#WithholdMessagesWrapper, #WithholdMessagesMinimizedWrapper").slideToggle("fast");
-		$(this).parent().toggleClass("is-minimized");
+		$("#WithholdMessagesWrapper, #WithholdMessagesMinimizeButton, #WithholdMessagesMinimizedWrapper").slideToggle("fast");
+		$(".WithholdMessages").toggleClass("is-minimized");
 	});
 }
 
