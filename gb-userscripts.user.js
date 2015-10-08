@@ -29,8 +29,10 @@ var GAT_VERSION = "0.35";
 var GAT_EDGECSS = false;
 var ownUserID;
 
-// comment to enable console logging
-console.log = function() {}
+// uncomment to disable console logging
+// console.log = function() {}
+
+console.log("GBAT: INIT");
 
 // asociative array (object) size
 Object.size = function(obj) {
@@ -231,12 +233,12 @@ shortcodeMenuHTML = generateShortcodeMenu();
 function hookShortcodeMenuNonModal() {
 	var formsFound = $(".markItUp").length;
 	if ( formsFound > 0 ) {
-		console.log("GAT - Found " + formsFound + " MarkItUp forms on page, attempting shortcode hook...");
+		console.log("GBAT: Found " + formsFound + " MarkItUp forms on page, attempting shortcode hook...");
 		var markItUpID;
 		$(".markItUp").each( function() {
 			markItUpID = $(this).attr("id");
 			$("#"+markItUpID+" .markItUpHeader ul").append(shortcodeMenuHTML);
-			console.log("GAT - Working on markItUp form " + markItUpID + ", generated Shortcode Menu HTML");
+			console.log("GBAT: Working on markItUp form " + markItUpID + ", generated Shortcode Menu HTML");
 		});
 		shortcodeOnClick();
 	}
@@ -269,7 +271,7 @@ function shortcodeOnClick() {
 // have to wait for the modal to completely load before editing it
 function waitForModalForm() {
 	if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
-		console.log("GAT - Form for " + modalID + " is ready, continuing...");
+		console.log("GBAT: Form for " + modalID + " is ready, continuing...");
 		hookShortcodeMenu();
 		n = 0;
 	} else {
@@ -277,7 +279,7 @@ function waitForModalForm() {
 			setTimeout(waitForModalForm, 100);
 			n++;
 		} else {
-			console.warn("GAT - Form for " + modalID + " failed after waiting 5 seconds, aborting...");
+			console.warn("GBAT: Form for " + modalID + " failed after waiting 5 seconds, aborting...");
 			n = 0;
 		}
 	}
@@ -285,9 +287,9 @@ function waitForModalForm() {
 
 // add shortcode html and behaviour
 function hookShortcodeMenu() {
-	console.log("GAT - Attempting shortcode hook...");
+	console.log("GBAT: Attempting shortcode hook...");
 	$("#"+modalID+"_response .markItUpHeader ul").append(shortcodeMenuHTML);
-	console.log("GAT - Working on modal " + modalID + ", generated Shortcode Menu HTML");
+	console.log("GBAT: Working on modal " + modalID + ", generated Shortcode Menu HTML");
 
 	// run shortcode click routine
 	shortcodeOnClick();
@@ -304,7 +306,7 @@ function hookShortcodeMenu() {
 function hookModalLauncher() {
 	$(".ModalLauncher").unbind("click").click(function() {
 		modalID = $(this).attr("id");
-		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
+		console.log("GBAT: CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
 		waitForModalForm();
 	});
 }
@@ -313,7 +315,7 @@ function hookModalLauncher() {
 function watchPostsListModule() {
 
 	if ( $('#PostsListModule').not('.GatEdited').length > 0 ) {
-		console.log("GAT - #PostsListModule changed, redoing edits...");
+		console.log("GBAT: #PostsListModule changed, redoing edits...");
 
 		// Fix tooltips on avatars inside the module (GB bug)
 		$("#PostsListModule .Tooltip").each(function() {
@@ -456,7 +458,7 @@ function withholdMessagesGenerateUI(modal) {
 
 	var thisID = 'WithholdMessages_'+randomString(8);
 
-	var withholdMessagesUIBegin = '<div id="'+thisID+'" style="display: none;" class="WithholdMessages"><div id="WithholdMessagesMinimizedWrapper">Show Withhold Messages Injector</div><div id="WithholdMessagesWrapper"><i id="WithholdMessagesMinimizeButton" class="fa fa-lg fa-fw fa-minus"></i><h3>Withhold Message Injector <a class="gat_withholdMsg_settingsOpen" title="Customize Messages" href="#"><i class="fa fa-lg fa-fw fa-gear"></i></a></h3><ul class="gat_withholdMsg_buttons">';
+	var withholdMessagesUIBegin = '<div id="'+thisID+'" style="display: none;" class="WithholdMessages"><div id="WithholdMessagesMinimizedWrapper">Show Withhold Messages Injector</div><div id="WithholdMessagesWrapper"><i title="Minimize Withhold Messages Injector" id="WithholdMessagesMinimizeButton" class="fa fa-lg fa-fw fa-minus"></i><h3>Withhold Message Injector <a class="gat_withholdMsg_settingsOpen" title="Customize Messages" href="#"><i class="fa fa-lg fa-fw fa-gear"></i></a></h3><ul class="gat_withholdMsg_buttons">';
 	var withholdMessagesUIEnd = '</ul><ul class="gat_withholdMsg_settings"><a class="gat_withholdMsg_settingsSave" title="Save Withhold Message Injector Settings" href="#">Save Withhold Message Injector Settings</a></ul></div></div>';
 	var withholdMessagesUIItems = '';
 
@@ -578,7 +580,7 @@ function withholdMessages_UpdateOnHTML(container) {
 function withholdMessagesGenerateUIModal() {
 	$("#PostAddFormRequesterModule .ModalLauncher").click(function() {
 		modalID = $(this).attr("id");
-		console.log("GAT - CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
+		console.log("GBAT: CALL TO MODAL " + modalID + " DETECTED, waiting for form to be ready...");
 		waitForWithholdMsgInjectorModal();
 	});
 }
@@ -586,7 +588,7 @@ function withholdMessagesGenerateUIModal() {
 // wait for modal to be ready
 function waitForWithholdMsgInjectorModal() {
 	if ($('#'+modalID+'_response .markItUpEditor').length > 0) {
-		console.log("GAT - Form for " + modalID + " is ready, continuing...");
+		console.log("GBAT: Form for " + modalID + " is ready, continuing...");
 		hookWithholdMsgInjectorUI();
 		n = 0;
 	} else {
@@ -594,7 +596,7 @@ function waitForWithholdMsgInjectorModal() {
 			setTimeout(waitForWithholdMsgInjectorModal, 100);
 			n++;
 		} else {
-			console.warn("GAT - Form for " + modalID + " failed after waiting 5 seconds, aborting...");
+			console.warn("GBAT: Form for " + modalID + " failed after waiting 5 seconds, aborting...");
 			n = 0;
 		}
 	}
@@ -602,7 +604,7 @@ function waitForWithholdMsgInjectorModal() {
 
 // run main Withhold Message UI code
 function hookWithholdMsgInjectorUI() {
-	console.log("GAT - Working on modal " + modalID + ", generated Shortcode Menu HTML");
+	console.log("GBAT: Working on modal " + modalID + ", generated Shortcode Menu HTML");
 
 	// generate withhold message injector UI
 	withholdMessagesGenerateUI(true);
@@ -669,7 +671,7 @@ function editAvatarTooltips(target) {
 		} else {
 			var userName = $(".tooltipster-base .NameAndStatus strong").text();
 		}
-		console.log("GAT - Triggered tooltip for user \"" + userName + "\" with userID " + userID);
+		console.log("GBAT: Triggered tooltip for user \"" + userName + "\" with userID " + userID);
 
 		// build avatar links
 		var sublog = '<a title="View '+userName+'\'s Sublog" href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
@@ -714,7 +716,7 @@ function addThreadLastReplyLink(link, submission) {
 
 // add optimizations for NavigatorTabs Menu
 function navigatorTabsTweaks() {
-	console.log("GAT - adding Activity Log tweaks...");
+	console.log("GBAT: adding Activity Log tweaks...");
 
 	// Activity tweaks
 	$("#PersonalActivities a, #PostActivities a, #SubmissionActivities a, #GuildActivities a, #MiscellaneousActivities a").each(function() {
@@ -729,7 +731,7 @@ function navigatorTabsTweaks() {
 
 // add optimizations for Watches table
 function watchesTweaks() {
-	console.log("GAT - Found Watches Table, adding tweaks...");
+	console.log("GBAT: Found Watches Table, adding tweaks...");
 	$("#WatchesListModule tbody td:first-child a").each(function() {
 		var thisSubmissionLink = $(this);
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
@@ -805,7 +807,7 @@ function filterModuleTweaks() {
 
 // add optimizations for ModLog table
 function modLogTweaks() {
-	console.log("GAT - Found ModLog Table, adding tweaks...");
+	console.log("GBAT: Found ModLog Table, adding tweaks...");
 	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
 	$("#ModlogListModule tr").each(function() {
 		var thisRow = $(this);
@@ -842,7 +844,7 @@ function modLogTweaks() {
 
 // add optimizations for FlaggedSubs table
 function flaggedSubmissionsTweaks() {
-	console.log("GAT - Found Flagged Submissions Table, adding tweaks...");
+	console.log("GBAT: Found Flagged Submissions Table, adding tweaks...");
 	$(".FlaggedSubmissionsListModule table a").each(function() {
 		var thisSubmissionLink = $(this);
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
@@ -880,7 +882,7 @@ function flaggedSubmissionsTweaks() {
 
 // add optimizations for WithheldSubs table
 function withheldSubmissionsTweaks() {
-	console.log("GAT - Found Withheld Submissions Table, adding tweaks...");
+	console.log("GBAT: Found Withheld Submissions Table, adding tweaks...");
 	$(".WithheldSubmissionsListModule table a").each(function() {
 		var thisSubmissionLink = $(this);
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
@@ -915,7 +917,7 @@ function withheldSubmissionsTweaks() {
 
 // add optimizations for Features table
 function featuresTweaks() {
-	console.log("GAT - Found Features Table, adding tweaks...");
+	console.log("GBAT: Found Features Table, adding tweaks...");
 
 	// check date column and highlight features older than 3 days
 	$("#SubmissionsListModule tr:lt(7)").each(function() {
@@ -931,7 +933,7 @@ function featuresTweaks() {
 
 // add optimizations for Unwithhold page
 function unwithholdTweaks() {
-	console.log("GAT - Unwithhold page found, adding tweaks...");
+	console.log("GBAT: Unwithhold page found, adding tweaks...");
 
 	// kill subFeed column
 	$(".ContentColumn").eq(2).hide();
