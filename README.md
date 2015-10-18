@@ -71,3 +71,4 @@ That's it!
 - **v0.33:** Added "Using Markdown in GameBanana" tutorial to shortcodes (thanks Mini).
 - **v0.34:** Added Pending Categories link to Quick Admin Menu (thanks Mini).
 - **v0.35:** Withhold Message Injector can now be minimized.
+- **v0.36:** Updated script for new widths in ModLog, FlagLog and WithhelLog tables.

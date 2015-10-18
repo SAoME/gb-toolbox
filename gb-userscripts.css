@@ -98,23 +98,14 @@ DOCUMENT OUTLINE
 /* 4. ADMIN PAGES LAYOUT IMPROVEMENTS
 ================================================================= */
 
-#Admin_Modlog .ContentColumn[style*="width: 519px"],
-#Admin_FlaggedSubmissions .ContentColumn[style*="width: 519px"],
-#Admin_WithheldSubmissions .ContentColumn[style*="width: 519px"],
+#Admin_Modlog .ContentColumn[style*="width: 834px"],
+#Admin_FlaggedSubmissions .ContentColumn[style*="width: 834px"],
+#Admin_WithheldSubmissions .ContentColumn[style*="width: 834px"] {
+	width: 999px !important;
+}
+
 #Feature_Index .ContentColumn[style*="width: 569px"] {
-	width: 685px !important;
-}
-
-#Admin_Modlog .ContentColumn[style*="width: 150px"],
-#Admin_FlaggedSubmissions .ContentColumn[style*="width: 150px"],
-#Admin_WithheldSubmissions .ContentColumn[style*="width: 150px"] {
-	left: -165px;
-	position: absolute;
-}
-
-#Feature_Index .ContentColumn[style*="width: 100px"] {
-	left: -115px;
-	position: absolute;
+	width: 684px !important;
 }
 
 #Feature_Index .Content {
@@ -155,9 +146,6 @@ tr:hover .FlaggedSubmissionTools {
 .ModLogTruncateLink {
 	display: block;
 	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 130px;
 }
 
 #ModlogListModule td.ActionPerformed .gameIcon {
@@ -169,17 +157,6 @@ tr:hover .FlaggedSubmissionTools {
 .FlagLogTruncateLink {
 	float: left;
 	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	max-width: 295px;
-	margin-right: 5px;
-}
-tr:hover .FlagLogTruncateLink {
-	float: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	max-width: 230px;
 	margin-right: 5px;
 }
 
@@ -221,10 +198,11 @@ tr:hover .FlagLogTruncateLink {
 }
 
 #Wrapper .FilterModuleTweaked h3 {
-	border-bottom: none;
+	background: #334852;
+	border: none;
 	cursor: pointer;
 	margin: 0;
-	padding: 5px;
+	padding: 5px 5px 5px 8px;
 }
 
 #Wrapper .FilterModuleTweaked h3:hover {
@@ -248,6 +226,7 @@ tr:hover .FlagLogTruncateLink {
 #Wrapper .FilterModuleTweaked .Content {
 	background: #252525;
 	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+	margin-left: 0;
 	padding: 15px;
 	text-align: left;
 	position: relative;

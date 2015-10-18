@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.35
+// @version      0.36
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.35";
+var GAT_VERSION = "0.36";
 var GAT_EDGECSS = false;
 var ownUserID;
 
@@ -869,7 +869,6 @@ function flaggedSubmissionsTweaks() {
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
 			// make fixes on category column
 			.parent()
-			.css("width", "380")
 			.prev()
 			.addClass("alignCenter")
 			.wrapInner(submissionCategory)
@@ -877,6 +876,12 @@ function flaggedSubmissionsTweaks() {
 			// make fixes on flags column
 			.siblings().last()
 			.addClass("alignCenter");
+
+		// set fixed table column widths
+		$("#FlaggedSubmissionsListModule table th:eq(0)").css({"width": "40", "text-align": "center"});
+		$("#FlaggedSubmissionsListModule table th:eq(1)").css({"width": "60", "text-align": "center"});
+		$("#FlaggedSubmissionsListModule table th:eq(3)").css({"width": "80", "text-align": "left"});
+		$("#FlaggedSubmissionsListModule table th:eq(4)").css({"width": "60", "text-align": "center"});
 	});
 }
 
@@ -904,7 +909,6 @@ function withheldSubmissionsTweaks() {
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
 			// make fixes on category column
 			.parent()
-			.css("width", "380")
 			.prev()
 			.addClass("alignCenter")
 			.wrapInner(submissionCategory)
@@ -912,6 +916,11 @@ function withheldSubmissionsTweaks() {
 			// make fixes on flags column
 			.siblings().last()
 			.addClass("alignCenter");
+
+		// set fixed table column widths
+		$("#WithheldSubmissionsListModule table th:eq(0)").css({"width": "40", "text-align": "center"});
+		$("#WithheldSubmissionsListModule table th:eq(1)").css({"width": "60", "text-align": "center"});
+		$("#WithheldSubmissionsListModule table th:eq(3)").css({"width": "100", "text-align": "center"});
 	});
 }
 
@@ -919,16 +928,12 @@ function withheldSubmissionsTweaks() {
 function featuresTweaks() {
 	console.log("GBAT: Found Features Table, adding tweaks...");
 
-	// check date column and highlight features older than 3 days
-	$("#SubmissionsListModule tr:lt(7)").each(function() {
-		var date = $(this).find(".DateAdded").text().split(" ");
-		if ( date[1] == "days" && date[0] > 3 ) {
-			$(this).addClass("oldFeature");
-		}
+	// if there is more than one feature enabled, highlight in red the ones that should be disabled
+	$("#SubmissionsListModule tr:not(:first)").each(function() {
+		if ( $(this).children(".State span").text() == "Active" ) {
+			$(this).css("background", "#3d1f24");
+		 }
 	});
-
-	// add thresold row below the 6th feature
-	$("#SubmissionsListModule tr").eq(6).after("<tr><td colspan='6' class='FeaturesThreshold'>Keep Features disabled beyond this point</td></tr>");
 }
 
 // add optimizations for Unwithhold page
