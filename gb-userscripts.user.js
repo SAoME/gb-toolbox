@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.36
+// @version      0.37
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.36";
+var GAT_VERSION = "0.37";
 var GAT_EDGECSS = false;
 var ownUserID;
 
@@ -719,7 +719,7 @@ function navigatorTabsTweaks() {
 	console.log("GBAT: adding Activity Log tweaks...");
 
 	// Activity tweaks
-	$("#PersonalActivities a, #PostActivities a, #SubmissionActivities a, #GuildActivities a, #MiscellaneousActivities a").each(function() {
+	$("#PersonalActivities a[href*='threads'], #PostActivities a[href*='threads'], #SubmissionActivities a[href*='threads'], #GuildActivities a[href*='threads'], #MiscellaneousActivities a[href*='threads']").each(function() {
 		var thisSubmissionLink = $(this);
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 		addThreadLastReplyLink(thisSubmissionLink, submission);
