@@ -808,19 +808,8 @@ function filterModuleTweaks() {
 // add optimizations for ModLog table
 function modLogTweaks() {
 	console.log("GBAT: Found ModLog Table, adding tweaks...");
-	// set widths for cells and add .ModLogTruncateLink on username links to avoid layout breaking
-	$("#ModlogListModule tr").each(function() {
-		var thisRow = $(this);
-		thisRow.children("th").eq(1).css("text-align","center");
-		thisRow.children("td").eq(1).css("width","65px").css("text-align","center");
-		thisRow.children("td").eq(2).css("width","130px");
-		thisRow.children("td").eq(3).css("width","130px");
-		var performer = thisRow.children("td").eq(2).children("a").eq(0).text();
-		thisRow.children("td").eq(2).children("a").eq(0).addClass("ModLogTruncateLink").attr("title", performer);
-		var recipient = thisRow.children("td").eq(3).children("a").eq(0).text();
-		thisRow.children("td").eq(3).children("a").eq(0).addClass("ModLogTruncateLink").attr("title", recipient);
-	});
 
+	// add section icons where necessary
 	$("#ModlogListModule .ActionPerformed a").each(function() {
 		var thisSubmissionLink = $(this);
 		if ( thisSubmissionLink.text() !== "»" ) {
@@ -837,8 +826,13 @@ function modLogTweaks() {
 
 			thisSubmissionLink
 				.before(submissionCategory)
-				.before(submissionGameIcon)
+				.before(submissionGameIcon);
 		}
+
+		// set fixed table column widths
+		$("#ModlogListModule table th:eq(1)").css({"width": "85", "text-align": "center"});
+		$("#ModlogListModule table th:eq(2)").css({"width": "190", "text-align": "left"});
+		$("#ModlogListModule table th:eq(3)").css({"width": "190", "text-align": "left"});
 	});
 }
 
