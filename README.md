@@ -73,3 +73,4 @@ That's it!
 - **v0.35:** Withhold Message Injector can now be minimized.
 - **v0.36:** Updated script for new widths in ModLog, FlagLog and WithheldLog tables.
 - **v0.37:** Fixed issue that could prevent the script from working when there are Feature notifications in the activity log.
+- **v0.38:** Temporaly disable Filter module tweaks to avoid issues from latest GB updates.

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.37
+// @version      0.38
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.37";
+var GAT_VERSION = "0.38";
 var GAT_EDGECSS = false;
 var ownUserID;
 
@@ -948,25 +948,25 @@ $(function() {
 	// if ModLog
 	if ( $("#ModlogListModule").length > 0 ) {
 		modLogTweaks();
-		filterModuleTweaks();
+		//filterModuleTweaks();
 	}
 
 	// if Flagged Submissions
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
-		filterModuleTweaks();
+		//filterModuleTweaks();
 	}
 
 	// if Withheld Submissions
 	if ( $(".WithheldSubmissionsListModule").length > 0 ) {
 		withheldSubmissionsTweaks();
-		filterModuleTweaks();
+		//filterModuleTweaks();
 	}
 
 	// if Features
 	if ( $("#Feature_Index").length > 0 ) {
 		featuresTweaks();
-		filterModuleTweaks();
+		//filterModuleTweaks();
 	}
 
 	// if Unwithhold
