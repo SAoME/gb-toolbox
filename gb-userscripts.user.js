@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.38
+// @version      0.39
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.38";
+var GAT_VERSION = "0.39";
 var GAT_EDGECSS = false;
 var ownUserID;
 
@@ -681,7 +681,7 @@ function editAvatarTooltips(target) {
 
 		// do not show PM link on user's own avatar
 		if ( userID !== ownUserID ) {
-			sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/members/pms/compose/'+ownUserID+'?recipients='+userID+'">Send PM</a>';
+			sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/pms/add?recipients='+userID+'">Send PM</a>';
 		}
 
 		// wait 250ms and then add or update the links on the tooltipster html
