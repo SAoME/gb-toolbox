@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    http://gamebanana.com/members/1328950
-// @version      0.40
+// @version      0.41
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        http://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.40";
+var GAT_VERSION = "0.41";
 var GAT_EDGECSS = false;
 var ownUserID;
 
@@ -1005,7 +1005,7 @@ function appendDateToTextarea() {
 			// if textarea is empty
 			if (!$(".MainForm textarea").val()) {
 				// add date to the textarea field
-				$(".MainForm textarea").val(currentDate+": ").focus();
+				$(".MainForm textarea").val("["+currentDate+"] ").focus();
 				console.log("GBAT: Added current date ("+currentDate+") to Modnote form.");
 			}
 		}
@@ -1015,7 +1015,7 @@ function appendDateToTextarea() {
 			// if textarea is empty
 			if (!$("#Modnote textarea").val()) {
 				// add date to the textarea field
-				$("#Modnote textarea").val(currentDate+": ").focus();
+				$("#Modnote textarea").val("["+currentDate+"] ").focus();
 				console.log("GBAT: Added current date ("+currentDate+") to Modnote form.");
 			}
 		}
