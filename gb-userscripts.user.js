@@ -4,6 +4,7 @@
 // @version      0.39
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
+// @require      https://cdn.rawgit.com/yogensia/gb-toolbox/2a0c5aad8bec93cbc31a25311f15569d40136c99/inc/moment.min.js
 // @match        http://*.gamebanana.com/*
 // @grant        none
 // ==/UserScript==
