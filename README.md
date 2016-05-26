@@ -75,3 +75,4 @@ That's it!
 - **v0.37:** Fixed issue that could prevent the script from working when there are Feature notifications in the activity log.
 - **v0.38:** Temporaly disable Filter module tweaks to avoid issues from latest GB updates.
 - **v0.39:** Fixed URL for PM links in avatar tooltips.
+- **v0.40:** Current date is now automatically added to empty member/submission modnote forms.
