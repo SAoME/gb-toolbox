@@ -4,7 +4,6 @@
 // @version      0.39
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
-// @require      https://cdn.rawgit.com/yogensia/gb-toolbox/2a0c5aad8bec93cbc31a25311f15569d40136c99/inc/moment.min.js
 // @match        http://*.gamebanana.com/*
 // @grant        none
 // ==/UserScript==
@@ -35,6 +34,20 @@ var ownUserID;
 
 console.log("GBAT: INIT");
 
+// utility function to load external scripts with a callback
+function getScript(src, callback) {
+  var s = document.createElement('script');
+  s.src = src;
+  s.async = true;
+  s.onreadystatechange = s.onload = function() {
+    if (!callback.done && (!s.readyState || /loaded|complete/.test(s.readyState))) {
+      callback.done = true;
+      callback();
+    }
+  };
+  document.querySelector('head').appendChild(s);
+}
+
 // asociative array (object) size
 Object.size = function(obj) {
 	var size = 0, key;
@@ -57,7 +70,7 @@ String.prototype.capitalizeFirstLetter = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
-// generate a radnom alphanumeric string
+// generate a random alphanumeric string
 function randomString(length) {
 	var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	var result = '';
@@ -974,6 +987,45 @@ $(function() {
 	if ( $("html.Unwithhold").length > 0 ) {
 		unwithholdTweaks();
 	}
+
+});
+
+// add optimizations for Unwithhold page
+function appendDateToTextarea() {
+
+	getScript("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js", momentJSReady);
+	// wait for moment.js
+	function momentJSReady(){
+		var currentDate = moment().format("MMMM Do YYYY");
+
+		// member modnote form found
+		if ( $("html.Modnotes").length > 0 ) {
+			// if textarea is empty
+			if (!$(".MainForm textarea").val()) {
+				// add date to the textarea field
+				$(".MainForm textarea").val(currentDate+": ").focus();
+				console.log("Added current date ("+currentDate+") to Modnote form.");
+			}
+		}
+
+		// submission modnote
+		if ( $("html.Edit #Modnote").length > 0 ) {
+			// if textarea is empty
+			if (!$("#Modnote textarea").val()) {
+				// add date to the textarea field
+				$("#Modnote textarea").val(currentDate+": ").focus();
+				console.log("Added current date ("+currentDate+") to Modnote form.");
+			}
+		}
+	}
+
+}
+
+// DOM ready
+$(function() {
+
+	// run date function for modnote forms
+	appendDateToTextarea();
 
 });
 
