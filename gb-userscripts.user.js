@@ -993,7 +993,9 @@ $(function() {
 // add optimizations for Unwithhold page
 function appendDateToTextarea() {
 
+	// load moment.js
 	getScript("https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js", momentJSReady);
+
 	// wait for moment.js
 	function momentJSReady(){
 		var currentDate = moment().format("MMMM Do YYYY");
