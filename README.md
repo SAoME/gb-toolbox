@@ -77,3 +77,4 @@ That's it!
 - **v0.39:** Fixed URL for PM links in avatar tooltips.
 - **v0.40:** Current date is now automatically added to empty member/submission Modnote forms.
 - **v0.41:** Minor change in Modnote date formatting.
+- **v0.42:** Fixed an issue that would write dates on Modnotes when not needed.
