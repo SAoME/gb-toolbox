@@ -830,17 +830,13 @@ function modLogTweaks() {
 			var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 
 			// generate icons
-			var submissionGameIcon, submissionCategory;
-			if ( submission["game"] !== "gamebanana" ) {
-				submissionGameIcon = '<img  class="cursorHelp gameIcon" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
-			}
+			var submissionCategory;
 			if ( submission["section"] !== "admin" && submission["section"] !== "members" ) {
 				submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 			}
 
 			thisSubmissionLink
-				.before(submissionCategory)
-				.before(submissionGameIcon);
+				.before(submissionCategory);
 		}
 
 		// set fixed table column widths
@@ -858,7 +854,6 @@ function flaggedSubmissionsTweaks() {
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 
 		// generate icons
-		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
@@ -880,7 +875,6 @@ function flaggedSubmissionsTweaks() {
 			.prev()
 			.addClass("alignCenter")
 			.wrapInner(submissionCategory)
-			.append(submissionGameIcon)
 			// make fixes on flags column
 			.siblings().last()
 			.addClass("alignCenter");
@@ -901,7 +895,6 @@ function withheldSubmissionsTweaks() {
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 
 		// generate icons
-		var submissionGameIcon = '<img  class="cursorHelp" alt="" width="16" title="'+submission["game"].toUpperCase()+'" src="https://raw.githubusercontent.com/yogensia/gb-toolbox/master/img/game-icons/'+submission["game"]+'.png" />';
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
@@ -920,7 +913,6 @@ function withheldSubmissionsTweaks() {
 			.prev()
 			.addClass("alignCenter")
 			.wrapInner(submissionCategory)
-			.append(submissionGameIcon)
 			// make fixes on flags column
 			.siblings().last()
 			.addClass("alignCenter");
