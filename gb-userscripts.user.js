@@ -787,38 +787,6 @@ $(function() {
 // ADMIN BACKEND TWEAKS
 // ==================================================================
 
-// add a toggle button to Filter modules
-function filterModuleTweaks() {
-	var filterModule = $(".AdvancedListSettingsModule");
-	var filterColumn = $(".AdvancedListSettingsModule").parent();
-
-	filterModule
-		.addClass("FilterModuleTweaked")
-		.appendTo(".PageNavigation:eq(0)")
-		.children("h3")
-		.append('<i class="fa fa-lg fa-fw fa-angle-right"></i>')
-		.next()
-		.hide();
-
-	filterColumn.remove();
-
-	filterModule.find("legend").unbind("click");
-
-	filterModule.children("h3").click(function() {
-		filterModule.toggleClass("is-toggled").children(".Content").slideToggle("fast");
-	});
-
-	// close filter menu when user clicks outside the element
-	$(document).click(function(event) {
-		if ( ! $(event.target).closest('.FilterModuleTweaked').length ) {
-			if ( $('.FilterModuleTweaked .Content').is(":visible") ) {
-				filterModule.toggleClass("is-toggled").children(".Content").slideToggle("fast");
-			}
-		}
-	});
-
-}
-
 // add optimizations for ModLog table
 function modLogTweaks() {
 	console.log("GBAT: Found ModLog Table, adding tweaks...");
@@ -954,25 +922,21 @@ $(function() {
 	// if ModLog
 	if ( $("#ModlogListModule").length > 0 ) {
 		modLogTweaks();
-		//filterModuleTweaks();
 	}
 
 	// if Flagged Submissions
 	if ( $(".FlaggedSubmissionsListModule").length > 0 ) {
 		flaggedSubmissionsTweaks();
-		//filterModuleTweaks();
 	}
 
 	// if Withheld Submissions
 	if ( $(".WithheldSubmissionsListModule").length > 0 ) {
 		withheldSubmissionsTweaks();
-		//filterModuleTweaks();
 	}
 
 	// if Features
 	if ( $("#Feature_Index").length > 0 ) {
 		featuresTweaks();
-		//filterModuleTweaks();
 	}
 
 	// if Unwithhold
@@ -1021,8 +985,11 @@ function appendDateToTextarea() {
 // DOM ready
 $(function() {
 
-	// run date function for modnote forms
-	appendDateToTextarea();
+	// if any modnote form found
+	if (( $("html.Modnotes").length > 0 ) || ( $("html.Edit #Modnote").length > 0 )) {
+		// run date function for modnote forms
+		appendDateToTextarea();
+	}
 
 });
 
