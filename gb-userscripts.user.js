@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.43";
+var GAT_VERSION = "0.44";
 var GAT_EDGECSS = false;
 var ownUserID;
 
@@ -794,7 +794,7 @@ function loadAdminMenu() {
 			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=contacts"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/wikis/cats/1"><i class="fa fa-lg fa-fw fa-briefcase"></i>ModDocs</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/admin/flags"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
+			adminMenu += '<li><a href="http://gamebanana.com/flags"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/withheld"><i class="fa fa-lg fa-fw fa-legal"></i>Withheld Submissions</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/admin/catmod"><i class="fa fa-lg fa-fw fa-folder-open"></i>Pending Categories</a></li>';
 			adminMenu += '<li><a href="http://gamebanana.com/support"><i class="fa fa-lg fa-fw fa-support"></i>Support Tickets</a></li>';
