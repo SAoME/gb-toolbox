@@ -80,3 +80,4 @@ That's it!
 - **v0.42:** Fixed an issue that would write dates on Modnotes when not needed.
 - **v0.43:** Some code cleanup & fixed moment.js being called on all pages.
 - **v0.44:** Fix Flags link in the menu.
+- **v0.45:** Fix Flags link in the menu (it changed again).
