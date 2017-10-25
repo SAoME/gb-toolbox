@@ -611,11 +611,11 @@ function flaggedSubmissionsTweaks() {
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
-		var subFlags = '[<a title="View Submission\'s Flags" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/flags/'+submission["ID"]+'">F</a>]';
-		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/history/'+submission["ID"]+'">H</a>]';
+		var subFlags = '[<a title="View Submission\'s Flags" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/flags/'+submission["ID"]+'">F</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/history/'+submission["ID"]+'">H</a>]';
 		var subWithhold = "";
 		if ( thisSubmissionLink.parent().children(".IsWithheld").length > 0 ) {
-			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/unwithhold/'+submission["ID"]+'">W</a>]';
+			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/unwithhold/'+submission["ID"]+'">W</a>]';
 		}
 
 		thisSubmissionLink
@@ -652,9 +652,9 @@ function withheldSubmissionsTweaks() {
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
-		var subFlags = '[<a title="View Submission\'s Flags" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/flags/'+submission["ID"]+'">F</a>]';
-		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/history/'+submission["ID"]+'">H</a>]';
-		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/unwithhold/'+submission["ID"]+'">W</a>]';
+		var subFlags = '[<a title="View Submission\'s Flags" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/flags/'+submission["ID"]+'">F</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/history/'+submission["ID"]+'">H</a>]';
+		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/unwithhold/'+submission["ID"]+'">W</a>]';
 
 		thisSubmissionLink
 			// add links and tweak original link
