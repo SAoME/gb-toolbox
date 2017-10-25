@@ -790,8 +790,8 @@ function loadAdminMenu() {
 	adminMenu = '<div id="AdminMenuWrap">';
 		adminMenu += '<ul id="AdminMenu">';
 			adminMenu += '<li><a href="https://gamebanana.com"><i class="fa fa-lg fa-fw fa-home"></i>Frontpage</a></li>';
-			adminMenu += '<li><a href="https://gamebanana.com/wikis?page=site_rules"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
-			adminMenu += '<li><a href="https://gamebanana.com/wikis?page=contacts"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/wikis/1835"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/wikis/16"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
 			adminMenu += '<li><a href="https://gamebanana.com/wikis/cats/1"><i class="fa fa-lg fa-fw fa-briefcase"></i>ModDocs</a></li>';
 			adminMenu += '<li><a href="https://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
 			adminMenu += '<li><a href="https://gamebanana.com/admin/flaggedsubs"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
