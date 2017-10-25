@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
-// @namespace    http://gamebanana.com/members/1328950
+// @namespace    https://gamebanana.com/members/1328950
 // @version      0.45
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
-// @match        http://*.gamebanana.com/*
+// @match        *://*.gamebanana.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -474,14 +474,14 @@ function editAvatarTooltips(target) {
 		console.log("GBAT: Triggered tooltip for user \"" + userName + "\" with userID " + userID);
 
 		// build avatar links
-		var sublog = '<a title="View '+userName+'\'s Sublog" href="http://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
-		var modlog = '<a title="View '+userName+'\'s Modlog" href="http://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
-		var modnotes = '<a title="View '+userName+'\'s Modnotes" href="http://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
+		var sublog = '<a title="View '+userName+'\'s Sublog" href="https://gamebanana.com/members/submissions/sublog/'+userID+'">Sublog</a>';
+		var modlog = '<a title="View '+userName+'\'s Modlog" href="https://gamebanana.com/members/admin/modlog/'+userID+'">Modlog</a>';
+		var modnotes = '<a title="View '+userName+'\'s Modnotes" href="https://gamebanana.com/members/admin/modnotes/'+userID+'">Modnotes</a>';
 		var sendPM = "";
 
 		// do not show PM link on user's own avatar
 		if ( userID !== ownUserID ) {
-			sendPM = '<a title="Send '+userName+' a private message" href="http://gamebanana.com/pms/add?recipients='+userID+'">Send PM</a>';
+			sendPM = '<a title="Send '+userName+' a private message" href="https://gamebanana.com/pms/add?recipients='+userID+'">Send PM</a>';
 		}
 
 		// wait 250ms and then add or update the links on the tooltipster html
@@ -611,18 +611,18 @@ function flaggedSubmissionsTweaks() {
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
-		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/flags/'+submission["ID"]+'">F</a>]';
-		var subHistory = '[<a title="View Submission\'s History" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/history/'+submission["ID"]+'">H</a>]';
+		var subFlags = '[<a title="View Submission\'s Flags" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/flags/'+submission["ID"]+'">F</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/history/'+submission["ID"]+'">H</a>]';
 		var subWithhold = "";
 		if ( thisSubmissionLink.parent().children(".IsWithheld").length > 0 ) {
-			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/unwithhold/'+submission["ID"]+'">W</a>]';
+			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/unwithhold/'+submission["ID"]+'">W</a>]';
 		}
 
 		thisSubmissionLink
 			// add links and tweak original link
 			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
-			.attr("href", "http://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
+			.attr("href", "https://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
 			// make fixes on category column
 			.parent()
@@ -652,15 +652,15 @@ function withheldSubmissionsTweaks() {
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
 		// generate links
-		var subFlags = '[<a title="View Submission\'s Flags" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/flags/'+submission["ID"]+'">F</a>]';
-		var subHistory = '[<a title="View Submission\'s History" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/history/'+submission["ID"]+'">H</a>]';
-		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="http://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/unwithhold/'+submission["ID"]+'">W</a>]';
+		var subFlags = '[<a title="View Submission\'s Flags" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/flags/'+submission["ID"]+'">F</a>]';
+		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/history/'+submission["ID"]+'">H</a>]';
+		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/unwithhold/'+submission["ID"]+'">W</a>]';
 
 		thisSubmissionLink
 			// add links and tweak original link
 			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
-			.attr("href", "http://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
+			.attr("href", "https://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
 			// make fixes on category column
 			.parent()
@@ -789,42 +789,42 @@ function loadAdminMenu() {
 	var adminMenu;
 	adminMenu = '<div id="AdminMenuWrap">';
 		adminMenu += '<ul id="AdminMenu">';
-			adminMenu += '<li><a href="http://gamebanana.com"><i class="fa fa-lg fa-fw fa-home"></i>Frontpage</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=site_rules"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/wikis?page=contacts"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/wikis/cats/1"><i class="fa fa-lg fa-fw fa-briefcase"></i>ModDocs</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/admin/flaggedsubs"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/admin/withheld"><i class="fa fa-lg fa-fw fa-legal"></i>Withheld Submissions</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/admin/catmod"><i class="fa fa-lg fa-fw fa-folder-open"></i>Pending Categories</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/support"><i class="fa fa-lg fa-fw fa-support"></i>Support Tickets</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/bugs"><i class="fa fa-lg fa-fw fa-bug"></i>Bug Reports</a></li>';
-			adminMenu += '<li><a href="http://gamebanana.com/ideas"><i class="fa fa-lg fa-fw fa-lightbulb-o"></i>Suggested Ideas</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com"><i class="fa fa-lg fa-fw fa-home"></i>Frontpage</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/wikis/1835"><i class="fa fa-lg fa-fw fa-book"></i>Rules</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/wikis/16"><i class="fa fa-lg fa-fw fa-users"></i>Contacts</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/wikis/cats/1"><i class="fa fa-lg fa-fw fa-briefcase"></i>ModDocs</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/admin/modlog"><i class="fa fa-lg fa-fw fa-binoculars"></i>ModLog</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/admin/flaggedsubs"><i class="fa fa-lg fa-fw fa-flag"></i>Flagged Submissions</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/admin/withheld"><i class="fa fa-lg fa-fw fa-legal"></i>Withheld Submissions</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/admin/catmod"><i class="fa fa-lg fa-fw fa-folder-open"></i>Pending Categories</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/support"><i class="fa fa-lg fa-fw fa-support"></i>Support Tickets</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/bugs"><i class="fa fa-lg fa-fw fa-bug"></i>Bug Reports</a></li>';
+			adminMenu += '<li><a href="https://gamebanana.com/ideas"><i class="fa fa-lg fa-fw fa-lightbulb-o"></i>Suggested Ideas</a></li>';
 			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-comments"></i>Forums<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
-				adminMenu += '<li><a href="http://gamebanana.com/game/threads/cats/3563"><i class="fa fa-lg fa-fw fa-commenting"></i>AdminTalk</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/game/threads/cats/783"><i class="fa fa-lg fa-fw fa-commenting"></i>ModTalk</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/game/threads/cats/3563"><i class="fa fa-lg fa-fw fa-commenting"></i>AdminTalk</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/game/threads/cats/783"><i class="fa fa-lg fa-fw fa-commenting"></i>ModTalk</a></li>';
 			adminMenu += '</ul></li>';
 			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-wrench"></i>Tools<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
-				adminMenu += '<li><a href="http://gamebanana.com/admin/bananabank"><i class="fa fa-lg fa-fw fa-bank"></i>BananaBank</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/admin/recordselector"><i class="fa fa-lg fa-fw fa-server"></i>RecordSelector</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/admin/reportmaker"><i class="fa fa-lg fa-fw fa-file-text-o"></i>ReportMaker</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/admin/ipsearch"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Search</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/ip-blocks"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Blocker</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/admin/bananabank"><i class="fa fa-lg fa-fw fa-bank"></i>BananaBank</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/admin/recordselector"><i class="fa fa-lg fa-fw fa-server"></i>RecordSelector</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/admin/reportmaker"><i class="fa fa-lg fa-fw fa-file-text-o"></i>ReportMaker</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/admin/ipsearch"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Search</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/ip-blocks"><i class="fa fa-lg fa-fw fa-terminal"></i>IP Blocker</a></li>';
 			adminMenu += '</ul></li>';
 			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-bullhorn"></i>Promotional<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
-				adminMenu += '<li><a href="http://gamebanana.com/contest-winners"><i class="fa fa-lg fa-fw fa-trophy"></i>Contest Winners</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/features"><i class="fa fa-lg fa-fw fa-tv"></i>Features</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/newsletters"><i class="fa fa-lg fa-fw fa-newspaper-o"></i>Newsletters</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/contest-winners"><i class="fa fa-lg fa-fw fa-trophy"></i>Contest Winners</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/features"><i class="fa fa-lg fa-fw fa-tv"></i>Features</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/newsletters"><i class="fa fa-lg fa-fw fa-newspaper-o"></i>Newsletters</a></li>';
 			adminMenu += '</ul></li>';
 			adminMenu += '<li class="SubMenuHeader"><i class="fa fa-lg fa-fw fa-info-circle"></i>GB Admin Toolbox<i class="fa fa-lg fa-fw fa-angle-right"></i>';
 			adminMenu += '<ul class="SubMenu">';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox#readme"><i class="fa fa-lg fa-fw fa-file-text-o"></i>Readme</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox#changelog"><i class="fa fa-lg fa-fw fa-gear"></i>Changelog</a></li>';
 				adminMenu += '<li><a href="https://github.com/yogensia/gb-toolbox/issues"><i class="fa fa-lg fa-fw fa-exclamation-circle"></i>Known Issues / TODO</a></li>';
-				adminMenu += '<li><a href="http://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
+				adminMenu += '<li><a href="https://gamebanana.com/threads/198550"><i class="fa fa-lg fa-fw fa-envelope"></i>Send Feedback</a></li>';
 				adminMenu += '<li class="AdminMenuHeader"><i class="fa fa-lg fa-fw fa-check"></i>Version '+GAT_VERSION+'</li>';
 			adminMenu += '</ul></li>';
 		adminMenu += '</ul>';
