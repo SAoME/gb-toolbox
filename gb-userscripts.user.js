@@ -603,10 +603,11 @@ function modLogTweaks() {
 // add optimizations for FlaggedSubs table
 function flaggedSubmissionsTweaks() {
 	console.log("GBAT: Found Flagged Submissions Table, adding tweaks...");
-	$(".FlaggedSubmissionsListModule table a").each(function() {
-		var thisSubmissionLink = $(this);
-		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
+	$(".FlaggedSubmissionsListModule tbody tr").each(function() {
+		var submissionCells = $(this).children('td');
 
+		var thisSubmissionLink = submissionCells.eq(1).children('a').first();
+		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 		// generate icons
 		var submissionCategory = "<span class='submissionCategory cursorHelp IconSheet SubmissionTypeSmall "+submission["sectionNiceName"]+"' title='"+submission["sectionNiceName"]+"'></span>";
 
@@ -618,34 +619,37 @@ function flaggedSubmissionsTweaks() {
 			subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/unwithhold/'+submission["ID"]+'">W</a>]';
 		}
 
+		submissionCells
+			// center align columns
+			.addClass("alignCenter");
+
 		thisSubmissionLink
 			// add links and tweak original link
 			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
 			.attr("href", "https://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
-			// make fixes on category column
 			.parent()
-			.prev()
-			.addClass("alignCenter")
-			.wrapInner(submissionCategory)
-			// make fixes on flags column
-			.siblings().last()
-			.addClass("alignCenter");
+			.removeClass("alignCenter");
 
-		// set fixed table column widths
-		$("#FlaggedSubmissionsListModule table th:eq(0)").css({"width": "40", "text-align": "center"});
-		$("#FlaggedSubmissionsListModule table th:eq(1)").css({"width": "60", "text-align": "center"});
-		$("#FlaggedSubmissionsListModule table th:eq(3)").css({"width": "80", "text-align": "left"});
-		$("#FlaggedSubmissionsListModule table th:eq(4)").css({"width": "60", "text-align": "center"});
+		submissionCells.first().children()
+			// make fixes on category column
+			.replaceWith(submissionCategory);
+
+		$("#FlaggedSubmissionsListModule table th:eq(0)").css({"width": "20", "text-align": "center"});
+		$("#FlaggedSubmissionsListModule table th:eq(2)").css({"width": "70", "text-align": "center"});
+		$("#FlaggedSubmissionsListModule table th:eq(3)").css({"width": "70", "text-align": "center"});
+		$("#FlaggedSubmissionsListModule table th:eq(4)").css({"width": "70", "text-align": "center"});
 	});
 }
 
 // add optimizations for WithheldSubs table
 function withheldSubmissionsTweaks() {
 	console.log("GBAT: Found Withheld Submissions Table, adding tweaks...");
-	$(".WithheldSubmissionsListModule table a").each(function() {
-		var thisSubmissionLink = $(this);
+	$(".WithheldSubmissionsListModule tbody tr").each(function() {
+		var submissionCells = $(this).children('td');
+
+		var thisSubmissionLink = submissionCells.eq(1).children('a').first();
 		var submission = getSubmissionLinkDetails(thisSubmissionLink.attr("href"));
 
 		// generate icons
@@ -656,25 +660,27 @@ function withheldSubmissionsTweaks() {
 		var subHistory = '[<a title="View Submission\'s History" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/history/'+submission["ID"]+'">H</a>]';
 		var subWithhold = '[<a title="View Submission\'s Withhold Discussion" href="https://'+submission["subdomain"]+'gamebanana.com/'+submission["section"]+'/admin/unwithhold/'+submission["ID"]+'">W</a>]';
 
+		submissionCells
+			// center align columns
+			.addClass("alignCenter");
+
 		thisSubmissionLink
 			// add links and tweak original link
 			.addClass("FlagLogTruncateLink")
 			.attr("title", "View Submission's Profile")
 			.attr("href", "https://"+submission["subdomain"]+"gamebanana.com/"+submission["section"]+"/"+submission["ID"])
 			.after('<span class="FlaggedSubmissionTools">'+subFlags+' '+subHistory+' '+subWithhold+'</span>')
-			// make fixes on category column
 			.parent()
-			.prev()
-			.addClass("alignCenter")
-			.wrapInner(submissionCategory)
-			// make fixes on flags column
-			.siblings().last()
-			.addClass("alignCenter");
+			.removeClass("alignCenter");
+
+		submissionCells.first().children()
+			// make fixes on category column
+			.replaceWith(submissionCategory);
 
 		// set fixed table column widths
-		$("#WithheldSubmissionsListModule table th:eq(0)").css({"width": "40", "text-align": "center"});
-		$("#WithheldSubmissionsListModule table th:eq(1)").css({"width": "60", "text-align": "center"});
-		$("#WithheldSubmissionsListModule table th:eq(3)").css({"width": "100", "text-align": "center"});
+		$("#WithheldSubmissionsListModule table th:eq(0)").css({"width": "20", "text-align": "center"});
+		$("#WithheldSubmissionsListModule table th:eq(2)").css({"width": "85", "text-align": "center"});
+		$("#WithheldSubmissionsListModule table th:eq(3)").css({"width": "85", "text-align": "center"});
 	});
 }
 
