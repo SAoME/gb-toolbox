@@ -81,3 +81,4 @@ That's it!
 - **v0.43:** Some code cleanup & fixed moment.js being called on all pages.
 - **v0.44:** Fix Flags link in the menu.
 - **v0.45:** Fix Flags link in the menu (it changed again).
+- **v0.46:** Fixes by AoM: Fix Flagged/Withheld submissions pages, fix links to HTTPS, fix contact page and site rules links in menu (thanks AoM).

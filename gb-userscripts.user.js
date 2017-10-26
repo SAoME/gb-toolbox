@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GameBanana Admin Toolbox
 // @namespace    https://gamebanana.com/members/1328950
-// @version      0.45
+// @version      0.46
 // @description  Set of userscripts to add some admin features to GameBanana
 // @author       Yogensia
 // @match        *://*.gamebanana.com/*
@@ -25,7 +25,7 @@
 // ==================================================================
 
 // variables
-var GAT_VERSION = "0.45";
+var GAT_VERSION = "0.46";
 var GAT_EDGECSS = false;
 var ownUserID;
 
